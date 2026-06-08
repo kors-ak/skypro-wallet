@@ -112,6 +112,7 @@ npm run dev
 ```bash
 git checkout dev
 git pull origin dev
+npm install
 git checkout -b feature/task-name
 ```
 
