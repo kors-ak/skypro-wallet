@@ -20,9 +20,19 @@ const GlobalStyles = createGlobalStyle`
   transition: background-color 0.4s ease;
   }
 
-  button{
+  button {
   cursor: pointer;
   outline: none;
+  }
+
+  button:disabled {
+  cursor: not-allowed;
+  background-color: rgb(153, 153, 153)
+  }
+
+  a:hover,
+  button:hover {
+    opacity: 0.8;
   }
 
   ul li {
