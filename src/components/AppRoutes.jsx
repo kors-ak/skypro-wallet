@@ -7,7 +7,6 @@ import AnalyticsPage from '../pages/AnalyticsPage'
 
 function AppRoutes() {
   const user = { name: 'test', email: 'test@example.com' }
-  console.log('AppRoutes user:', user)
 
   return (
     <Routes>
