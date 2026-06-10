@@ -1,17 +1,35 @@
 import { Link } from 'react-router-dom'
+import { SContent, SHeading, SMain } from './Analytics.styled'
 
 const Analytics = () => {
   return (
     <>
       {/* <Header /> */}
-      <main>
-        <h1>Анализ расходов</h1>
+      <SMain>
+        <SHeading>Анализ расходов</SHeading>
+
+        <SContent>
+          <div
+            style={{
+              backgroundColor: '#fff',
+              minHeight: '618px',
+              borderRadius: '30px',
+              boxShadow: '0px 20px 67px -12px rgba(0, 0, 0, 0.13)',
+            }}
+          ></div>{' '}
+          {/* @TODO: заменить на компонент с календарем */}
+          <div
+            style={{
+              backgroundColor: '#fff',
+              minHeight: '618px',
+              borderRadius: '30px',
+              boxShadow: '0px 20px 67px -12px rgba(0, 0, 0, 0.13)',
+            }}
+          ></div>{' '}
+          {/* @TODO: заменить на компонент с диаграммой */}
+        </SContent>
         <Link to="/">Перейти на главную</Link>
-        <div>
-          <div></div>
-          <div></div>
-        </div>
-      </main>
+      </SMain>
     </>
   )
 }
