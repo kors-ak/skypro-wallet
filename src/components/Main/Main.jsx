@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import { SContent, SHeading, SMain } from './Main.styled'
+import Expense from '../Expense/Expense'
+import { data } from '../../data'
 
 const Main = () => {
   return (
@@ -16,7 +18,10 @@ const Main = () => {
               borderRadius: '30px',
               boxShadow: '0px 20px 67px -12px rgba(0, 0, 0, 0.13)',
             }}
-          ></div> {/* @TODO: заменить на компонент с таблицей */}
+          >
+            {data.map(item => <Expense item={item} key={item._id}/>)}
+          </div>{' '}
+          {/* @TODO: заменить на компонент с таблицей */}
           <div
             style={{
               backgroundColor: '#fff',
@@ -24,8 +29,8 @@ const Main = () => {
               borderRadius: '30px',
               boxShadow: '0px 20px 67px -12px rgba(0, 0, 0, 0.13)',
             }}
-          ></div> {/* @TODO: заменить на компонент с формой */}
-          
+          ></div>{' '}
+          {/* @TODO: заменить на компонент с формой */}
         </SContent>
 
         <Link to="/analytics">Перейти к аналитике</Link>
