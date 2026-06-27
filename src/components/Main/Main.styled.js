@@ -13,6 +13,6 @@ export const SHeading = styled.h1`
 `
 export const SContent = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: auto 379px;
   gap: 32px;
 `
