@@ -1,27 +1,16 @@
 import { Link } from 'react-router-dom'
 import { SContent, SHeading, SMain } from './Main.styled'
-import Expense from '../Expense/Expense'
-import { data } from '../../data'
+import { ExpensesTable } from '../ExpensesTable/ExpensesTable'
 
 const Main = () => {
   return (
     <>
-      {/* <Header /> */}
+      {/* @TODO: добавить <Header /> */}
       <SMain>
         <SHeading>Мои расходы</SHeading>
 
         <SContent>
-          <div
-            style={{
-              backgroundColor: '#fff',
-              minHeight: '618px',
-              borderRadius: '30px',
-              boxShadow: '0px 20px 67px -12px rgba(0, 0, 0, 0.13)',
-            }}
-          >
-            {data.map(item => <Expense item={item} key={item._id}/>)}
-          </div>{' '}
-          {/* @TODO: заменить на компонент с таблицей */}
+          <ExpensesTable />
           <div
             style={{
               backgroundColor: '#fff',

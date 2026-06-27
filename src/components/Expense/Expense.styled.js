@@ -1,11 +1,10 @@
 import styled from 'styled-components'
 
-export const SExpense = styled.div`
+export const SExpense = styled.article`
   width: inherit;
-  margin-left: 32px;
-  margin-right: 34px;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 14px;
 `
 export const SContent = styled.div`
   width: 78%;
@@ -18,6 +17,11 @@ export const SButton = styled.button`
   border: none;
   padding: 0;
   cursor: pointer;
+  color: #999;
+
+  &:hover {
+    color: #555555;
+  }
 `
 export const SText = styled.p`
   font-weight: 400;
