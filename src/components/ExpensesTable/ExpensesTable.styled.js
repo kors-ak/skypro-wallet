@@ -5,6 +5,7 @@ export const STable = styled.section`
   height: 618px;
   border-radius: 30px;
   box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
+  overflow: hidden;
 `
 export const STitle = styled.h2`
   margin: 32px;
