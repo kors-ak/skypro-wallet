@@ -5,7 +5,6 @@ export const STable = styled.section`
   height: 618px;
   border-radius: 30px;
   box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
-  overflow: hidden;
 `
 export const STitle = styled.h2`
   margin: 32px;
@@ -32,7 +31,6 @@ export const SText = styled.p`
 export const SExpenses = styled.div`
   padding-left: 32px;
   padding-right: 34px;
-  overflow-y: auto;
   margin-top: 18px;
   max-height: 479px;
 `

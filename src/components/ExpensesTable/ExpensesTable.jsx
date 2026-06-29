@@ -9,6 +9,8 @@ import {
   STitles,
   STitlesContainer,
 } from './ExpensesTable.styled'
+import SimpleBar from 'simplebar-react'
+import 'simplebar-react/dist/simplebar.min.css'
 
 export const ExpensesTable = () => {
   return (
@@ -23,11 +25,13 @@ export const ExpensesTable = () => {
             <SText>Сумма</SText>
           </STitles>
         </STitlesContainer>
-        <SExpenses>
-          {data.map((el) => (
-            <Expense item={el} key={el._id} />
-          ))}
-        </SExpenses>
+        <SimpleBar autoHide={false} style={{ height: '504px', width: '100%' }}>
+          <SExpenses>
+            {data.map((el) => (
+              <Expense item={el} key={el._id} />
+            ))}
+          </SExpenses>
+        </SimpleBar>
       </SContent>
     </STable>
   )

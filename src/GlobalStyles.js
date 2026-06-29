@@ -52,6 +52,23 @@ const GlobalStyles = createGlobalStyle`
     background-color: rgb(244, 245, 246);
     scroll-behavior: smooth;
   }
+
+  .simplebar-track.simplebar-vertical {
+    margin: 8px 0 20px 0;
+    width: 8px;
+  }
+
+  .simplebar-scrollbar {
+    width: 6px;
+    border-radius: 3px;
+  }  
+  
+  .simplebar-scrollbar.simplebar-visible:before {
+    opacity: 1;
+    background-color: rgb(217, 217, 217);
+    width: 6px;
+    border-radius: 3px;
+  }
 `
 
 export default GlobalStyles

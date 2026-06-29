@@ -9,6 +9,8 @@ import {
   SWeekday,
   SWeekdays,
 } from './Calendar.styled'
+import SimpleBar from 'simplebar-react'
+import 'simplebar-react/dist/simplebar.min.css'
 import {
   getMonthDays,
   getMonths,
@@ -60,29 +62,31 @@ const Calendar = () => {
           <SWeekday key={day}>{day}</SWeekday>
         ))}
       </SWeekdays>
-      <SContent>
-        {months.map((month) => (
-          <SMonth key={month.title}>
-            <SMonthTitle>{month.title}</SMonthTitle>
+      <SimpleBar autoHide={false} style={{ height: '427px', width: '100%' }}>
+        <SContent>
+          {months.map((month) => (
+            <SMonth key={month.title}>
+              <SMonthTitle>{month.title}</SMonthTitle>
 
-            <SDays>
-              {getMonthDays(month.year, month.month).map((day, index) => (
-                <SDay
-                  key={index}
-                  onClick={() => day && handleSelect(day)}
-                  $selected={
-                    isSameDay(day, range.start) ||
-                    isSameDay(day, range.end) ||
-                    isBetween(day, range.start, range.end)
-                  }
-                >
-                  {day && day.getDate()}
-                </SDay>
-              ))}
-            </SDays>
-          </SMonth>
-        ))}
-      </SContent>
+              <SDays>
+                {getMonthDays(month.year, month.month).map((day, index) => (
+                  <SDay
+                    key={index}
+                    onClick={() => day && handleSelect(day)}
+                    $selected={
+                      isSameDay(day, range.start) ||
+                      isSameDay(day, range.end) ||
+                      isBetween(day, range.start, range.end)
+                    }
+                  >
+                    {day && day.getDate()}
+                  </SDay>
+                ))}
+              </SDays>
+            </SMonth>
+          ))}
+        </SContent>
+      </SimpleBar>
     </SCalendar>
   )
 }

@@ -4,7 +4,6 @@ export const SCalendar = styled.div`
   background-color: #fff;
   border-radius: 30px;
   box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
-  overflow: hidden;
 `
 export const STitle = styled.h2`
   margin: 32px 32px 24px 32px;
@@ -29,8 +28,6 @@ export const SWeekday = styled.div`
   font-size: 12px;
 `
 export const SContent = styled.div`
-  height: 427px;
-  overflow-y: auto;
   padding: 24px 33px;
 `
 export const SMonth = styled.div`
