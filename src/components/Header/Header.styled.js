@@ -12,7 +12,7 @@ export const SContent = styled.div`
 	justify-content: space-between;
 	align-items: center;
 `;
-export const SLogo = styled.a`
+export const SLogo = styled.div`
 
 `;
 
