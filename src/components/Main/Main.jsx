@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
 import { SContent, SHeading, SMain } from './Main.styled'
 import { ExpensesTable } from '../ExpensesTable/ExpensesTable'
+import { Header } from '../Header/Header'
 
 const Main = () => {
   return (
     <>
-      {/* @TODO: добавить <Header /> */}
+      <Header />
       <SMain>
         <SHeading>Мои расходы</SHeading>
 
