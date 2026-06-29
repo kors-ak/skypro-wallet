@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { SContent, SHeading, SMain } from './Analytics.styled'
+import Calendar from '../Calendar/Calendar'
 
 const Analytics = () => {
   return (
@@ -9,19 +10,11 @@ const Analytics = () => {
         <SHeading>Анализ расходов</SHeading>
 
         <SContent>
+          <Calendar />
           <div
             style={{
               backgroundColor: '#fff',
-              minHeight: '618px',
-              borderRadius: '30px',
-              boxShadow: '0px 20px 67px -12px rgba(0, 0, 0, 0.13)',
-            }}
-          ></div>{' '}
-          {/* @TODO: заменить на компонент с календарем */}
-          <div
-            style={{
-              backgroundColor: '#fff',
-              minHeight: '618px',
+              minHeight: '540px',
               borderRadius: '30px',
               boxShadow: '0px 20px 67px -12px rgba(0, 0, 0, 0.13)',
             }}

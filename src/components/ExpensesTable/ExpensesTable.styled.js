@@ -31,7 +31,6 @@ export const SText = styled.p`
 export const SExpenses = styled.div`
   padding-left: 32px;
   padding-right: 34px;
-  overflow-y: auto;
   margin-top: 18px;
   max-height: 479px;
 `

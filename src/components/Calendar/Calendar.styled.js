@@ -1,0 +1,68 @@
+import styled from 'styled-components'
+
+export const SCalendar = styled.div`
+  background-color: #fff;
+  border-radius: 30px;
+  box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
+`
+export const STitle = styled.h2`
+  margin: 32px 32px 24px 32px;
+  font-weight: 700;
+  font-size: 24px;
+`
+export const SWeekdays = styled.div`
+  border-bottom: 0.5px solid rgb(153, 153, 153);
+  padding: 0 32px;
+  display: flex;
+  gap: 6px;
+`
+export const SWeekday = styled.div`
+  width: 40px;
+  height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: rgb(153, 153, 153);
+  font-weight: 400;
+  font-size: 12px;
+`
+export const SContent = styled.div`
+  padding: 24px 33px;
+`
+export const SMonth = styled.div`
+  margin-bottom: 24px;
+`
+export const SMonthTitle = styled.h3`
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 16px;
+`
+export const SDays = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+`
+export const SDay = styled.button`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: 0.1s;
+  font-size: 12px;
+  font-weight: 400;
+
+  background: ${({ $selected }) =>
+    $selected ? 'rgb(241, 235, 253)' : 'rgb(244, 245, 246)'};
+  color: ${({ $selected }) =>
+    $selected ? 'rgb(115, 52, 234)' : 'rgb(0, 0, 0)'};
+
+  &:empty {
+    visibility: hidden;
+  }
+
+  &:hover {
+    background: rgb(248, 249, 252);
+  }
+`
