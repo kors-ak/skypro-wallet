@@ -17,24 +17,25 @@ export const SLogo = styled.div`
 `;
 
 export const SPagesLinks = styled.div`
-  display: flex;
-  gap: 48px;
+	padding-right: 95px;
+	display: flex;
+	gap: 48px;
 
-  a {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 170%;
-    color: black;
-  }
+	a {
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 170%;
+		color: black;
+	}
 `;
 
 export const SExitButton = styled.button`
-  background-color: transparent;
+	background-color: transparent;
 
-  a {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 170%;
-    color: black;
-  }
+	a {
+		font-weight: 600;
+		font-size: 14px;
+		line-height: 170%;
+		color: black;
+	}
 `;
