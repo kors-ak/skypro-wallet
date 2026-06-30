@@ -60,6 +60,7 @@ export const data = [
     category: 'food',
     date: '2024-07-03T00:00:00.000Z',
     sum: 3500,
+    color: '#D9B6FF',
   },
   {
     _id: '2',
@@ -68,6 +69,7 @@ export const data = [
     category: 'transport',
     date: '2024-07-03T00:00:00.000Z',
     sum: 730,
+    color: '#FFB53D',
   },
   {
     _id: '3',
@@ -76,6 +78,7 @@ export const data = [
     category: 'others',
     date: '2024-07-03T00:00:00.000Z',
     sum: 1200,
+    color: '#FFB9B8',
   },
   {
     _id: '4',
@@ -84,6 +87,7 @@ export const data = [
     category: 'food',
     date: '2024-07-03T00:00:00.000Z',
     sum: 950,
+    color: '#D9B6FF',
   },
   {
     _id: '5',
@@ -92,6 +96,7 @@ export const data = [
     category: 'food',
     date: '2024-07-02T00:00:00.000Z',
     sum: 1320,
+    color: '#D9B6FF',
   },
   {
     _id: '6',
@@ -100,6 +105,7 @@ export const data = [
     category: 'food',
     date: '2024-07-02T00:00:00.000Z',
     sum: 400,
+    color: '#D9B6FF',
   },
   {
     _id: '7',
@@ -108,6 +114,7 @@ export const data = [
     category: 'joy',
     date: '2024-06-29T00:00:00.000Z',
     sum: 600,
+    color: '#B0AEFF',
   },
   {
     _id: '8',
@@ -116,7 +123,6 @@ export const data = [
     category: 'food',
     date: '2024-06-29T00:00:00.000Z',
     sum: 2360,
-    color: '#D9B6FF',
   },
   {
     _id: '9',
@@ -125,7 +131,6 @@ export const data = [
     category: 'transport',
     date: '2024-06-29T00:00:00.000Z',
     sum: 1000,
-    color: '#FFB53D',
   },
   {
     _id: '10',
@@ -134,7 +139,6 @@ export const data = [
     category: 'others',
     date: '2024-06-29T00:00:00.000Z',
     sum: 4300,
-    color: '#FFB9B8',
   },
   {
     _id: '11',
@@ -143,7 +147,6 @@ export const data = [
     category: 'transport',
     date: '2024-06-28T00:00:00.000Z',
     sum: 320,
-    color: '#FFB53D',
   },
   {
     _id: '12',
@@ -152,7 +155,6 @@ export const data = [
     category: 'food',
     date: '2024-06-28T00:00:00.000Z',
     sum: 1360,
-    color: '#D9B6FF',
   },
   {
     _id: '13',
@@ -161,7 +163,6 @@ export const data = [
     category: 'food',
     date: '2024-06-28T00:00:00.000Z',
     sum: 2320,
-    color: '#D9B6FF',
   },
   {
     _id: '14',
@@ -170,7 +171,6 @@ export const data = [
     category: 'food',
     date: '2024-06-27T00:00:00.000Z',
     sum: 1220,
-    color: '#D9B6FF',
   },
   {
     _id: '15',
@@ -179,7 +179,6 @@ export const data = [
     category: 'food',
     date: '2024-06-27T00:00:00.000Z',
     sum: 920,
-    color: '#D9B6FF',
   },
   {
     _id: '16',
@@ -188,7 +187,6 @@ export const data = [
     category: 'food',
     date: '2024-06-26T00:00:00.000Z',
     sum: 840,
-    color: '#D9B6FF',
   },
   {
     _id: '17',
@@ -197,7 +195,6 @@ export const data = [
     category: 'food',
     date: '2024-06-26T00:00:00.000Z',
     sum: 920,
-    color: '#D9B6FF',
   },
   {
     _id: '18',
@@ -206,7 +203,6 @@ export const data = [
     category: 'food',
     date: '2024-08-03T00:00:00.000Z',
     sum: 3500,
-    color: '#D9B6FF',
   },
   {
     _id: '19',
@@ -215,7 +211,6 @@ export const data = [
     category: 'transport',
     date: '2024-08-03T00:00:00.000Z',
     sum: 730,
-    color: '#FFB53D',
   },
   {
     _id: '20',
@@ -224,7 +219,6 @@ export const data = [
     category: 'others',
     date: '2024-08-03T00:00:00.000Z',
     sum: 1200,
-    color: '#FFB9B8',
   },
   {
     _id: '21',
@@ -233,7 +227,6 @@ export const data = [
     category: 'food',
     date: '2024-08-03T00:00:00.000Z',
     sum: 950,
-    color: '#D9B6FF',
   },
   {
     _id: '22',
@@ -242,7 +235,6 @@ export const data = [
     category: 'food',
     date: '2024-08-02T00:00:00.000Z',
     sum: 1320,
-    color: '#D9B6FF',
   },
   {
     _id: '23',
@@ -251,7 +243,6 @@ export const data = [
     category: 'food',
     date: '2024-08-02T00:00:00.000Z',
     sum: 400,
-    color: '#D9B6FF',
   },
   {
     _id: '24',
@@ -260,6 +251,5 @@ export const data = [
     category: 'joy',
     date: '2024-08-29T00:00:00.000Z',
     sum: 600,
-    color: '#B0AEFF',
   },
 ]
