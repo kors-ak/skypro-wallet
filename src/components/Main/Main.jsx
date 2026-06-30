@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { SContent, SHeading, SMain } from './Main.styled'
 import { ExpensesTable } from '../ExpensesTable/ExpensesTable'
 import { Header } from '../Header/Header'
@@ -15,8 +14,6 @@ const Main = () => {
           <ExpensesTable />
           <Form />
         </SContent>
-
-        <Link to="/analytics">Перейти к аналитике</Link>
       </SMain>
     </>
   )
