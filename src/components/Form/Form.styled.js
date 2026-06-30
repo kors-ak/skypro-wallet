@@ -27,12 +27,6 @@ export const SGroup = styled.div`
 	}
 `;
 
-export const SCategory = styled.div`
-  padding-top: 24px;
-
-
-`;
-
 export const SDate = styled.div``;
 
 export const SSum = styled.div``;
