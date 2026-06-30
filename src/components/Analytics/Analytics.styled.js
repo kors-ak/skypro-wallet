@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const SMain = styled.main`
   padding-left: calc(50% - 600px);
   padding-right: calc(50% - 600px);
+  padding-bottom: 72px;
   margin-top: 36px;
 `
 export const SHeading = styled.h1`

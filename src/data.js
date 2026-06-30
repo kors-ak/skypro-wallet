@@ -1,11 +1,44 @@
-export const categories = {
-  food: 'Еда',
-  transport: 'Транспорт',
-  housing: 'Жилье',
-  joy: 'Развлечения',
-  education: 'Образование',
-  others: 'Другое',
-}
+import {
+  EducationIcon,
+  FoodIcon,
+  HousingIcon,
+  JoyIcon,
+  OthersIcon,
+  TransportIcon,
+} from './components/Icons'
+
+export const categories = [
+  {
+    api: 'food',
+    name: 'Еда',
+    icon: FoodIcon,
+  },
+  {
+    api: 'transport',
+    name: 'Транспорт',
+    icon: TransportIcon,
+  },
+  {
+    api: 'housing',
+    name: 'Жилье',
+    icon: HousingIcon,
+  },
+  {
+    api: 'joy',
+    name: 'Развлечения',
+    icon: JoyIcon,
+  },
+  {
+    api: 'education',
+    name: 'Образование',
+    icon: EducationIcon,
+  },
+  {
+    api: 'others',
+    name: 'Другое',
+    icon: OthersIcon,
+  },
+]
 
 export const data = [
   {

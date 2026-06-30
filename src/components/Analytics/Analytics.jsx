@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { SContent, SHeading, SMain } from './Analytics.styled'
 import Calendar from '../Calendar/Calendar'
 import { Header } from '../Header/Header'
@@ -22,7 +21,6 @@ const Analytics = () => {
           ></div>{' '}
           {/* @TODO: заменить на компонент с диаграммой */}
         </SContent>
-        <Link to="/">Перейти на главную</Link>
       </SMain>
     </>
   )
