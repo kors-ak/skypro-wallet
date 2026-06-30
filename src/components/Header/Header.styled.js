@@ -12,10 +12,14 @@ export const SContent = styled.div`
 	justify-content: space-between;
 	align-items: center;
 `;
-export const SLogo = styled.a``;
+export const SLogo = styled.div``;
+
+export const SGroup = styled.div`
+	display: flex;
+	gap: 400px;
+`;
 
 export const SPagesLinks = styled.div`
-	padding-right: 95px;
 	display: flex;
 	gap: 48px;
 
