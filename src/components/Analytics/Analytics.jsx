@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
 import { SContent, SHeading, SMain } from './Analytics.styled'
 import Calendar from '../Calendar/Calendar'
+import { Header } from '../Header/Header'
 
 const Analytics = () => {
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <SMain>
         <SHeading>Анализ расходов</SHeading>
 
