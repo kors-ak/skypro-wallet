@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import {
 	SContent,
 	SExitButton,
+	SGroup,
 	SHeader,
 	SLogo,
 	SPagesLinks,
@@ -12,18 +13,22 @@ export const Header = () => {
 		<SHeader>
 			<SContent>
 				<SLogo>
-					<Link to='/'>
+					<Link to="/">
 						<img src="logo2.svg" />
 					</Link>
 				</SLogo>
-				<SPagesLinks>
-					<Link to="/">Мои расходы</Link>
-					<Link to="/analytics">Анализ расходов</Link>
-				</SPagesLinks>
-				<SExitButton>
-					<Link to="/sign-up">Выйти</Link>
-				</SExitButton>
+				<SGroup>
+					<SPagesLinks>
+						<Link to="/">Мои расходы</Link>
+						<Link to="/analytics">Анализ расходов</Link>
+					</SPagesLinks>
+					<SExitButton>
+						<Link to="">Выйти</Link>
+					</SExitButton>
+				</SGroup>
 			</SContent>
 		</SHeader>
 	);
 };
+
+export default Header;
