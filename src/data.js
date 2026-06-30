@@ -1,37 +1,44 @@
-import { EducationIcon, FoodIcon, HousingIcon, JoyIcon, OthersIcon, TransportIcon } from "./components/Icons";
+import {
+  EducationIcon,
+  FoodIcon,
+  HousingIcon,
+  JoyIcon,
+  OthersIcon,
+  TransportIcon,
+} from './components/Icons'
 
-export const categories = {
-  food: {
+export const categories = [
+  {
     api: 'food',
     name: 'Еда',
     icon: FoodIcon,
   },
-  transport: {
+  {
     api: 'transport',
     name: 'Транспорт',
     icon: TransportIcon,
   },
-  housing: {
+  {
     api: 'housing',
     name: 'Жилье',
     icon: HousingIcon,
   },
-  joy: {
+  {
     api: 'joy',
     name: 'Развлечения',
     icon: JoyIcon,
   },
-  education: {
+  {
     api: 'education',
     name: 'Образование',
     icon: EducationIcon,
   },
-  others: {
+  {
     api: 'others',
     name: 'Другое',
     icon: OthersIcon,
   },
-};
+]
 
 export const data = [
   {

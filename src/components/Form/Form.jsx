@@ -20,7 +20,7 @@ export const Form = () => {
         <SGroup>
           <h3>Категория</h3>
           <SCategories>
-            {Object.values(categories).map((cat) => (
+            {categories.map((cat) => (
               <Category category={cat} key={cat.api} />
             ))}
           </SCategories>
