@@ -8,7 +8,7 @@ const Expense = ({ item }) => {
     <SExpense>
       <SContent>
         <SText>{description || 'Без описания'}</SText>
-        <SText>{categories[category] || 'Другое'}</SText>
+        <SText>{categories[category]?.name || 'Другое'}</SText>
         <SText>{formatDate(date)}</SText>
         <SText>{formatSum(sum)}</SText>
       </SContent>
