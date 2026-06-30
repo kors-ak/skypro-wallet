@@ -27,3 +27,5 @@ export const Header = () => {
 		</SHeader>
 	);
 };
+
+export default Header;
