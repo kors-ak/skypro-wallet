@@ -54,29 +54,6 @@ export const SForm = styled.form`
 	justify-content: center;
 `;
 
-export const SInput = styled.input`
-	width: 100%;
-	min-width: 100%;
-	border-radius: 6px;
-	border: 0.5px solid #999999;
-	outline: none;
-	padding: 12px;
-
-	&::-moz-placeholder {
-		font-family: "Montserrat", sans-serif;
-		font-weight: 400;
-		font-size: 12px;
-		color: #999999;
-	}
-
-	&::placeholder {
-		font-family: "Montserrat", sans-serif;
-		font-weight: 400;
-		font-size: 12px;
-		color: #999999;
-	}
-`;
-
 export const SBtn = styled.button`
 	margin-top: 12px;
 	width: 100%;

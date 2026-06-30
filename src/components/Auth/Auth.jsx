@@ -6,11 +6,11 @@ import {
 	SContainer,
 	SContainerBlock,
 	SForm,
-	SInput,
 	SLinkGroup,
 	STitle,
 	SWrapper,
 } from "./Auth.styled";
+import { SInput } from "../Input/Input.styled";
 
 const Auth = ({ isSignUp }) => {
 	return (
