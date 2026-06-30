@@ -1,6 +1,8 @@
 import Button from '../Button/Button'
+import Category from '../Category/Category'
 import { SInput } from '../Input/Input.styled'
-import { SGroup, SContent, SForm, STitle } from './Form.styled'
+import { SGroup, SContent, SForm, STitle, SCategories } from './Form.styled'
+import { categories } from '../../data'
 
 export const Form = () => {
   return (
@@ -17,6 +19,11 @@ export const Form = () => {
         </SGroup>
         <SGroup>
           <h3>Категория</h3>
+          <SCategories>
+            {Object.values(categories).map((cat) => (
+              <Category category={cat} key={cat.api} />
+            ))}
+          </SCategories>
         </SGroup>
         <SGroup>
           <h3>Дата</h3>
