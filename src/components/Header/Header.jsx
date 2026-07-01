@@ -23,7 +23,7 @@ export const Header = () => {
 						<Link to="/analytics">Анализ расходов</Link>
 					</SPagesLinks>
 					<SExitButton>
-						<Link to="">Выйти</Link>
+						<Link to="/sign-in">Выйти</Link>
 					</SExitButton>
 				</SGroup>
 			</SContent>
