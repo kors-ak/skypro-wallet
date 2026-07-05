@@ -68,15 +68,12 @@ export const SBtn = styled.button`
 	font-size: 12px;
 	font-weight: 600;
 	color: #ffffff;
+	cursor: pointer;
 
-  a {
-    width: 100%;
-    height: 100%;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+	&:disabled {
+		background-color: #cccccc;
+		cursor: not-allowed;
+	}
 `;
 
 export const SError = styled.p`
