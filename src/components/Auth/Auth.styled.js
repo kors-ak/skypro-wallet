@@ -79,6 +79,12 @@ export const SBtn = styled.button`
   }
 `;
 
+export const SError = styled.p`
+	color: #f25050;
+	font-size: 12px;
+	text-align: center;
+`;
+
 export const SLinkGroup = styled.div`
 	text-align: center;
 

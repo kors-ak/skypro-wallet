@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import {
 	SContent,
 	SExitButton,
@@ -9,6 +10,8 @@ import {
 } from "./Header.styled";
 
 export const Header = () => {
+	const { logout } = useAuth();
+
 	return (
 		<SHeader>
 			<SContent>
@@ -22,9 +25,7 @@ export const Header = () => {
 						<Link to="/">Мои расходы</Link>
 						<Link to="/analytics">Анализ расходов</Link>
 					</SPagesLinks>
-					<SExitButton>
-						<Link to="/sign-in">Выйти</Link>
-					</SExitButton>
+					<SExitButton onClick={logout}>Выйти</SExitButton>
 				</SGroup>
 			</SContent>
 		</SHeader>

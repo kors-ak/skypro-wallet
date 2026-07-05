@@ -4,13 +4,14 @@ import SignInPage from '../pages/SignInPage'
 import SignUpPage from '../pages/SignUpPage'
 import MainPage from '../pages/MainPage'
 import AnalyticsPage from '../pages/AnalyticsPage'
+import { useAuth } from '../context/AuthContext'
 
 function AppRoutes() {
-  const user = { name: 'test', email: 'test@example.com' }
+  const { token } = useAuth()
 
   return (
     <Routes>
-      <Route element={<PrivateRoute isAuth={!!user} />}>
+      <Route element={<PrivateRoute isAuth={!!token} />}>
         <Route path="/" element={<MainPage />} />
         <Route path="/analytics" element={<AnalyticsPage />} />
       </Route>
