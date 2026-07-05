@@ -33,11 +33,8 @@ export const SPagesLinks = styled.div`
 
 export const SExitButton = styled.button`
 	background-color: transparent;
-
-	a {
-		font-weight: 600;
-		font-size: 14px;
-		line-height: 170%;
-		color: black;
-	}
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 170%;
+	color: black;
 `;
