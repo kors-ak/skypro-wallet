@@ -15,7 +15,10 @@ export const registerUser = async (name, login, password) => {
     )
     return response.data.user
   } catch (error) {
-    throw new Error(error.response?.data?.error || 'Не удалось зарегистрироваться')
+    if (!error.response) {
+      throw new Error('Отсутствует подключение к интернету')
+    }
+    throw new Error(error.response.data?.error || 'Не удалось зарегистрироваться')
   }
 }
 
@@ -28,6 +31,9 @@ export const loginUser = async (login, password) => {
     )
     return response.data.user
   } catch (error) {
-    throw new Error(error.response?.data?.error || 'Не удалось авторизоваться')
+    if (!error.response) {
+      throw new Error('Отсутствует подключение к интернету')
+    }
+    throw new Error(error.response.data?.error || 'Не удалось авторизоваться')
   }
 }
