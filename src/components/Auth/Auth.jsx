@@ -26,6 +26,7 @@ const Auth = ({ isSignUp }) => {
 		login: false,
 		password: false,
 	});
+	const [hasInteracted, setHasInteracted] = useState(false);
 	const [apiError, setApiError] = useState("");
 
 	const nameError = isSignUp ? validateField(name) : "";
@@ -33,13 +34,22 @@ const Auth = ({ isSignUp }) => {
 	const passwordError = validateField(password);
 	const isFormValid = !loginError && !passwordError && (!isSignUp || !nameError);
 
+	const getStatus = (isTouched, error) => {
+		if (!isTouched) {
+			return "default";
+		}
+		return error ? "error" : "success";
+	};
+
 	const handleBlur = (field) => () => {
 		setTouched((prev) => ({ ...prev, [field]: true }));
+		setHasInteracted(true);
 	};
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		setTouched({ name: true, login: true, password: true });
+		setHasInteracted(true);
 		setApiError("");
 		if (!isFormValid) {
 			return;
@@ -74,7 +84,7 @@ const Auth = ({ isSignUp }) => {
 											value={name}
 											onChange={(event) => setName(event.target.value)}
 											onBlur={handleBlur("name")}
-											$status={touched.name && nameError ? "error" : "default"}
+											$status={getStatus(touched.name, nameError)}
 										/>
 										{touched.name && nameError && <SError>{nameError}</SError>}
 									</>
@@ -87,7 +97,7 @@ const Auth = ({ isSignUp }) => {
 									value={userLogin}
 									onChange={(event) => setUserLogin(event.target.value)}
 									onBlur={handleBlur("login")}
-									$status={touched.login && loginError ? "error" : "default"}
+									$status={getStatus(touched.login, loginError)}
 								/>
 								{touched.login && loginError && <SError>{loginError}</SError>}
 								<SInput
@@ -98,13 +108,13 @@ const Auth = ({ isSignUp }) => {
 									value={password}
 									onChange={(event) => setPassword(event.target.value)}
 									onBlur={handleBlur("password")}
-									$status={touched.password && passwordError ? "error" : "default"}
+									$status={getStatus(touched.password, passwordError)}
 								/>
 								{touched.password && passwordError && (
 									<SError>{passwordError}</SError>
 								)}
 								{apiError && <SError>{apiError}</SError>}
-								<SBtn type="submit" disabled={!isFormValid}>
+								<SBtn type="submit" disabled={hasInteracted && !isFormValid}>
 									{isSignUp ? "Зарегистрироваться" : "Войти"}
 								</SBtn>
 							</SForm>
