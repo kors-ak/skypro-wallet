@@ -1,6 +1,10 @@
 import { createContext, useContext, useState } from 'react'
 import { useAuth } from './AuthContext'
-import { getExpenses, postExpense } from '../services/expensesApi'
+import {
+  getExpenses,
+  getExpensesFromPeriod,
+  postExpense,
+} from '../services/expensesApi'
 
 const ExpensesContext = createContext(null)
 
@@ -9,6 +13,12 @@ export const ExpensesProvider = ({ children }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [formError, setFormError] = useState('')
+  const [calendarError, setCalendarError] = useState('')
+  const [range, setRange] = useState({
+    start: null,
+    end: null,
+  })
+  const [calendarExpenses, setCalendarExpenses] = useState([])
   const { token } = useAuth()
 
   const clearExpenses = () => setExpenses([])
@@ -39,6 +49,53 @@ export const ExpensesProvider = ({ children }) => {
     }
   }
 
+  const handleSelect = (date) => {
+    if (!range.start || (range.start && range.end)) {
+      setRange({
+        start: date,
+        end: null,
+      })
+      return
+    }
+
+    if (date < range.start) {
+      setRange({
+        start: date,
+        end: range.start,
+      })
+      return
+    }
+
+    setRange({
+      start: range.start,
+      end: date,
+    })
+  }
+
+  const loadExpensesFromPeriod = async (date) => {
+    handleSelect(date)
+
+    let payloadStart = range.start
+    let payloadEnd = range.end
+
+    if (!payloadEnd) {
+      payloadEnd = payloadStart
+    }
+
+    try {
+      const RangedExpenses = await getExpensesFromPeriod(token, {
+        start: payloadStart,
+        end: payloadEnd,
+      })
+      setCalendarExpenses(RangedExpenses)
+    } catch (err) {
+      setCalendarError(
+        err.message ||
+          'Возникла ошибка при загрузке расходов за выбранный период'
+      )
+    }
+  }
+
   return (
     <ExpensesContext.Provider
       value={{
@@ -49,6 +106,11 @@ export const ExpensesProvider = ({ children }) => {
         loadExpenses,
         clearExpenses,
         addExpense,
+        range,
+        setRange,
+        loadExpensesFromPeriod,
+        calendarExpenses,
+        calendarError,
       }}
     >
       {children}

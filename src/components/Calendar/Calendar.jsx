@@ -18,41 +18,11 @@ import {
   isSameDay,
   WEEK_DAYS,
 } from './utils'
-import { data } from '../../data'
-import { useState } from 'react'
+import { useExpenses } from '../../context/ExpensesContext'
 
 const Calendar = () => {
-  const months = getMonths(data)
-
-  const [range, setRange] = useState({
-    start: null,
-    end: null,
-  })
-
-  const handleSelect = (date) => {
-    if (!range.start || (range.start && range.end)) {
-      setRange({
-        start: date,
-        end: null,
-      })
-
-      return
-    }
-
-    if (date < range.start) {
-      setRange({
-        start: date,
-        end: range.start,
-      })
-
-      return
-    }
-
-    setRange({
-      start: range.start,
-      end: date,
-    })
-  }
+  const { expenses, range, loadExpensesFromPeriod } = useExpenses()
+  const months = getMonths(expenses)
 
   return (
     <SCalendar>
@@ -72,7 +42,7 @@ const Calendar = () => {
                 {getMonthDays(month.year, month.month).map((day, index) => (
                   <SDay
                     key={index}
-                    onClick={() => day && handleSelect(day)}
+                    onClick={() => day && loadExpensesFromPeriod(day)}
                     $selected={
                       isSameDay(day, range.start) ||
                       isSameDay(day, range.end) ||
