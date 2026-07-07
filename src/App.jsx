@@ -1,10 +1,15 @@
 import AppRoutes from './components/AppRoutes.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
+import { ExpensesProvider } from './context/ExpensesContext.jsx'
+import GlobalStyles from './GlobalStyles.js'
 
 function App() {
   return (
     <AuthProvider>
-      <AppRoutes />
+      <ExpensesProvider>
+        <GlobalStyles />
+        <AppRoutes />
+      </ExpensesProvider>
     </AuthProvider>
   )
 }
