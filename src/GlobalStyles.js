@@ -53,6 +53,16 @@ const GlobalStyles = createGlobalStyle`
     scroll-behavior: smooth;
   }
 
+  .simplebar-content {
+    height: 100%;
+    position: relative;
+  }
+
+  .no-scroll .simplebar-content {
+    overflow: hidden !important;
+    pointer-events: none;
+  }
+
   .simplebar-track.simplebar-vertical {
     margin: 8px 0 20px 0;
     width: 8px;
