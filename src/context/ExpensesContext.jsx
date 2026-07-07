@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react'
 import { useAuth } from './AuthContext'
-import { getExpenses } from '../services/expensesApi'
+import { getExpenses, postExpense } from '../services/expensesApi'
 
 const ExpensesContext = createContext(null)
 
@@ -8,6 +8,7 @@ export const ExpensesProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [formError, setFormError] = useState('')
   const { token } = useAuth()
 
   const clearExpenses = () => setExpenses([])
@@ -25,9 +26,30 @@ export const ExpensesProvider = ({ children }) => {
     }
   }
 
+  const addExpense = async (expense) => {
+    setLoading(true)
+
+    try {
+      const newExpenses = await postExpense(token, expense)
+      setExpenses(newExpenses)
+    } catch (err) {
+      setFormError(err.message || 'Возникла ошибка при добавлении расхода')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <ExpensesContext.Provider
-      value={{ expenses, loadExpenses, clearExpenses, loading, error }}
+      value={{
+        expenses,
+        loading,
+        error,
+        formError,
+        loadExpenses,
+        clearExpenses,
+        addExpense,
+      }}
     >
       {children}
     </ExpensesContext.Provider>
