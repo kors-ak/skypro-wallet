@@ -49,45 +49,41 @@ export const ExpensesProvider = ({ children }) => {
     }
   }
 
-  const handleSelect = (date) => {
-    if (!range.start || (range.start && range.end)) {
-      setRange({
+  const calculateRange = (date) => {
+    if (!range.start || range.end) {
+      return {
         start: date,
         end: null,
-      })
-      return
+      }
     }
 
     if (date < range.start) {
-      setRange({
+      return {
         start: date,
         end: range.start,
-      })
-      return
+      }
     }
 
-    setRange({
+    return {
       start: range.start,
       end: date,
-    })
+    }
   }
 
   const loadExpensesFromPeriod = async (date) => {
-    handleSelect(date)
+    setCalendarError('')
+    const newRange = calculateRange(date)
 
-    let payloadStart = range.start
-    let payloadEnd = range.end
+    setRange(newRange)
 
-    if (!payloadEnd) {
-      payloadEnd = payloadStart
+    const payload = {
+      start: newRange.start,
+      end: newRange.end ?? newRange.start,
     }
 
     try {
-      const RangedExpenses = await getExpensesFromPeriod(token, {
-        start: payloadStart,
-        end: payloadEnd,
-      })
-      setCalendarExpenses(RangedExpenses)
+      const rangedExpenses = await getExpensesFromPeriod(token, payload)
+      setCalendarExpenses(rangedExpenses)
     } catch (err) {
       setCalendarError(
         err.message ||

@@ -19,9 +19,16 @@ import {
   WEEK_DAYS,
 } from './utils'
 import { useExpenses } from '../../context/ExpensesContext'
+import { useEffect } from 'react'
 
 const Calendar = () => {
-  const { expenses, range, loadExpensesFromPeriod } = useExpenses()
+  const { expenses, loadExpenses, range, loadExpensesFromPeriod } =
+    useExpenses()
+
+  useEffect(() => {
+    loadExpenses()
+  }, [])
+
   const months = getMonths(expenses)
 
   return (
