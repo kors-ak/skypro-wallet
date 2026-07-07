@@ -1,24 +1,16 @@
 import axios from 'axios'
-
-const BASE_URL = 'https://wedev-api.sky.pro/api'
-
-const requestConfig = {
-  headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-}
+import { BASE_URL, getRequestConfig, handleApiError } from './api'
 
 export const registerUser = async (name, login, password) => {
   try {
     const response = await axios.post(
       `${BASE_URL}/user`,
       JSON.stringify({ name, login, password }),
-      requestConfig
+      getRequestConfig()
     )
     return response.data.user
   } catch (error) {
-    if (!error.response) {
-      throw new Error('Отсутствует подключение к интернету')
-    }
-    throw new Error(error.response.data?.error || 'Не удалось зарегистрироваться')
+    handleApiError(error, 'Не удалось зарегистрироваться')
   }
 }
 
@@ -27,13 +19,10 @@ export const loginUser = async (login, password) => {
     const response = await axios.post(
       `${BASE_URL}/user/login`,
       JSON.stringify({ login, password }),
-      requestConfig
+      getRequestConfig()
     )
     return response.data.user
   } catch (error) {
-    if (!error.response) {
-      throw new Error('Отсутствует подключение к интернету')
-    }
-    throw new Error(error.response.data?.error || 'Не удалось авторизоваться')
+    handleApiError(error, 'Не удалось авторизоваться')
   }
 }
