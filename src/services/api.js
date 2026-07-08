@@ -8,6 +8,10 @@ export const getRequestConfig = (token) => ({
 })
 
 export const handleApiError = (error, defaultMessage) => {
+  if (error.name !== 'CanceledError') {
+    return
+  }
+  
   if (!error.response) {
     throw new Error('Отсутствует подключение к интернету')
   }

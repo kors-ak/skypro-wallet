@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useRef, useState } from 'react'
 import { useAuth } from './AuthContext'
 import {
   getExpenses,
@@ -22,7 +22,13 @@ export const ExpensesProvider = ({ children }) => {
   const [calendarExpenses, setCalendarExpenses] = useState([])
   const { token } = useAuth()
 
-  const clearExpenses = () => {setExpenses([]); setRange({ start: null, end: null }); setCalendarExpenses([])}
+  const abortControllerRef = useRef(null)
+
+  const clearExpenses = () => {
+    setExpenses([])
+    setRange({ start: null, end: null })
+    setCalendarExpenses([])
+  }
 
   const loadExpenses = async () => {
     setLoading(true)
@@ -74,6 +80,12 @@ export const ExpensesProvider = ({ children }) => {
   const loadExpensesFromPeriod = async (date) => {
     setCalendarLoading(true)
     setCalendarError('')
+
+    abortControllerRef.current?.abort()
+
+    const controller = new AbortController()
+    abortControllerRef.current = controller
+
     const newRange = calculateRange(date)
 
     setRange(newRange)

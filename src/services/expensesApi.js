@@ -27,7 +27,7 @@ export const postExpense = async (token, expense) => {
   }
 }
 
-export const getExpensesFromPeriod = async (token, range) => {
+export const getExpensesFromPeriod = async (token, range, signal) => {
   try {
     const payload = {
       start: formatApiDate(range.start),
@@ -37,7 +37,10 @@ export const getExpensesFromPeriod = async (token, range) => {
     const response = await axios.post(
       `${BASE_URL}/transactions/period`,
       payload,
-      getRequestConfig(token)
+      {
+        ...getRequestConfig(token),
+        signal,
+      }
     )
 
     return response.data
