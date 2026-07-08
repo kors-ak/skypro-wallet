@@ -1,13 +1,13 @@
-import { SCategory } from './Category.styled'
+import { SCategory } from "./Category.styled";
 
-const Category = ({ category, $selected }) => {
-  const Icon = category.icon
-  return (
-    <SCategory $selected={$selected}>
-      <Icon />
-      <p>{category.name}</p>
-    </SCategory>
-  )
-}
+const Category = ({ category, $selected, onSelect }) => {
+	const Icon = category.icon;
+	return (
+		<SCategory $selected={$selected === category.api} onClick={() => onSelect(category.api)}>
+			<Icon />
+			<p>{category.name}</p>
+		</SCategory>
+	);
+};
 
-export default Category
+export default Category;

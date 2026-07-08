@@ -23,7 +23,10 @@ export const SButton = styled.button`
   width: 100%;
   padding: 12px 0;
   color: rgb(255, 255, 255);
-  background-color: rgb(115, 52, 234);
+  background-color: ${({ disabled }) =>
+  disabled ? '#999999' : '#7334EA'};;
+  cursor: ${({ disabled }) =>
+  disabled ? 'not-allowed' : 'pointer'};
   border-radius: 6px;
   font-size: 12px;
   font-weight: 600;
