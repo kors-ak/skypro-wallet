@@ -21,7 +21,7 @@ export const ExpensesProvider = ({ children }) => {
   const [calendarExpenses, setCalendarExpenses] = useState([])
   const { token } = useAuth()
 
-  const clearExpenses = () => setExpenses([])
+  const clearExpenses = () => {setExpenses([]); setRange({ start: null, end: null }); setCalendarExpenses([])}
 
   const loadExpenses = async () => {
     setLoading(true)
@@ -76,13 +76,8 @@ export const ExpensesProvider = ({ children }) => {
 
     setRange(newRange)
 
-    const payload = {
-      start: newRange.start,
-      end: newRange.end ?? newRange.start,
-    }
-
     try {
-      const rangedExpenses = await getExpensesFromPeriod(token, payload)
+      const rangedExpenses = await getExpensesFromPeriod(token, newRange)
       setCalendarExpenses(rangedExpenses)
     } catch (err) {
       setCalendarError(
