@@ -8,6 +8,7 @@ import {
   YAxis,
 } from 'recharts'
 import {
+  SCalendarLoader,
   SContent,
   SDate,
   SDescription,
@@ -19,7 +20,7 @@ import { getChartData, getDateText } from '../СhartData/СhartData'
 import { useExpenses } from '../../context/ExpensesContext'
 
 const ExpensesChart = () => {
-  const { expenses, calendarExpenses, range } = useExpenses()
+  const { expenses, calendarExpenses, range, calendarLoading } = useExpenses()
   const currentExpenses = range.start ? calendarExpenses : expenses
   const sum = currentExpenses.reduce((total, expense) => total + expense.sum, 0)
   const dateText = getDateText(currentExpenses, expenses, range)
@@ -33,7 +34,10 @@ const ExpensesChart = () => {
           Расходы за <SDate>{dateText}</SDate>
         </SDescription>
         <ResponsiveContainer width="100%" height={386}>
-          <BarChart data={chartData} margin={{ top: 18, right: 0, left: 0, bottom: 0 }}>
+          <BarChart
+            data={chartData}
+            margin={{ top: 18, right: 0, left: 0, bottom: 0 }}
+          >
             <XAxis
               axisLine={false}
               tickLine={false}
@@ -66,6 +70,11 @@ const ExpensesChart = () => {
           </BarChart>
         </ResponsiveContainer>
       </SContent>
+      {calendarLoading && (
+        <SCalendarLoader>
+          <div />
+        </SCalendarLoader>
+      )}
     </SExpensesChart>
   )
 }

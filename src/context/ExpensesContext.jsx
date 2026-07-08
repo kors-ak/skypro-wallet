@@ -14,6 +14,7 @@ export const ExpensesProvider = ({ children }) => {
   const [error, setError] = useState('')
   const [formError, setFormError] = useState('')
   const [calendarError, setCalendarError] = useState('')
+  const [calendarLoading, setCalendarLoading] = useState(false)
   const [range, setRange] = useState({
     start: null,
     end: null,
@@ -71,6 +72,7 @@ export const ExpensesProvider = ({ children }) => {
   }
 
   const loadExpensesFromPeriod = async (date) => {
+    setCalendarLoading(true)
     setCalendarError('')
     const newRange = calculateRange(date)
 
@@ -84,6 +86,8 @@ export const ExpensesProvider = ({ children }) => {
         err.message ||
           'Возникла ошибка при загрузке расходов за выбранный период'
       )
+    } finally {
+      setCalendarLoading(false)
     }
   }
 
@@ -102,6 +106,7 @@ export const ExpensesProvider = ({ children }) => {
         loadExpensesFromPeriod,
         calendarExpenses,
         calendarError,
+        calendarLoading,
       }}
     >
       {children}
