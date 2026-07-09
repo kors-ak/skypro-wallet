@@ -16,7 +16,7 @@ import {
 import { SInput } from "../Input/Input.styled";
 import { validateField } from "../../utils/validation";
 
-const Auth = ({ isSignUp }) => {
+const Auth = ({ isSignUp, isAuth }) => {
 	const { register, login } = useAuth();
 	const [name, setName] = useState("");
 	const [userLogin, setUserLogin] = useState("");
@@ -67,7 +67,7 @@ const Auth = ({ isSignUp }) => {
 
 	return (
 		<>
-			<Header />
+			<Header isAuth={isAuth} />
 			<SWrapper>
 				<SContainer>
 					<SContainerBlock>

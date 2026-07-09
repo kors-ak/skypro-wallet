@@ -1,5 +1,5 @@
 import Auth from '../components/Auth/Auth'
 
-const SignUpPage = () => <Auth isSignUp />
+const SignUpPage = ({ isAuth }) => <Auth isAuth={isAuth} isSignUp />
 
 export default SignUpPage
