@@ -1,4 +1,5 @@
 import { formatDate } from '../../utils/formatters'
+import { isSameDay } from '../Calendar/utils'
 
 export const getChartData = (expenses, categories) => {
   return categories.map((category) => {
@@ -22,20 +23,15 @@ export const getDateText = (currentExpenses, expenses, range) => {
       return 'все время'
     }
 
-    const sortedDates = currentExpenses
-      .map((expense) => new Date(expense.date))
-      .sort((a, b) => a - b)
+    const firstDate = currentExpenses[0].date
+    const lastDate = currentExpenses.at(-1).date
 
-    return +sortedDates[0] === +sortedDates.at(-1)
-      ? formatDate(sortedDates[0])
-      : `${formatDate(sortedDates[0])} — ${formatDate(
-          sortedDates[sortedDates.length - 1]
-        )}`
+    return isSameDay(firstDate, lastDate)
+      ? formatDate(firstDate)
+      : `${formatDate(firstDate)} — ${formatDate(lastDate)}`
   }
 
-  if (!range.end || range.start.getDate() === range.end.getDate()) {
-    return formatDate(range.start)
-  }
-
-  return `${formatDate(range.start)} — ${formatDate(range.end)}`
+  return !range.end || isSameDay(range.start, range.end)
+    ? formatDate(range.start)
+    : `${formatDate(range.start)} — ${formatDate(range.end)}`
 }

@@ -35,7 +35,9 @@ export const ExpensesProvider = ({ children }) => {
     setError('')
     try {
       const newExpenses = await getExpenses(token)
-      setExpenses(newExpenses)
+      setExpenses(
+        [...newExpenses].sort((a, b) => new Date(a.date) - new Date(b.date))
+      )
     } catch (err) {
       setError(err.message || 'Возникла ошибка при загрузке расходов')
     } finally {
@@ -48,7 +50,9 @@ export const ExpensesProvider = ({ children }) => {
 
     try {
       const newExpenses = await postExpense(token, expense)
-      setExpenses(newExpenses)
+      setExpenses(
+        [...newExpenses].sort((a, b) => new Date(a.date) - new Date(b.date))
+      )
     } catch (err) {
       setFormError(err.message || 'Возникла ошибка при добавлении расхода')
     } finally {
@@ -92,7 +96,9 @@ export const ExpensesProvider = ({ children }) => {
 
     try {
       const rangedExpenses = await getExpensesFromPeriod(token, newRange)
-      setCalendarExpenses(rangedExpenses)
+      setCalendarExpenses(
+        [...rangedExpenses].sort((a, b) => new Date(a.date) - new Date(b.date))
+      )
     } catch (err) {
       setCalendarError(
         err.message ||
