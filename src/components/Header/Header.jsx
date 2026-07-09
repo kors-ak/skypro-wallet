@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useExpenses } from "../../context/ExpensesContext";
 import {
@@ -16,24 +16,27 @@ export const Header = ({ isAuth }) => {
 
 	return (
 		<SHeader>
-				{isAuth ? (
-			<SContent>
-				<SLogo>
-					<Link to="/">
-						<img src="logo2.svg" />
-					</Link>
-				</SLogo> 
-      </SContent> ) : (
-        <SContent>
-          <SLogo>
-					<Link to="/">
-						<img src="logo2.svg" />
-					</Link>
-				</SLogo>
+			{isAuth ? (
+				<SContent>
+					<SLogo>
+						<Link to="/">
+							<img src="logo2.svg" />
+						</Link>
+					</SLogo>
+				</SContent>
+			) : (
+				<SContent>
+					<SLogo>
+						<Link to="/">
+							<img src="logo2.svg" />
+						</Link>
+					</SLogo>
 					<SGroup>
 						<SPagesLinks>
-							<Link to="/">Мои расходы</Link>
-							<Link to="/analytics">Анализ расходов</Link>
+							<NavLink to="/" end>
+								Мои расходы
+							</NavLink>
+							<NavLink to="/analytics">Анализ расходов</NavLink>
 						</SPagesLinks>
 						<SExitButton
 							onClick={() => {
@@ -44,8 +47,8 @@ export const Header = ({ isAuth }) => {
 							Выйти
 						</SExitButton>
 					</SGroup>
-			</SContent>
-				)}
+				</SContent>
+			)}
 		</SHeader>
 	);
 };
