@@ -1,7 +1,14 @@
 import Button from "../Button/Button";
 import Category from "../Category/Category";
 import { SInput } from "../Input/Input.styled";
-import { SGroup, SContent, SForm, STitle, SCategories } from "./Form.styled";
+import {
+	SGroup,
+	SContent,
+	SForm,
+	STitle,
+	SCategories,
+	SRed,
+} from "./Form.styled";
 import { categories } from "../../data";
 import { useExpenses } from "../../context/ExpensesContext";
 import { useState } from "react";
@@ -20,22 +27,14 @@ export const Form = () => {
 		sum: false,
 	});
 
-	const isValidDate = (value) => {
-		const regex = /^\d{4}-\d{2}-\d{2}$/;
+	const updateError = (field, value) => {
+		const newErrors = {
+			...formError,
+			[field]: value,
+		};
 
-		if (!regex.test(value)) {
-			return false;
-		}
-
-		const [year, month, day] = value.split("-").map(Number);
-
-		const date = new Date(year, month - 1, day);
-
-		return (
-			date.getFullYear() === year &&
-			date.getMonth() === month - 1 &&
-			date.getDate() === day
-		);
+		setFormError(newErrors);
+		checkErrors(newErrors);
 	};
 
 	const handleDateChange = (e) => {
@@ -43,13 +42,8 @@ export const Form = () => {
 
 		setExpenseDate(value);
 
-		const newErrors = {
-			...formError,
-			date: !isValidDate(value),
-		};
+		updateError("date", value === "");
 
-		setFormError(newErrors);
-		checkErrors(newErrors);
 	};
 
 	const handleSumChange = (e) => {
@@ -57,20 +51,14 @@ export const Form = () => {
 
 		setExpenseSum(value);
 
-		const newErrors = {
-			...formError,
-			sum: value === "" || Number(value) <= 0,
-		};
-
-		setFormError(newErrors);
-		checkErrors(newErrors);
+		updateError("sum", value === "" || Number(value) <= 0);
 	};
 
 	const validate = () => {
 		const newErrors = {
-			description: expenseName.trim() === "",
+			description: expenseName.trim().length < 4,
 			category: expenseCategory === "",
-			date: !isValidDate(expenseDate),
+			date: expenseDate === "",
 			sum: expenseSum === "" || Number(expenseSum) <= 0,
 		};
 
@@ -87,12 +75,15 @@ export const Form = () => {
 			return;
 		}
 
-		await addExpense({
+		const success = await addExpense({
 			description: expenseName,
 			category: expenseCategory,
 			date: expenseDate,
 			sum: Number(expenseSum),
 		});
+
+		if (!success) return;
+
 		setExpenseName("");
 		setExpenseCategory("");
 		setExpenseDate("");
@@ -115,10 +106,7 @@ export const Form = () => {
 			<SContent>
 				<STitle>Новый расход</STitle>
 				<SGroup>
-					<h3>
-						Описание{" "}
-						{formError.description && <span style={{ color: "red" }}>*</span>}
-					</h3>
+					<h3>Описание {formError.description && <SRed>*</SRed>}</h3>
 					<SInput
 						type="text"
 						placeholder="Введите описание"
@@ -146,10 +134,7 @@ export const Form = () => {
 					/>
 				</SGroup>
 				<SGroup>
-					<h3>
-						Категория{" "}
-						{formError.category && <span style={{ color: "red" }}>*</span>}
-					</h3>
+					<h3>Категория {formError.category && <SRed>*</SRed>}</h3>
 					<SCategories>
 						{categories.map((cat) => (
 							<Category
@@ -172,9 +157,7 @@ export const Form = () => {
 					</SCategories>
 				</SGroup>
 				<SGroup>
-					<h3>
-						Дата {formError.date && <span style={{ color: "red" }}>*</span>}
-					</h3>
+					<h3>Дата {formError.date && <SRed>*</SRed>}</h3>
 					<SInput
 						type="date"
 						placeholder="Выберите дату"
@@ -187,9 +170,7 @@ export const Form = () => {
 					/>
 				</SGroup>
 				<SGroup>
-					<h3>
-						Сумма {formError.sum && <span style={{ color: "red" }}>*</span>}
-					</h3>
+					<h3>Сумма {formError.sum && <SRed>*</SRed>}</h3>
 					<SInput
 						type="number"
 						placeholder="Введите сумму"
