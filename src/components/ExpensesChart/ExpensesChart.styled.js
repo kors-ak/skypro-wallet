@@ -7,6 +7,14 @@ export const SExpensesChart = styled.section`
 	border-radius: 30px;
 	box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
 	position: relative;
+
+	svg {
+    outline: none;
+
+			*:focus {
+			outline: none;
+		}
+  }
 `;
 export const SContent = styled.div`
 	padding: 32px;
