@@ -28,6 +28,12 @@ export const SPagesLinks = styled.div`
 		font-size: 14px;
 		line-height: 170%;
 		color: black;
+
+		&.active {
+    color: #7334EA; 
+		font-weight: 600;
+		border-bottom: 2px solid #7334EA;
+  }
 	}
 `;
 
