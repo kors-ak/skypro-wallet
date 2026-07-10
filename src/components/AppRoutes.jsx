@@ -12,12 +12,12 @@ function AppRoutes() {
   return (
     <Routes>
       <Route element={<PrivateRoute isAuth={!!token} />}>
-        <Route path="/" element={<MainPage isAuth={!token} />} />
+        <Route path="/" element={<MainPage />} />
         <Route path="/analytics" element={<AnalyticsPage />} />
       </Route>
 
-      <Route path="/sign-in" element={<SignInPage isAuth={!token}/>} />
-      <Route path="/sign-up" element={<SignUpPage isAuth={!token}/>} />
+      <Route path="/sign-in" element={<SignInPage />} />
+      <Route path="/sign-up" element={<SignUpPage />} />
     </Routes>
   )
 }

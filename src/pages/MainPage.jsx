@@ -1,5 +1,5 @@
 import Main from "../components/Main/Main"
 
-const MainPage = ({ isAuth }) => <Main isAuth={isAuth} />
+const MainPage = () => <Main />
 
 export default MainPage

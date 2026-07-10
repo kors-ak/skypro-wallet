@@ -3,10 +3,10 @@ import { ExpensesTable } from '../ExpensesTable/ExpensesTable'
 import { Header } from '../Header/Header'
 import Form from '../Form/Form'
 
-const Main = ({ isAuth }) => {
+const Main = () => {
   return (
     <>
-      <Header isAuth={isAuth} />
+      <Header />
       <SMain>
         <SHeading>Мои расходы</SHeading>
 

@@ -10,27 +10,19 @@ import {
 	SPagesLinks,
 } from "./Header.styled";
 
-export const Header = ({ isAuth }) => {
-	const { logout } = useAuth();
+export const Header = () => {
+	const { logout, token } = useAuth();
 	const { clearExpenses } = useExpenses();
 
 	return (
 		<SHeader>
-			{isAuth ? (
-				<SContent>
-					<SLogo>
-						<Link to="/">
-							<img src="logo2.svg" />
-						</Link>
-					</SLogo>
-				</SContent>
-			) : (
-				<SContent>
-					<SLogo>
-						<Link to="/">
-							<img src="logo2.svg" />
-						</Link>
-					</SLogo>
+			<SContent>
+				<SLogo>
+					<Link to="/">
+						<img src="logo2.svg" />
+					</Link>
+				</SLogo>
+				{token && (
 					<SGroup>
 						<SPagesLinks>
 							<NavLink to="/" end>
@@ -47,8 +39,8 @@ export const Header = ({ isAuth }) => {
 							Выйти
 						</SExitButton>
 					</SGroup>
-				</SContent>
-			)}
+				)}
+			</SContent>
 		</SHeader>
 	);
 };
