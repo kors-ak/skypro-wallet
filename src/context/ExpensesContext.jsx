@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useRef, useState } from 'react'
 import { useAuth } from './AuthContext'
 import {
   getExpenses,
@@ -14,6 +14,7 @@ export const ExpensesProvider = ({ children }) => {
   const [error, setError] = useState('')
   const [formError, setFormError] = useState('')
   const [calendarError, setCalendarError] = useState('')
+  const [calendarLoading, setCalendarLoading] = useState(false)
   const [range, setRange] = useState({
     start: null,
     end: null,
@@ -21,14 +22,22 @@ export const ExpensesProvider = ({ children }) => {
   const [calendarExpenses, setCalendarExpenses] = useState([])
   const { token } = useAuth()
 
-  const clearExpenses = () => setExpenses([])
+  const abortControllerRef = useRef(null)
+
+  const clearExpenses = () => {
+    setExpenses([])
+    setRange({ start: null, end: null })
+    setCalendarExpenses([])
+  }
 
   const loadExpenses = async () => {
     setLoading(true)
     setError('')
     try {
       const newExpenses = await getExpenses(token)
-      setExpenses(newExpenses)
+      setExpenses(
+        [...newExpenses].sort((a, b) => new Date(a.date) - new Date(b.date))
+      )
     } catch (err) {
       setError(err.message || 'Возникла ошибка при загрузке расходов')
     } finally {
@@ -41,7 +50,9 @@ export const ExpensesProvider = ({ children }) => {
 
     try {
       const newExpenses = await postExpense(token, expense)
-      setExpenses(newExpenses)
+      setExpenses(
+        [...newExpenses].sort((a, b) => new Date(a.date) - new Date(b.date))
+      )
     } catch (err) {
       setFormError(err.message || 'Возникла ошибка при добавлении расхода')
     } finally {
@@ -71,24 +82,30 @@ export const ExpensesProvider = ({ children }) => {
   }
 
   const loadExpensesFromPeriod = async (date) => {
+    setCalendarLoading(true)
     setCalendarError('')
+
+    abortControllerRef.current?.abort()
+
+    const controller = new AbortController()
+    abortControllerRef.current = controller
+
     const newRange = calculateRange(date)
 
     setRange(newRange)
 
-    const payload = {
-      start: newRange.start,
-      end: newRange.end ?? newRange.start,
-    }
-
     try {
-      const rangedExpenses = await getExpensesFromPeriod(token, payload)
-      setCalendarExpenses(rangedExpenses)
+      const rangedExpenses = await getExpensesFromPeriod(token, newRange)
+      setCalendarExpenses(
+        [...rangedExpenses].sort((a, b) => new Date(a.date) - new Date(b.date))
+      )
     } catch (err) {
       setCalendarError(
         err.message ||
           'Возникла ошибка при загрузке расходов за выбранный период'
       )
+    } finally {
+      setCalendarLoading(false)
     }
   }
 
@@ -107,6 +124,7 @@ export const ExpensesProvider = ({ children }) => {
         loadExpensesFromPeriod,
         calendarExpenses,
         calendarError,
+        calendarLoading,
       }}
     >
       {children}
