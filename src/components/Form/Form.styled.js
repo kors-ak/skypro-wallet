@@ -34,3 +34,7 @@ export const SCategories = styled.div`
 export const SDate = styled.div``
 
 export const SSum = styled.div``
+
+export const SRed = styled.span`
+  color: red;
+`;
