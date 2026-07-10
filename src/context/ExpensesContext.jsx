@@ -1,5 +1,5 @@
-import { createContext, useContext, useState } from "react";
-import { useAuth } from "./AuthContext";
+import { createContext, useContext, useRef, useState } from 'react'
+import { useAuth } from './AuthContext'
 import {
 	getExpenses,
 	getExpensesFromPeriod,
@@ -9,32 +9,41 @@ import {
 const ExpensesContext = createContext(null);
 
 export const ExpensesProvider = ({ children }) => {
-	const [expenses, setExpenses] = useState([]);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState("");
-	const [formError, setFormError] = useState("");
-	const [calendarError, setCalendarError] = useState("");
-	const [range, setRange] = useState({
-		start: null,
-		end: null,
-	});
-	const [calendarExpenses, setCalendarExpenses] = useState([]);
-	const { token } = useAuth();
+  const [expenses, setExpenses] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [formError, setFormError] = useState('')
+  const [calendarError, setCalendarError] = useState('')
+  const [calendarLoading, setCalendarLoading] = useState(false)
+  const [range, setRange] = useState({
+    start: null,
+    end: null,
+  })
+  const [calendarExpenses, setCalendarExpenses] = useState([])
+  const { token } = useAuth()
 
-	const clearExpenses = () => setExpenses([]);
+  const abortControllerRef = useRef(null)
 
-	const loadExpenses = async () => {
-		setLoading(true);
-		setError("");
-		try {
-			const newExpenses = await getExpenses(token);
-			setExpenses(newExpenses);
-		} catch (err) {
-			setError(err.message || "Возникла ошибка при загрузке расходов");
-		} finally {
-			setLoading(false);
-		}
-	};
+  const clearExpenses = () => {
+    setExpenses([])
+    setRange({ start: null, end: null })
+    setCalendarExpenses([])
+  }
+
+  const loadExpenses = async () => {
+    setLoading(true)
+    setError('')
+    try {
+      const newExpenses = await getExpenses(token)
+      setExpenses(
+        [...newExpenses].sort((a, b) => new Date(a.date) - new Date(b.date))
+      )
+    } catch (err) {
+      setError(err.message || 'Возникла ошибка при загрузке расходов')
+    } finally {
+      setLoading(false)
+    }
+  }
 
 	const addExpense = async (expense) => {
 		setLoading(true);
@@ -71,48 +80,55 @@ export const ExpensesProvider = ({ children }) => {
 		};
 	};
 
-	const loadExpensesFromPeriod = async (date) => {
-		setCalendarError("");
-		const newRange = calculateRange(date);
+  const loadExpensesFromPeriod = async (date) => {
+    setCalendarLoading(true)
+    setCalendarError('')
+
+    abortControllerRef.current?.abort()
+
+    const controller = new AbortController()
+    abortControllerRef.current = controller
+
+    const newRange = calculateRange(date)
 
 		setRange(newRange);
 
-		const payload = {
-			start: newRange.start,
-			end: newRange.end ?? newRange.start,
-		};
+    try {
+      const rangedExpenses = await getExpensesFromPeriod(token, newRange)
+      setCalendarExpenses(
+        [...rangedExpenses].sort((a, b) => new Date(a.date) - new Date(b.date))
+      )
+    } catch (err) {
+      setCalendarError(
+        err.message ||
+          'Возникла ошибка при загрузке расходов за выбранный период'
+      )
+    } finally {
+      setCalendarLoading(false)
+    }
+  }
 
-		try {
-			const rangedExpenses = await getExpensesFromPeriod(token, payload);
-			setCalendarExpenses(rangedExpenses);
-		} catch (err) {
-			setCalendarError(
-				err.message ||
-					"Возникла ошибка при загрузке расходов за выбранный период",
-			);
-		}
-	};
-
-	return (
-		<ExpensesContext.Provider
-			value={{
-				expenses,
-				loading,
-				error,
-				formError,
-				loadExpenses,
-				clearExpenses,
-				addExpense,
-				range,
-				setRange,
-				loadExpensesFromPeriod,
-				calendarExpenses,
-				calendarError,
-			}}
-		>
-			{children}
-		</ExpensesContext.Provider>
-	);
-};
+  return (
+    <ExpensesContext.Provider
+      value={{
+        expenses,
+        loading,
+        error,
+        formError,
+        loadExpenses,
+        clearExpenses,
+        addExpense,
+        range,
+        setRange,
+        loadExpensesFromPeriod,
+        calendarExpenses,
+        calendarError,
+        calendarLoading,
+      }}
+    >
+      {children}
+    </ExpensesContext.Provider>
+  )
+}
 
 export const useExpenses = () => useContext(ExpensesContext);

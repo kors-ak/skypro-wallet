@@ -66,6 +66,9 @@ export function getMonthDays(year, month) {
 export function isSameDay(a, b) {
   if (!a || !b) return false
 
+  a = new Date(a)
+  b = new Date(b)
+
   return (
     a.getFullYear() === b.getFullYear() &&
     a.getMonth() === b.getMonth() &&
