@@ -123,13 +123,7 @@ export const Form = () => {
 						onChange={(e) => {
 							setExpenseName(e.target.value);
 
-							const newErrors = {
-								...formError,
-								description: e.target.value.trim() === "",
-							};
-
-							setFormError(newErrors);
-							checkErrors(newErrors);
+							updateError("description", e.target.value.trim().length < 4);
 						}}
 					/>
 				</SGroup>
@@ -144,13 +138,7 @@ export const Form = () => {
 								onSelect={(value) => {
 									setExpenseCategory(value);
 
-									const newErrors = {
-										...formError,
-										category: false,
-									};
-
-									setFormError(newErrors);
-									checkErrors(newErrors);
+									updateError("category", false);
 								}}
 							/>
 						))}
