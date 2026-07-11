@@ -1,12 +1,12 @@
-import { createContext, useContext, useRef, useState } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { useAuth } from './AuthContext'
 import {
-	getExpenses,
-	getExpensesFromPeriod,
-	postExpense,
-} from "../services/expensesApi";
+  getExpenses,
+  getExpensesFromPeriod,
+  postExpense,
+} from '../services/expensesApi'
 
-const ExpensesContext = createContext(null);
+const ExpensesContext = createContext(null)
 
 export const ExpensesProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([])
@@ -23,6 +23,15 @@ export const ExpensesProvider = ({ children }) => {
   const { token } = useAuth()
 
   const abortControllerRef = useRef(null)
+
+  useEffect(() => {
+    if (!token) {
+      clearExpenses()
+      return
+    }
+
+    loadExpenses()
+  }, [token])
 
   const clearExpenses = () => {
     setExpenses([])
@@ -45,40 +54,40 @@ export const ExpensesProvider = ({ children }) => {
     }
   }
 
-	const addExpense = async (expense) => {
-		setLoading(true);
+  const addExpense = async (expense) => {
+    setLoading(true)
 
-		try {
-			const newExpenses = await postExpense(token, expense);
-			setExpenses(newExpenses);
-			return newExpenses;
-		} catch (err) {
-			setFormError(err.message || "Возникла ошибка при добавлении расхода");
-		} finally {
-			setLoading(false);
-		}
-	};
+    try {
+      const newExpenses = await postExpense(token, expense)
+      setExpenses(newExpenses)
+      return newExpenses
+    } catch (err) {
+      setFormError(err.message || 'Возникла ошибка при добавлении расхода')
+    } finally {
+      setLoading(false)
+    }
+  }
 
-	const calculateRange = (date) => {
-		if (!range.start || range.end) {
-			return {
-				start: date,
-				end: null,
-			};
-		}
+  const calculateRange = (date) => {
+    if (!range.start || range.end) {
+      return {
+        start: date,
+        end: null,
+      }
+    }
 
-		if (date < range.start) {
-			return {
-				start: date,
-				end: range.start,
-			};
-		}
+    if (date < range.start) {
+      return {
+        start: date,
+        end: range.start,
+      }
+    }
 
-		return {
-			start: range.start,
-			end: date,
-		};
-	};
+    return {
+      start: range.start,
+      end: date,
+    }
+  }
 
   const loadExpensesFromPeriod = async (date) => {
     setCalendarLoading(true)
@@ -91,7 +100,7 @@ export const ExpensesProvider = ({ children }) => {
 
     const newRange = calculateRange(date)
 
-		setRange(newRange);
+    setRange(newRange)
 
     try {
       const rangedExpenses = await getExpensesFromPeriod(token, newRange)
@@ -131,4 +140,4 @@ export const ExpensesProvider = ({ children }) => {
   )
 }
 
-export const useExpenses = () => useContext(ExpensesContext);
+export const useExpenses = () => useContext(ExpensesContext)

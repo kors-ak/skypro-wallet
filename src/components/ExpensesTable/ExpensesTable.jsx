@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useExpenses } from '../../context/ExpensesContext'
 import Expense from '../Expense/Expense'
 import {
@@ -16,11 +15,7 @@ import SimpleBar from 'simplebar-react'
 import 'simplebar-react/dist/simplebar.min.css'
 
 export const ExpensesTable = () => {
-  const { expenses, loadExpenses, loading, error } = useExpenses()
-
-  useEffect(() => {
-    loadExpenses()
-  }, [])
+  const { expenses, loading, error } = useExpenses()
 
   return (
     <STable>

@@ -22,15 +22,11 @@ import { useExpenses } from '../../context/ExpensesContext'
 import { useEffect, useRef } from 'react'
 
 const Calendar = () => {
-  const { expenses, loadExpenses, range, loadExpensesFromPeriod } =
+  const { expenses, range, loadExpensesFromPeriod } =
     useExpenses()
 
   const simpleBarRef = useRef(null)
   const hasScrolled = useRef(false)
-
-  useEffect(() => {
-    loadExpenses()
-  }, [])
 
   useEffect(() => {
   if (
