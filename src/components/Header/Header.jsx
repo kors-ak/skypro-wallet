@@ -1,6 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { useExpenses } from "../../context/ExpensesContext";
 import {
 	SContent,
 	SExitButton,
@@ -12,7 +11,6 @@ import {
 
 export const Header = () => {
 	const { logout, token } = useAuth();
-	const { clearExpenses } = useExpenses();
 
 	return (
 		<SHeader>
@@ -33,7 +31,6 @@ export const Header = () => {
 						<SExitButton
 							onClick={() => {
 								logout();
-								clearExpenses();
 							}}
 						>
 							Выйти

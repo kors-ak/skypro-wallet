@@ -8,7 +8,7 @@ export const getRequestConfig = (token) => ({
 })
 
 export const handleApiError = (error, defaultMessage) => {
-  if (error.name !== 'CanceledError') {
+  if (error.name === 'CanceledError') {
     return
   }
   
