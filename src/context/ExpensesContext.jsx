@@ -36,7 +36,7 @@ export const ExpensesProvider = ({ children }) => {
     try {
       const newExpenses = await getExpenses(token)
       setExpenses(
-        [...newExpenses].sort((a, b) => new Date(a.date) - new Date(b.date))
+        [...newExpenses].sort((a, b) => new Date(b.date) - new Date(a.date))
       )
     } catch (err) {
       setError(err.message || 'Возникла ошибка при загрузке расходов')
