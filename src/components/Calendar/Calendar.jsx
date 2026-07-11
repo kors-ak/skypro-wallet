@@ -19,15 +19,33 @@ import {
   WEEK_DAYS,
 } from './utils'
 import { useExpenses } from '../../context/ExpensesContext'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 const Calendar = () => {
   const { expenses, loadExpenses, range, loadExpensesFromPeriod } =
     useExpenses()
 
+  const simpleBarRef = useRef(null)
+  const hasScrolled = useRef(false)
+
   useEffect(() => {
     loadExpenses()
   }, [])
+
+  useEffect(() => {
+  if (
+    hasScrolled.current ||
+    !simpleBarRef.current ||
+    months.length === 0
+  ) {
+    return
+  }
+
+  const scrollElement = simpleBarRef.current.getScrollElement()
+  scrollElement.scrollTop = scrollElement.scrollHeight
+
+  hasScrolled.current = true
+}, [])
 
   const months = getMonths(expenses)
 
@@ -39,7 +57,11 @@ const Calendar = () => {
           <SWeekday key={day}>{day}</SWeekday>
         ))}
       </SWeekdays>
-      <SimpleBar autoHide={false} style={{ height: '427px', width: '100%' }}>
+      <SimpleBar
+        ref={simpleBarRef}
+        autoHide={false}
+        style={{ height: '427px', width: '100%' }}
+      >
         <SContent>
           {months.map((month) => (
             <SMonth key={month.title}>
