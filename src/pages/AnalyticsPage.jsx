@@ -1,4 +1,4 @@
-import Analytics from '../components/Analytics/Analytics'
+import Analytics from '../components/layout/Analytics/Analytics'
 
 const AnalyticsPage = () => <Analytics />
 

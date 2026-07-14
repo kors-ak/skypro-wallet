@@ -1,4 +1,4 @@
-import Auth from '../components/Auth/Auth'
+import Auth from '../components/features/Auth/Auth'
 
 const SignUpPage = () => <Auth isSignUp />
 

@@ -1,0 +1,86 @@
+import { useEffect, useRef } from 'react'
+import SimpleBar from 'simplebar-react'
+import 'simplebar-react/dist/simplebar.min.css'
+import { useCalendar } from '../../../context/CalendarContext'
+import { useExpenses } from '../../../context/ExpensesContext'
+import {
+  SCalendar,
+  SContent,
+  SDay,
+  SDays,
+  SMonth,
+  SMonthTitle,
+  STitle,
+  SWeekday,
+  SWeekdays,
+} from './Calendar.styled'
+import {
+  getMonthDays,
+  getMonths,
+  isBetween,
+  isSameDay,
+  WEEK_DAYS,
+} from './utils'
+
+const Calendar = () => {
+  const { expenses } = useExpenses()
+  const { range, loadExpensesFromPeriod } = useCalendar()
+
+  const simpleBarRef = useRef(null)
+  const hasScrolled = useRef(false)
+
+  useEffect(() => {
+    if (hasScrolled.current || !simpleBarRef.current || months.length === 0) {
+      return
+    }
+
+    const scrollElement = simpleBarRef.current.getScrollElement()
+    scrollElement.scrollTop = scrollElement.scrollHeight
+
+    hasScrolled.current = true
+  }, [])
+
+  const months = getMonths(expenses)
+
+  return (
+    <SCalendar>
+      <STitle>Период</STitle>
+      <SWeekdays>
+        {WEEK_DAYS.map((day) => (
+          <SWeekday key={day}>{day}</SWeekday>
+        ))}
+      </SWeekdays>
+      <SimpleBar
+        ref={simpleBarRef}
+        autoHide={false}
+        style={{ height: '427px', width: '100%' }}
+      >
+        <SContent>
+          {months.map((month) => (
+            <SMonth key={month.title}>
+              <SMonthTitle>{month.title}</SMonthTitle>
+
+              <SDays>
+                {getMonthDays(month.year, month.month).map((day, index) => (
+                  <SDay
+                    key={index}
+                    onClick={() => day && loadExpensesFromPeriod(day)}
+                    $selected={
+                      isSameDay(day, range.start) ||
+                      isSameDay(day, range.end) ||
+                      isBetween(day, range.start, range.end)
+                    }
+                  >
+                    {day && day.getDate()}
+                  </SDay>
+                ))}
+              </SDays>
+            </SMonth>
+          ))}
+        </SContent>
+      </SimpleBar>
+    </SCalendar>
+  )
+}
+
+export default Calendar
