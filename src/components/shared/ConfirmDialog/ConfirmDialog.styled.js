@@ -44,10 +44,12 @@ export const SButton = styled.button`
   border-radius: 6px;
   font-size: 12px;
   font-weight: 600;
-  background-color: ${({ $danger }) => ($danger ? '#f25050' : '#f4f5f6')};
-  color: ${({ $danger }) => ($danger ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)')};
+  background-color: ${({ $primary }) => ($primary ? '#7334ea' : '#f4f5f6')};
+  color: ${({ $primary }) =>
+    $primary ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'};
 
   &:hover {
-    background-color: ${({ $danger }) => ($danger ? '#d94343' : '#e4e5e6')};
+    background-color: ${({ $primary }) =>
+      $primary ? 'rgb(132, 65, 255)' : '#e4e5e6'};
   }
 `

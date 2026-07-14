@@ -19,7 +19,7 @@ const ConfirmDialog = ({ title, message, onConfirm, onCancel, disabled }) => {
           <SButton onClick={onCancel} disabled={disabled}>
             Отмена
           </SButton>
-          <SButton $danger onClick={onConfirm} disabled={disabled}>
+          <SButton $primary onClick={onConfirm} disabled={disabled}>
             Удалить
           </SButton>
         </SActions>
