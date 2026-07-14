@@ -18,41 +18,32 @@ import {
   isSameDay,
   WEEK_DAYS,
 } from './utils'
-import { data } from '../../data'
-import { useState } from 'react'
+import { useExpenses } from '../../context/ExpensesContext'
+import { useEffect, useRef } from 'react'
 
 const Calendar = () => {
-  const months = getMonths(data)
+  const { expenses, range, loadExpensesFromPeriod } =
+    useExpenses()
 
-  const [range, setRange] = useState({
-    start: null,
-    end: null,
-  })
+  const simpleBarRef = useRef(null)
+  const hasScrolled = useRef(false)
 
-  const handleSelect = (date) => {
-    if (!range.start || (range.start && range.end)) {
-      setRange({
-        start: date,
-        end: null,
-      })
-
-      return
-    }
-
-    if (date < range.start) {
-      setRange({
-        start: date,
-        end: range.start,
-      })
-
-      return
-    }
-
-    setRange({
-      start: range.start,
-      end: date,
-    })
+  useEffect(() => {
+  if (
+    hasScrolled.current ||
+    !simpleBarRef.current ||
+    months.length === 0
+  ) {
+    return
   }
+
+  const scrollElement = simpleBarRef.current.getScrollElement()
+  scrollElement.scrollTop = scrollElement.scrollHeight
+
+  hasScrolled.current = true
+}, [])
+
+  const months = getMonths(expenses)
 
   return (
     <SCalendar>
@@ -62,7 +53,11 @@ const Calendar = () => {
           <SWeekday key={day}>{day}</SWeekday>
         ))}
       </SWeekdays>
-      <SimpleBar autoHide={false} style={{ height: '427px', width: '100%' }}>
+      <SimpleBar
+        ref={simpleBarRef}
+        autoHide={false}
+        style={{ height: '427px', width: '100%' }}
+      >
         <SContent>
           {months.map((month) => (
             <SMonth key={month.title}>
@@ -72,7 +67,7 @@ const Calendar = () => {
                 {getMonthDays(month.year, month.month).map((day, index) => (
                   <SDay
                     key={index}
-                    onClick={() => day && handleSelect(day)}
+                    onClick={() => day && loadExpensesFromPeriod(day)}
                     $selected={
                       isSameDay(day, range.start) ||
                       isSameDay(day, range.end) ||

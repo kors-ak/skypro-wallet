@@ -1,4 +1,9 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const spin = keyframes`
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%)rotate(360deg); }
+`
 
 export const STable = styled.section`
   background-color: #fff;
@@ -33,4 +38,30 @@ export const SExpenses = styled.div`
   padding-right: 34px;
   margin-top: 18px;
   max-height: 479px;
+`
+export const SLoader = styled.div`
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 0 0 30px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+
+  div {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #000;
+    border-radius: 50%;
+    animation: ${spin} 1.1s linear infinite;
+  }
+`
+export const SMessage = styled.p`
+  margin: 24px 40px;
+  font-weight: 600;
+  font-size: 16px;
 `

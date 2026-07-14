@@ -1,62 +1,82 @@
 import {
-	Bar,
-	BarChart,
-	Cell,
-	LabelList,
-	ResponsiveContainer,
-	XAxis,
-	YAxis,
-} from "recharts";
+  Bar,
+  BarChart,
+  Cell,
+  LabelList,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from 'recharts'
 import {
-	SContent,
-	SDate,
-	SDescription,
-	SExpensesChart,
-	STitle,
-} from "./ExpensesChart.styled";
-import { categories, data } from "../../data";
-import { getChartData } from "../СhartData/СhartData";
+  SCalendarLoader,
+  SContent,
+  SDate,
+  SDescription,
+  SExpensesChart,
+  STitle,
+} from './ExpensesChart.styled'
+import { categories } from '../../data'
+import { getChartData, getDateText } from '../СhartData/СhartData'
+import { useExpenses } from '../../context/ExpensesContext'
 
 const ExpensesChart = () => {
-	const chartData = getChartData(data, categories);
-	return (
-		<SExpensesChart>
-			<SContent>
-				<STitle>9 581 ₽</STitle>
-				<SDescription>
-					Расходы за <SDate>10 июля 2024</SDate>
-				</SDescription>
-				<ResponsiveContainer width="100%" height={386}>
-					<BarChart data={chartData}>
-						<XAxis
-							axisLine={false}
-							tickLine={false}
-							dataKey="category"
-							tick={{
-								fill: "#000000",
-								fontSize: 12,
-								fontWeight: 400,
-							}}
-						/>
-						<YAxis hide />
-						<Bar dataKey="chartAmount" radius={12} barSize={94} minPointSize={4}>
-							{chartData.map((item) => (
-								<Cell key={item.category} fill={item.color} />
-							))}
-							<LabelList
-								dataKey="displayAmount"
-								position="top"
-								formatter={(value) => `${value.toLocaleString("ru-RU")} ₽`}
-								fill="#000000"
-								fontSize={16}
-								fontWeight={600}
-							/>
-						</Bar>
-					</BarChart>
-				</ResponsiveContainer>
-			</SContent>
-		</SExpensesChart>
-	);
-};
+  const { expenses, calendarExpenses, range, calendarLoading } = useExpenses()
+  const currentExpenses = range.start ? calendarExpenses : expenses
+  const sum = currentExpenses.reduce((total, expense) => total + expense.sum, 0)
+  const dateText = getDateText(currentExpenses, expenses, range)
+  const chartData = getChartData(currentExpenses, categories)
 
-export default ExpensesChart;
+  return (
+    <SExpensesChart>
+      <SContent>
+        <STitle>{sum.toLocaleString('ru-RU')} ₽</STitle>
+        <SDescription>
+          Расходы за <SDate>{dateText}</SDate>
+        </SDescription>
+        <ResponsiveContainer width="100%" height={386}>
+          <BarChart
+            data={chartData}
+            margin={{ top: 18, right: 0, left: 0, bottom: 0 }}
+          >
+            <XAxis
+              axisLine={false}
+              tickLine={false}
+              dataKey="category"
+              tick={{
+                fill: '#000000',
+                fontSize: 12,
+                fontWeight: 400,
+              }}
+            />
+            <YAxis domain={[0, 'dataMax + 1000']} hide />
+            <Bar
+              dataKey="chartAmount"
+              radius={12}
+              barSize={94}
+              minPointSize={4}
+            >
+              {chartData.map((item) => (
+                <Cell key={item.category} fill={item.color} />
+              ))}
+              <LabelList
+                dataKey="displayAmount"
+                position="top"
+                formatter={(value) => `${value.toLocaleString('ru-RU')} ₽`}
+                fill="#000000"
+                fontSize={16}
+                fontWeight={600}
+              />
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </SContent>
+      {calendarLoading && (
+        <SCalendarLoader>
+          <div />
+        </SCalendarLoader>
+      )}
+    </SExpensesChart>
+  )
+}
+
+export default ExpensesChart

@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import {
 	SContent,
 	SExitButton,
@@ -9,6 +10,8 @@ import {
 } from "./Header.styled";
 
 export const Header = () => {
+	const { logout, token } = useAuth();
+
 	return (
 		<SHeader>
 			<SContent>
@@ -17,15 +20,23 @@ export const Header = () => {
 						<img src="logo2.svg" />
 					</Link>
 				</SLogo>
-				<SGroup>
-					<SPagesLinks>
-						<Link to="/">Мои расходы</Link>
-						<Link to="/analytics">Анализ расходов</Link>
-					</SPagesLinks>
-					<SExitButton>
-						<Link to="/sign-in">Выйти</Link>
-					</SExitButton>
-				</SGroup>
+				{token && (
+					<SGroup>
+						<SPagesLinks>
+							<NavLink to="/" end>
+								Мои расходы
+							</NavLink>
+							<NavLink to="/analytics">Анализ расходов</NavLink>
+						</SPagesLinks>
+						<SExitButton
+							onClick={() => {
+								logout();
+							}}
+						>
+							Выйти
+						</SExitButton>
+					</SGroup>
+				)}
 			</SContent>
 		</SHeader>
 	);

@@ -1,8 +1,10 @@
-import { data } from '../../data'
+import { useExpenses } from '../../context/ExpensesContext'
 import Expense from '../Expense/Expense'
 import {
   SContent,
   SExpenses,
+  SLoader,
+  SMessage,
   STable,
   SText,
   STitle,
@@ -13,6 +15,8 @@ import SimpleBar from 'simplebar-react'
 import 'simplebar-react/dist/simplebar.min.css'
 
 export const ExpensesTable = () => {
+  const { expenses, loading, error } = useExpenses()
+
   return (
     <STable>
       <STitle>Таблица расходов</STitle>
@@ -25,12 +29,23 @@ export const ExpensesTable = () => {
             <SText>Сумма</SText>
           </STitles>
         </STitlesContainer>
-        <SimpleBar autoHide={false} style={{ height: '504px', width: '100%' }}>
-          <SExpenses>
-            {data.map((el) => (
-              <Expense item={el} key={el._id} />
-            ))}
-          </SExpenses>
+        <SimpleBar autoHide={false} style={{ height: '504px', width: '100%' }} className={loading ? 'no-scroll' : ''}>
+          {loading && (
+            <SLoader>
+              <div />
+            </SLoader>
+          )}
+          {error && !loading ? (
+            <SMessage>{error}</SMessage>
+          ) : expenses.length === 0 && !loading ? (
+            <SMessage>Список расходов пока пуст</SMessage>
+          ) : (
+            <SExpenses>
+              {expenses.map((el) => (
+                <Expense item={el} key={el._id} />
+              ))}
+            </SExpenses>
+          )}
         </SimpleBar>
       </SContent>
     </STable>
