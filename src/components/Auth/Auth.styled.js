@@ -6,6 +6,10 @@ export const SWrapper = styled.section`
 	overflow-x: hidden;
 	overflow-y: auto;
 	background-color: #f4f5f6;
+
+	@media screen and (max-width: 425px) {
+		background-color: #fff;
+	}
 `;
 
 export const SContainer = styled.div`
@@ -35,6 +39,11 @@ export const SAuth = styled.div`
 	padding: 32px 34px;
 	border-radius: 30px;
 	box-shadow: 0px 20px 67px -12px #00000021;
+
+	@media screen and (max-width: 425px) {
+		box-shadow: none;
+		padding: 0 16px;
+	}
 `;
 
 export const STitle = styled.h1`
@@ -45,7 +54,7 @@ export const STitle = styled.h1`
 
 export const SForm = styled.form`
 	padding-top: 24px;
-  padding-bottom: 24px;
+	padding-bottom: 24px;
 	width: 100%;
 	display: flex;
 	gap: 12px;
