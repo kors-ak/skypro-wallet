@@ -9,15 +9,7 @@ import {
   STitle,
 } from './ConfirmDialog.styled'
 
-const ConfirmDialog = ({
-  title,
-  message,
-  confirmLabel = 'Удалить',
-  cancelLabel = 'Отмена',
-  onConfirm,
-  onCancel,
-  disabled,
-}) => {
+const ConfirmDialog = ({ title, message, onConfirm, onCancel, disabled }) => {
   return createPortal(
     <SOverlay onClick={onCancel}>
       <SDialog onClick={(event) => event.stopPropagation()}>
@@ -25,10 +17,10 @@ const ConfirmDialog = ({
         {message && <SMessage>{message}</SMessage>}
         <SActions>
           <SButton onClick={onCancel} disabled={disabled}>
-            {cancelLabel}
+            Отмена
           </SButton>
           <SButton $danger onClick={onConfirm} disabled={disabled}>
-            {confirmLabel}
+            Удалить
           </SButton>
         </SActions>
       </SDialog>

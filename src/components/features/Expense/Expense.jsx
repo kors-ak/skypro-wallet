@@ -27,11 +27,7 @@ const Expense = ({ item }) => {
         <SText>{formatSum(sum)}</SText>
       </SContent>
 
-      <SButton
-        onClick={() => setIsConfirmOpen(true)}
-        disabled={loading}
-        aria-label="Удалить расход"
-      >
+      <SButton onClick={() => setIsConfirmOpen(true)} disabled={loading}>
         <svg
           width="12"
           height="12"
