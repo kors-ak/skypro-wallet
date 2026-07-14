@@ -22,6 +22,12 @@ export const SButton = styled.button`
   &:hover {
     color: #555555;
   }
+
+  &&:disabled {
+    background: transparent;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 `
 export const SText = styled.p`
   font-weight: 400;
