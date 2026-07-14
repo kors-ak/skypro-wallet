@@ -52,4 +52,9 @@ export const SButton = styled.button`
     background-color: ${({ $primary }) =>
       $primary ? 'rgb(132, 65, 255)' : '#e4e5e6'};
   }
+
+  &&:disabled {
+    background-color: ${({ $primary }) => ($primary ? '#7334ea' : '#f4f5f6')};
+    opacity: 0.5;
+  }
 `
