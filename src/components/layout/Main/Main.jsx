@@ -8,7 +8,7 @@ const Main = () => {
     <>
       <Header />
       <SMain>
-        <SHeading>Мои расходы</SHeading>
+        <SHeading>Мои расходы husky</SHeading>
 
         <SContent>
           <ExpensesTable />
