@@ -20,28 +20,25 @@ import {
 } from './utils'
 import { useExpenses } from '../../context/ExpensesContext'
 import { useEffect, useRef } from 'react'
+import { useCalendar } from '../../context/CalendarContext'
 
 const Calendar = () => {
-  const { expenses, range, loadExpensesFromPeriod } =
-    useExpenses()
+  const { expenses } = useExpenses()
+  const { range, loadExpensesFromPeriod } = useCalendar()
 
   const simpleBarRef = useRef(null)
   const hasScrolled = useRef(false)
 
   useEffect(() => {
-  if (
-    hasScrolled.current ||
-    !simpleBarRef.current ||
-    months.length === 0
-  ) {
-    return
-  }
+    if (hasScrolled.current || !simpleBarRef.current || months.length === 0) {
+      return
+    }
 
-  const scrollElement = simpleBarRef.current.getScrollElement()
-  scrollElement.scrollTop = scrollElement.scrollHeight
+    const scrollElement = simpleBarRef.current.getScrollElement()
+    scrollElement.scrollTop = scrollElement.scrollHeight
 
-  hasScrolled.current = true
-}, [])
+    hasScrolled.current = true
+  }, [])
 
   const months = getMonths(expenses)
 

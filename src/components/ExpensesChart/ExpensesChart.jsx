@@ -18,9 +18,11 @@ import {
 import { categories } from '../../data'
 import { getChartData, getDateText } from '../СhartData/СhartData'
 import { useExpenses } from '../../context/ExpensesContext'
+import { useCalendar } from '../../context/CalendarContext'
 
 const ExpensesChart = () => {
-  const { expenses, calendarExpenses, range, calendarLoading } = useExpenses()
+  const { expenses } = useExpenses()
+  const { range, calendarExpenses, calendarLoading } = useCalendar()
   const currentExpenses = range.start ? calendarExpenses : expenses
   const sum = currentExpenses.reduce((total, expense) => total + expense.sum, 0)
   const dateText = getDateText(currentExpenses, expenses, range)
