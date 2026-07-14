@@ -28,6 +28,18 @@ export const postExpense = async (token, expense) => {
   }
 }
 
+export const deleteExpense = async (token, id) => {
+  try {
+    const response = await axios.delete(
+      `${BASE_URL}/transactions/${id}`,
+      getRequestConfig(token)
+    )
+    return response.data.transactions
+  } catch (error) {
+    handleApiError(error, 'Не удалось удалить расход')
+  }
+}
+
 export const getExpensesFromPeriod = async (token, range, signal) => {
   try {
     const payload = {

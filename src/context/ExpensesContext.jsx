@@ -1,6 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
-import { getExpenses, postExpense } from '../services/expensesApi'
+import {
+  deleteExpense,
+  getExpenses,
+  postExpense,
+} from '../services/expensesApi'
 import { useAuth } from './AuthContext'
 
 const ExpensesContext = createContext(null)
@@ -51,6 +55,21 @@ export const ExpensesProvider = ({ children }) => {
     }
   }
 
+  const removeExpense = async (id) => {
+    setLoading(true)
+
+    try {
+      const newExpenses = await deleteExpense(token, id)
+      setExpenses(
+        [...newExpenses].sort((a, b) => new Date(b.date) - new Date(a.date))
+      )
+    } catch (err) {
+      alert(err.message || 'Возникла ошибка при удалении расхода')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <ExpensesContext.Provider
       value={{
@@ -58,6 +77,7 @@ export const ExpensesProvider = ({ children }) => {
         loading,
         error,
         addExpense,
+        removeExpense,
       }}
     >
       {children}
