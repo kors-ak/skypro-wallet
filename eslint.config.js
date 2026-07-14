@@ -1,7 +1,8 @@
 import js from '@eslint/js'
+import { defineConfig } from 'eslint/config'
 import importPlugin from 'eslint-plugin-import'
 import reactPlugin from 'eslint-plugin-react'
-import { defineConfig } from 'eslint/config'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import globals from 'globals'
 
 export default defineConfig([
@@ -26,6 +27,7 @@ export default defineConfig([
   {
     plugins: {
       import: importPlugin,
+      'simple-import-sort': simpleImportSort,
     },
     settings: {
       react: {
@@ -41,6 +43,8 @@ export default defineConfig([
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 0,
       'react-refresh/only-export-components': 'off',
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
     },
   },
 ])

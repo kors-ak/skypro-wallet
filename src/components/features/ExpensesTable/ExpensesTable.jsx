@@ -1,5 +1,7 @@
-import SimpleBar from 'simplebar-react'
 import 'simplebar-react/dist/simplebar.min.css'
+
+import SimpleBar from 'simplebar-react'
+
 import { useExpenses } from '../../../context/ExpensesContext'
 import Expense from '../Expense/Expense'
 import {

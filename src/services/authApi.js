@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 import { BASE_URL, getRequestConfig, handleApiError } from './api'
 
 export const registerUser = async (name, login, password) => {

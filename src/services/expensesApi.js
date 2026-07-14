@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { BASE_URL, getRequestConfig, handleApiError } from './api'
+
 import { formatApiDate } from '../utils/formatters'
+import { BASE_URL, getRequestConfig, handleApiError } from './api'
 
 export const getExpenses = async (token) => {
   try {

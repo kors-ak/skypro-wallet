@@ -1,7 +1,7 @@
-import { SContent, SHeading, SMain } from './Main.styled'
 import { ExpensesTable } from '../../features/ExpensesTable/ExpensesTable'
-import { Header } from '../Header/Header'
 import Form from '../../features/Form/Form'
+import { Header } from '../Header/Header'
+import { SContent, SHeading, SMain } from './Main.styled'
 
 const Main = () => {
   return (

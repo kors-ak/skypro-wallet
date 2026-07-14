@@ -7,6 +7,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+
 import categories from '../../../categories'
 import { useCalendar } from '../../../context/CalendarContext'
 import { useExpenses } from '../../../context/ExpensesContext'

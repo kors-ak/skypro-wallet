@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { useAuth } from './AuthContext'
+
 import { getExpenses, postExpense } from '../services/expensesApi'
+import { useAuth } from './AuthContext'
 
 const ExpensesContext = createContext(null)
 

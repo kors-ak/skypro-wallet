@@ -1,6 +1,8 @@
+import 'simplebar-react/dist/simplebar.min.css'
+
 import { useEffect, useRef } from 'react'
 import SimpleBar from 'simplebar-react'
-import 'simplebar-react/dist/simplebar.min.css'
+
 import { useCalendar } from '../../../context/CalendarContext'
 import { useExpenses } from '../../../context/ExpensesContext'
 import {

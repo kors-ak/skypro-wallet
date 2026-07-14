@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import { SLoader } from '../ExpensesTable/ExpensesTable.styled'
 
 export const SExpensesChart = styled.section`
