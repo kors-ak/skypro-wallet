@@ -1,9 +1,21 @@
+import { useState } from 'react'
+
 import categories from '../../../categories'
+import { useExpenses } from '../../../context/ExpensesContext'
 import { formatDate, formatSum } from '../../../utils'
+import ConfirmDialog from '../../shared/ConfirmDialog/ConfirmDialog'
 import { SButton, SContent, SExpense, SText } from './Expense.styled'
 
 const Expense = ({ item }) => {
   const { _id, description, category, date, sum } = item
+  const { removeExpense, loading } = useExpenses()
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false)
+
+  const handleConfirm = async () => {
+    setIsConfirmOpen(false)
+    await removeExpense(_id)
+  }
+
   return (
     <SExpense id={_id}>
       <SContent>
@@ -15,7 +27,11 @@ const Expense = ({ item }) => {
         <SText>{formatSum(sum)}</SText>
       </SContent>
 
-      <SButton>
+      <SButton
+        onClick={() => setIsConfirmOpen(true)}
+        disabled={loading}
+        aria-label="Удалить расход"
+      >
         <svg
           width="12"
           height="12"
@@ -33,6 +49,16 @@ const Expense = ({ item }) => {
           />
         </svg>
       </SButton>
+
+      {isConfirmOpen && (
+        <ConfirmDialog
+          title="Удалить расход?"
+          message={description || 'Это действие нельзя отменить.'}
+          disabled={loading}
+          onConfirm={handleConfirm}
+          onCancel={() => setIsConfirmOpen(false)}
+        />
+      )}
     </SExpense>
   )
 }
