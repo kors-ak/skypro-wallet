@@ -1,5 +1,5 @@
-import Auth from "../components/Auth/Auth"
+import Auth from '../components/features/Auth/Auth'
 
-const SignInPage = () => <Auth />
+const SignInPage = () => <Auth isSignUp={false} />
 
 export default SignInPage
