@@ -2,6 +2,10 @@ import styled from 'styled-components'
 
 export const SHeader = styled.header`
   background-color: #ffffff;
+
+  @media (max-width: 425px) {
+    background-color: #f4f5f6;
+  }
 `
 export const SContent = styled.div`
   padding-left: calc(50% - 600px);
@@ -11,6 +15,11 @@ export const SContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 1280px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 
   @media (max-width: 425px) {
     padding: 12px 16px;
@@ -22,6 +31,18 @@ export const SGroup = styled.div`
   display: flex;
   align-items: center;
   gap: 400px;
+
+  @media (max-width: 1280px) {
+    gap: 120px;
+  }
+
+  @media (max-width: 900px) {
+    gap: 48px;
+  }
+
+  @media (max-width: 550px) {
+    gap: 12px;
+  }
 
   @media (max-width: 425px) {
     gap: 20px;
@@ -45,6 +66,10 @@ export const SPagesLinks = styled.div`
     }
   }
 
+  @media (max-width: 550px) {
+    gap: 16px;
+  }
+
   @media (max-width: 425px) {
     display: none;
   }
@@ -56,6 +81,10 @@ export const SExitButton = styled.button`
   font-size: 14px;
   line-height: 170%;
   color: black;
+
+  @media (max-width: 425px) {
+    font-size: 12px;
+  }
 `
 
 export const SMobileNav = styled.div`
@@ -74,7 +103,7 @@ export const SMobileNavTrigger = styled.button`
   gap: 6px;
   padding-bottom: 2px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 170%;
   color: #7334ea;
   border-bottom: 2px solid #7334ea;
