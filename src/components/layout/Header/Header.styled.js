@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const SHeader = styled.header`
   background-color: #ffffff;
 
-  @media (max-width: 425px) {
+  @media (max-width: 550px) {
     background-color: #f4f5f6;
   }
 `
@@ -21,7 +21,7 @@ export const SContent = styled.div`
     padding-right: 16px;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 550px) {
     padding: 12px 16px;
   }
 `
@@ -41,10 +41,6 @@ export const SGroup = styled.div`
   }
 
   @media (max-width: 550px) {
-    gap: 12px;
-  }
-
-  @media (max-width: 425px) {
     gap: 20px;
   }
 `
@@ -67,10 +63,6 @@ export const SPagesLinks = styled.div`
   }
 
   @media (max-width: 550px) {
-    gap: 16px;
-  }
-
-  @media (max-width: 425px) {
     display: none;
   }
 `
@@ -82,7 +74,7 @@ export const SExitButton = styled.button`
   line-height: 170%;
   color: black;
 
-  @media (max-width: 425px) {
+  @media (max-width: 550px) {
     font-size: 12px;
   }
 `
@@ -91,7 +83,7 @@ export const SMobileNav = styled.div`
   position: relative;
   display: none;
 
-  @media (max-width: 425px) {
+  @media (max-width: 550px) {
     display: block;
   }
 `
