@@ -10,34 +10,67 @@ export const STable = styled.section`
   height: 618px;
   border-radius: 30px;
   box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
+
+  @media (max-width: 425px) {
+  width: 100%;
+  min-width: 100%;
+  border-radius: 0;
+  box-shadow: none;
+}
 `
 export const STitle = styled.h2`
   margin: 32px;
   font-weight: 700;
   font-size: 24px;
-`
+  padding-top: 32px;
+
+  @media screen and (max-width: 425px) {
+    display: none;
+  }
+`;
 export const SContent = styled.div``
 
 export const STitlesContainer = styled.div`
   border-bottom: 0.5px solid rgb(153, 153, 153);
   padding: 0 34px 6px 32px;
+
+  @media screen and (max-width: 425px) {
+    padding: 0 0 6px 0;
+  }
 `
 export const STitles = styled.div`
   width: 78%;
   display: grid;
   gap: 32px;
   grid-template-columns: repeat(4, 1fr);
+
+  @media screen and (max-width: 425px) {
+    gap: 36px;
+    width: 100%;
+  }
 `
 export const SText = styled.p`
   font-weight: 400;
   font-size: 12px;
   color: rgb(153, 153, 153);
+
+
+@media screen and (max-width: 425px) {
+  font-size: 10px;
+}
 `
 export const SExpenses = styled.div`
   padding-left: 32px;
   padding-right: 34px;
   margin-top: 18px;
   max-height: 479px;
+
+  @media screen and (max-width: 425px) {
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 14px;
+    max-height: 100%;
+  }
 `
 export const SLoader = styled.div`
   position: absolute;

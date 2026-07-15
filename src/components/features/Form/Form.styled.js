@@ -5,10 +5,49 @@ export const SForm = styled.section`
   min-height: 618px;
   border-radius: 30px;
   box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
+  margin-top: 80px;
+
+  @media (max-width: 425px) {
+  width: 100%;
+  min-width: 100%;
+  border-radius: 0;
+  box-shadow: none;
+  margin-top: 0;
+}
 `
 export const SContent = styled.div`
   padding: 32px;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 425px) {
+    padding: 24px 16px;
+    width: 100%;
+  }
 `
+
+export const SWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+export const SBack = styled.button`
+  display: none;
+
+  @media screen and (max-width: 425px) {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+
+    span {
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 150%;
+      color: #999999;
+    }
+  }
+`;
+
 export const STitle = styled.h2`
   font-weight: 700;
   font-size: 24px;

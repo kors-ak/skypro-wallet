@@ -79,6 +79,12 @@ const GlobalStyles = createGlobalStyle`
     width: 6px;
     border-radius: 3px;
   }
+
+  @media (max-width: 425px) {
+  .simplebar-track {
+    display: none !important;
+  }
+}
 `
 
 export default GlobalStyles

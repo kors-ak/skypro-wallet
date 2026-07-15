@@ -11,6 +11,11 @@ export const SContent = styled.div`
   display: grid;
   gap: 32px;
   grid-template-columns: repeat(4, 1fr);
+
+  @media screen and (max-width: 425px) {
+    gap: 34px;
+    width: 100%;
+  }
 `
 export const SButton = styled.button`
   background: transparent;
@@ -28,8 +33,16 @@ export const SButton = styled.button`
     cursor: not-allowed;
     opacity: 0.5;
   }
+
+  @media screen and (max-width: 425px) {
+    display: none;
+  }
 `
 export const SText = styled.p`
   font-weight: 400;
   font-size: 12px;
+
+  @media screen and (max-width: 425px) {
+    font-size: 10px;
+  }
 `
