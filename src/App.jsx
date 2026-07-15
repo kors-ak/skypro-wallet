@@ -1,3 +1,5 @@
+import { Toaster } from 'sonner'
+
 import AppRoutes from './components/AppRoutes.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { CalendarProvider } from './context/CalendarContext.jsx'
@@ -10,6 +12,7 @@ function App() {
       <ExpensesProvider>
         <CalendarProvider>
           <GlobalStyles />
+          <Toaster />
           <AppRoutes />
         </CalendarProvider>
       </ExpensesProvider>
