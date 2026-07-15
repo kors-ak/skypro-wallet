@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 import categories from '../../../categories'
 import { useExpenses } from '../../../context/ExpensesContext'
@@ -13,7 +14,11 @@ const Expense = ({ item }) => {
 
   const handleConfirm = async () => {
     setIsConfirmOpen(false)
-    await removeExpense(_id)
+    await toast.promise(removeExpense(_id), {
+      loading: 'Удаление расхода...',
+      success: 'Расход успешно удален',
+      error: (err) => err.message,
+    })
   }
 
   return (

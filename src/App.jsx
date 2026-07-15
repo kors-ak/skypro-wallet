@@ -12,7 +12,7 @@ function App() {
       <ExpensesProvider>
         <CalendarProvider>
           <GlobalStyles />
-          <Toaster />
+          <Toaster position="top-left" richColors duration={3000} />
           <AppRoutes />
         </CalendarProvider>
       </ExpensesProvider>
