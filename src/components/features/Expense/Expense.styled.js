@@ -4,7 +4,17 @@ export const SExpense = styled.article`
   width: inherit;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 14px;
+  padding: 8px 34px 8px 32px;
+
+  @media screen and (max-width: 880px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  @media screen and (max-width: 550px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 `
 export const SContent = styled.div`
   width: 78%;
@@ -14,12 +24,11 @@ export const SContent = styled.div`
 
   @media screen and (max-width: 1070px) {
     width: 100%;
-    justify-items: center;
+    grid-template-columns: repeat(3, 2fr) 1fr;
   }
 
   @media screen and (max-width: 550px) {
-    gap: 34px;
-    width: 100%;
+    gap: 16px;
   }
 `
 export const SButton = styled.button`
@@ -47,7 +56,14 @@ export const SText = styled.p`
   font-weight: 400;
   font-size: 12px;
 
+  @media screen and (max-width: 1070px) {
+    &:nth-child(n + 3) {
+      text-align: right;
+    }
+  }
+
   @media screen and (max-width: 550px) {
     font-size: 10px;
+    max-width: 74px;
   }
 `
