@@ -62,6 +62,10 @@ export const SPagesLinks = styled.div`
     }
   }
 
+  @media (max-width: 600px) {
+    gap: 12px;
+  }
+
   @media (max-width: 550px) {
     display: none;
   }
