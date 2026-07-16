@@ -1,6 +1,6 @@
 import 'simplebar-react/dist/simplebar.min.css'
 
-import { useEffect, useRef } from 'react'
+import { memo, useEffect, useMemo, useRef } from 'react'
 import SimpleBar from 'simplebar-react'
 
 import { useCalendar } from '../../../context/CalendarContext'
@@ -24,12 +24,31 @@ import {
   WEEK_DAYS,
 } from './utils'
 
+const CalendarDay = memo(function CalendarDay({ day, selected, onSelect }) {
+  return (
+    <SDay onClick={() => day && onSelect(day)} $selected={selected}>
+      {day && day.getDate()}
+    </SDay>
+  )
+})
+
 const Calendar = () => {
   const { expenses } = useExpenses()
   const { range, loadExpensesFromPeriod } = useCalendar()
 
   const simpleBarRef = useRef(null)
   const hasScrolled = useRef(false)
+
+  const months = useMemo(() => getMonths(expenses), [expenses])
+
+  const monthsWithDays = useMemo(
+    () =>
+      months.map((month) => ({
+        ...month,
+        days: getMonthDays(month.year, month.month),
+      })),
+    [months]
+  )
 
   useEffect(() => {
     if (hasScrolled.current || !simpleBarRef.current || months.length === 0) {
@@ -41,8 +60,6 @@ const Calendar = () => {
 
     hasScrolled.current = true
   }, [])
-
-  const months = getMonths(expenses)
 
   return (
     <SCalendar>
@@ -58,23 +75,22 @@ const Calendar = () => {
         style={{ height: '427px', width: '100%' }}
       >
         <SContent>
-          {months.map((month) => (
+          {monthsWithDays.map((month) => (
             <SMonth key={month.title}>
               <SMonthTitle>{month.title}</SMonthTitle>
 
               <SDays>
-                {getMonthDays(month.year, month.month).map((day, index) => (
-                  <SDay
+                {month.days.map((day, index) => (
+                  <CalendarDay
                     key={index}
-                    onClick={() => day && loadExpensesFromPeriod(day)}
-                    $selected={
+                    day={day}
+                    selected={
                       isSameDay(day, range.start) ||
                       isSameDay(day, range.end) ||
                       isBetween(day, range.start, range.end)
                     }
-                  >
-                    {day && day.getDate()}
-                  </SDay>
+                    onSelect={loadExpensesFromPeriod}
+                  />
                 ))}
               </SDays>
             </SMonth>

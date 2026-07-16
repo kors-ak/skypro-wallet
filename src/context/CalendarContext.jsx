@@ -1,10 +1,30 @@
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { toast } from 'sonner'
 
 import { getExpensesFromPeriod } from '../services/expensesApi'
 import { useAuth } from './AuthContext'
 
 const CalendarContext = createContext(null)
+
+function calculateRange(prevRange, date) {
+  if (!prevRange.start || prevRange.end) {
+    return { start: date, end: null }
+  }
+
+  if (date < prevRange.start) {
+    return { start: date, end: prevRange.start }
+  }
+
+  return { start: prevRange.start, end: date }
+}
 
 export const CalendarProvider = ({ children }) => {
   const [calendarLoading, setCalendarLoading] = useState(false)
@@ -15,73 +35,66 @@ export const CalendarProvider = ({ children }) => {
   const [calendarExpenses, setCalendarExpenses] = useState([])
   const { token } = useAuth()
 
+  const rangeRef = useRef(range)
+  const abortControllerRef = useRef(null)
+
+  useEffect(() => {
+    rangeRef.current = range
+  }, [range])
+
   useEffect(() => {
     if (!token) {
+      rangeRef.current = { start: null, end: null }
       setRange({ start: null, end: null })
       setCalendarExpenses([])
     }
   }, [token])
 
-  const abortControllerRef = useRef(null)
+  const loadExpensesFromPeriod = useCallback(
+    async (date) => {
+      setCalendarLoading(true)
 
-  const calculateRange = (date) => {
-    if (!range.start || range.end) {
-      return {
-        start: date,
-        end: null,
+      abortControllerRef.current?.abort()
+
+      const controller = new AbortController()
+      abortControllerRef.current = controller
+
+      const newRange = calculateRange(rangeRef.current, date)
+      rangeRef.current = newRange
+      setRange(newRange)
+
+      try {
+        const rangedExpenses = await getExpensesFromPeriod(token, newRange)
+        setCalendarExpenses(
+          [...rangedExpenses].sort(
+            (a, b) => new Date(a.date) - new Date(b.date)
+          )
+        )
+      } catch (err) {
+        toast.error(
+          err.message ||
+            'Возникла ошибка при загрузке расходов за выбранный период'
+        )
+      } finally {
+        setCalendarLoading(false)
+        abortControllerRef.current = null
       }
-    }
+    },
+    [token]
+  )
 
-    if (date < range.start) {
-      return {
-        start: date,
-        end: range.start,
-      }
-    }
-
-    return {
-      start: range.start,
-      end: date,
-    }
-  }
-
-  const loadExpensesFromPeriod = async (date) => {
-    setCalendarLoading(true)
-
-    abortControllerRef.current?.abort()
-
-    const controller = new AbortController()
-    abortControllerRef.current = controller
-
-    const newRange = calculateRange(date)
-
-    setRange(newRange)
-
-    try {
-      const rangedExpenses = await getExpensesFromPeriod(token, newRange)
-      setCalendarExpenses(
-        [...rangedExpenses].sort((a, b) => new Date(a.date) - new Date(b.date))
-      )
-    } catch (err) {
-      toast.error(
-        err.message ||
-          'Возникла ошибка при загрузке расходов за выбранный период'
-      )
-    } finally {
-      setCalendarLoading(false)
-      abortControllerRef.current = null
-    }
-  }
+  const value = useMemo(
+    () => ({
+      range,
+      loadExpensesFromPeriod,
+      calendarExpenses,
+      calendarLoading,
+    }),
+    [range, loadExpensesFromPeriod, calendarExpenses, calendarLoading]
+  )
 
   return (
-    <CalendarContext.Provider
-      value={{
-        range,
-        loadExpensesFromPeriod,
-        calendarExpenses,
-        calendarLoading,
-      }}
-    >
+    <CalendarContext.Provider value={value}>
       {children}
     </CalendarContext.Provider>
   )
