@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 import {
   deleteExpense,
@@ -22,7 +23,14 @@ export const ExpensesProvider = ({ children }) => {
     }
 
     loadExpenses()
-  }, [token])
+    error &&
+      toast.error(error, {
+        action: {
+          label: 'Повторить',
+          onClick: loadExpenses,
+        },
+      })
+  }, [token, error])
 
   const loadExpenses = async () => {
     setLoading(true)
@@ -34,14 +42,13 @@ export const ExpensesProvider = ({ children }) => {
       )
     } catch (err) {
       setError(err.message || 'Возникла ошибка при загрузке расходов')
+      throw new Error(err.message || 'Возникла ошибка при загрузке расходов')
     } finally {
       setLoading(false)
     }
   }
 
   const addExpense = async (expense) => {
-    setLoading(true)
-
     try {
       const newExpenses = await postExpense(token, expense)
       setExpenses(
@@ -49,24 +56,18 @@ export const ExpensesProvider = ({ children }) => {
       )
       return newExpenses
     } catch (err) {
-      alert(err.message || 'Возникла ошибка при добавлении расхода')
-    } finally {
-      setLoading(false)
+      throw new Error(err.message || 'Возникла ошибка при добавлении расхода')
     }
   }
 
   const removeExpense = async (id) => {
-    setLoading(true)
-
     try {
       const newExpenses = await deleteExpense(token, id)
       setExpenses(
         [...newExpenses].sort((a, b) => new Date(b.date) - new Date(a.date))
       )
     } catch (err) {
-      alert(err.message || 'Возникла ошибка при удалении расхода')
-    } finally {
-      setLoading(false)
+      throw new Error(err.message || 'Возникла ошибка при удалении расхода')
     }
   }
 

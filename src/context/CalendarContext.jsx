@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { toast } from 'sonner'
 
 import { getExpensesFromPeriod } from '../services/expensesApi'
 import { useAuth } from './AuthContext'
@@ -62,7 +63,7 @@ export const CalendarProvider = ({ children }) => {
         [...rangedExpenses].sort((a, b) => new Date(a.date) - new Date(b.date))
       )
     } catch (err) {
-      alert(
+      toast.error(
         err.message ||
           'Возникла ошибка при загрузке расходов за выбранный период'
       )

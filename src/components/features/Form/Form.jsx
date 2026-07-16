@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 import categories from '../../../categories'
 import { useExpenses } from '../../../context/ExpensesContext'
@@ -77,12 +78,19 @@ export const Form = ({ hideForm }) => {
       return
     }
 
-    const success = await addExpense({
-      description: expenseName,
-      category: expenseCategory,
-      date: expenseDate,
-      sum: Number(expenseSum),
-    })
+    const success = await toast.promise(
+      addExpense({
+        description: expenseName,
+        category: expenseCategory,
+        date: expenseDate,
+        sum: Number(expenseSum),
+      }),
+      {
+        loading: 'Добавление расхода...',
+        success: 'Расход успешно добавлен',
+        error: (err) => err.message,
+      }
+    )
 
     if (!success) return
 
@@ -99,12 +107,14 @@ export const Form = ({ hideForm }) => {
     })
     setIsButtonDisabled(false)
   }
+
   const checkErrors = (errors) => {
     const hasErrors = Object.values(errors).some(Boolean)
     setIsButtonDisabled(hasErrors)
   }
+
   return (
-    <SForm>
+    <SForm id="new-expense">
       <SContent>
         <SWrapper>
           <SBack onClick={hideForm}>
@@ -146,6 +156,7 @@ export const Form = ({ hideForm }) => {
             }}
           />
         </SGroup>
+
         <SGroup>
           <h3>Категория {formError.category && <SRed>*</SRed>}</h3>
           <SCategories>
@@ -163,6 +174,7 @@ export const Form = ({ hideForm }) => {
             ))}
           </SCategories>
         </SGroup>
+
         <SGroup>
           <h3>Дата {formError.date && <SRed>*</SRed>}</h3>
           <SInput
@@ -176,6 +188,7 @@ export const Form = ({ hideForm }) => {
             onChange={handleDateChange}
           />
         </SGroup>
+
         <SGroup>
           <h3>Сумма {formError.sum && <SRed>*</SRed>}</h3>
           <SInput

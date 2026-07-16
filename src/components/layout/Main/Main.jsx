@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+
 import { ExpensesTable } from '../../features/ExpensesTable/ExpensesTable'
 import Form from '../../features/Form/Form'
 import {
@@ -14,9 +17,21 @@ import {
 
 const Main = () => {
   const [showForm, setShowForm] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!location.state?.focusForm) return
+
+    document
+      .getElementById('new-expense')
+      ?.scrollIntoView({ behavior: 'smooth' })
+    navigate(location.pathname, { replace: true, state: {} })
+  }, [location.state])
+
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <SMain>
         <SViewport>
           <SSlider $showForm={showForm}>
