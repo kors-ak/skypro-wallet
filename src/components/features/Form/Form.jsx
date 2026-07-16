@@ -102,7 +102,7 @@ export const Form = () => {
     setIsButtonDisabled(hasErrors)
   }
   return (
-    <SForm>
+    <SForm id="new-expense">
       <SContent>
         <STitle>Новый расход</STitle>
         <SGroup>
