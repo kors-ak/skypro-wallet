@@ -51,6 +51,10 @@ const GlobalStyles = createGlobalStyle`
     color: rgb(0, 0, 0);
     background-color: rgb(244, 245, 246);
     scroll-behavior: smooth;
+
+    @media screen and (max-width: 425px) {
+		background-color: #fff;
+	}
   }
 
   .simplebar-content {
