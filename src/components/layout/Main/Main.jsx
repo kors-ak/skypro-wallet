@@ -1,11 +1,10 @@
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { ExpensesTable } from '../../features/ExpensesTable/ExpensesTable'
 import Form from '../../features/Form/Form'
+import Header from '../Header/Header'
 import {
-  SContent,
   SHeading,
   SMain,
   SNew,
@@ -57,7 +56,7 @@ const Main = () => {
               <ExpensesTable />
             </SPage>
             <SPage>
-                <Form hideForm={() => setShowForm(false)} />
+              <Form hideForm={() => setShowForm(false)} />
             </SPage>
           </SSlider>
         </SViewport>

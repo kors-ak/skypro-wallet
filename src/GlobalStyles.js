@@ -52,7 +52,7 @@ const GlobalStyles = createGlobalStyle`
     background-color: rgb(244, 245, 246);
     scroll-behavior: smooth;
 
-    @media screen and (max-width: 425px) {
+    @media screen and (max-width: 880px) {
 		background-color: #fff;
 	}
   }
@@ -84,7 +84,7 @@ const GlobalStyles = createGlobalStyle`
     border-radius: 3px;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 880px) {
   .simplebar-track {
     display: none !important;
   }

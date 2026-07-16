@@ -12,7 +12,12 @@ export const SContent = styled.div`
   gap: 32px;
   grid-template-columns: repeat(4, 1fr);
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 1070px) {
+    width: 100%;
+    justify-items: center;
+  }
+
+  @media screen and (max-width: 550px) {
     gap: 34px;
     width: 100%;
   }
@@ -34,7 +39,7 @@ export const SButton = styled.button`
     opacity: 0.5;
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 1070px) {
     display: none;
   }
 `
@@ -42,7 +47,7 @@ export const SText = styled.p`
   font-weight: 400;
   font-size: 12px;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 550px) {
     font-size: 10px;
   }
 `

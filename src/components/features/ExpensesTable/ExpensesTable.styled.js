@@ -11,12 +11,12 @@ export const STable = styled.section`
   border-radius: 30px;
   box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
 
-  @media (max-width: 425px) {
-  width: 100%;
-  min-width: 100%;
-  border-radius: 0;
-  box-shadow: none;
-}
+  @media (max-width: 880px) {
+    width: 100%;
+    min-width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+  }
 `
 export const STitle = styled.h2`
   margin: 32px;
@@ -24,18 +24,18 @@ export const STitle = styled.h2`
   font-size: 24px;
   padding-top: 32px;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 880px) {
     display: none;
   }
-`;
+`
 export const SContent = styled.div``
 
 export const STitlesContainer = styled.div`
   border-bottom: 0.5px solid rgb(153, 153, 153);
   padding: 0 34px 6px 32px;
 
-  @media screen and (max-width: 425px) {
-    padding: 0 0 6px 0;
+  @media screen and (max-width: 1070px) {
+    padding: 0 0 6px 16px;
   }
 `
 export const STitles = styled.div`
@@ -44,7 +44,12 @@ export const STitles = styled.div`
   gap: 32px;
   grid-template-columns: repeat(4, 1fr);
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 1070px) {
+    width: 100%;
+    justify-items: center;
+  }
+
+  @media screen and (max-width: 880px) {
     gap: 36px;
     width: 100%;
   }
@@ -54,10 +59,9 @@ export const SText = styled.p`
   font-size: 12px;
   color: rgb(153, 153, 153);
 
-
-@media screen and (max-width: 425px) {
-  font-size: 10px;
-}
+  @media screen and (max-width: 880px) {
+    font-size: 10px;
+  }
 `
 export const SExpenses = styled.div`
   padding-left: 32px;
@@ -65,8 +69,13 @@ export const SExpenses = styled.div`
   margin-top: 18px;
   max-height: 479px;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 1070px) {
     padding-left: 0;
+    padding-right: 0;
+  }
+
+  @media screen and (max-width: 880px) {
+    padding-left: 16px;
     padding-right: 0;
     margin-top: 14px;
     max-height: 100%;
