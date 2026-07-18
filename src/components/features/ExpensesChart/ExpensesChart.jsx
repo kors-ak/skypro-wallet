@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import {
   Bar,
   BarChart,
@@ -25,9 +26,19 @@ const ExpensesChart = () => {
   const { expenses } = useExpenses()
   const { range, calendarExpenses, calendarLoading } = useCalendar()
   const currentExpenses = range.start ? calendarExpenses : expenses
-  const sum = currentExpenses.reduce((total, expense) => total + expense.sum, 0)
-  const dateText = getDateText(currentExpenses, expenses, range)
-  const chartData = getChartData(currentExpenses, categories)
+
+  const sum = useMemo(
+    () => currentExpenses.reduce((total, expense) => total + expense.sum, 0),
+    [currentExpenses]
+  )
+  const dateText = useMemo(
+    () => getDateText(currentExpenses, expenses, range),
+    [currentExpenses, expenses, range]
+  )
+  const chartData = useMemo(
+    () => getChartData(currentExpenses, categories),
+    [currentExpenses]
+  )
 
   return (
     <SExpensesChart>
