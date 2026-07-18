@@ -16,7 +16,7 @@ import {
   STitlesContainer,
 } from './ExpensesTable.styled'
 
-export const ExpensesTable = () => {
+export const ExpensesTable = ({ onSelectExpense }) => {
   const { expenses, loading, error } = useExpenses()
 
   return (
@@ -48,7 +48,11 @@ export const ExpensesTable = () => {
           ) : (
             <SExpenses>
               {expenses.map((el) => (
-                <Expense item={el} key={el._id} />
+                <Expense
+                  item={el}
+                  key={el._id}
+                  onClick={() => onSelectExpense(el)}
+                />
               ))}
             </SExpenses>
           )}

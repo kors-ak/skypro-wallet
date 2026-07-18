@@ -25,6 +25,7 @@ export const SButton = styled.button`
   color: rgb(255, 255, 255);
   background-color: ${({ disabled }) => (disabled ? '#999999' : '#7334EA')};
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
   border-radius: 6px;
   font-size: 12px;
   font-weight: 600;
