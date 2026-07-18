@@ -35,7 +35,16 @@ export const STitlesContainer = styled.div`
   padding: 0 34px 6px 32px;
 
   @media screen and (max-width: 1070px) {
-    padding: 0 0 6px 16px;
+    padding: 0 34px 0 32px;
+  }
+
+  @media screen and (max-width: 880px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  @media screen and (max-width: 550px) {
+    padding: 0;
   }
 `
 export const STitles = styled.div`
@@ -46,12 +55,16 @@ export const STitles = styled.div`
 
   @media screen and (max-width: 1070px) {
     width: 100%;
-    justify-items: center;
+    grid-template-columns: repeat(3, 2fr) 1fr;
   }
 
   @media screen and (max-width: 880px) {
-    gap: 36px;
+    gap: 32px;
     width: 100%;
+  }
+
+  @media screen and (max-width: 550px) {
+    gap: 16px;
   }
 `
 export const SText = styled.p`
@@ -59,25 +72,28 @@ export const SText = styled.p`
   font-size: 12px;
   color: rgb(153, 153, 153);
 
-  @media screen and (max-width: 880px) {
+  @media screen and (max-width: 1070px) {
+    width: 100%;
+
+    &:nth-child(n + 3) {
+      text-align: right;
+    }
+  }
+
+  @media screen and (max-width: 550px) {
     font-size: 10px;
+    max-width: 74px;
   }
 `
 export const SExpenses = styled.div`
-  padding-left: 32px;
-  padding-right: 34px;
-  margin-top: 18px;
+  margin-top: 10px;
   max-height: 479px;
 
   @media screen and (max-width: 1070px) {
-    padding-left: 0;
-    padding-right: 0;
+    margin-top: 6px;
   }
 
   @media screen and (max-width: 880px) {
-    padding-left: 16px;
-    padding-right: 0;
-    margin-top: 14px;
     max-height: 100%;
   }
 `
