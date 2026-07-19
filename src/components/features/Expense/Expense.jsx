@@ -9,7 +9,8 @@ import { SButton, SContent, SExpense, SText } from './Expense.styled'
 
 const Expense = ({ item }) => {
   const { _id, description, category, date, sum } = item
-  const { removeExpense, loading } = useExpenses()
+  const { removeExpense, loading, selectedExpense, setSelectedExpense } =
+    useExpenses()
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
 
   const handleConfirm = async () => {
@@ -22,7 +23,11 @@ const Expense = ({ item }) => {
   }
 
   return (
-    <SExpense id={_id}>
+    <SExpense
+      id={_id}
+      $selected={_id === selectedExpense}
+      onClick={() => setSelectedExpense(_id)}
+    >
       <SContent>
         <SText>{description || 'Без описания'}</SText>
         <SText>

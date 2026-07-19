@@ -6,6 +6,13 @@ export const SExpense = styled.article`
   justify-content: space-between;
   padding: 8px 34px 8px 32px;
 
+  @media screen and (max-width: 1070px) {
+    ${({ $selected }) =>
+      $selected &&
+      `background-color: rgb(241, 235, 253);
+      color: rgb(115, 52, 234)`}
+  }
+
   @media screen and (max-width: 880px) {
     padding-left: 16px;
     padding-right: 16px;

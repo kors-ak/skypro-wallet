@@ -12,6 +12,7 @@ const ExpensesContext = createContext(null)
 
 export const ExpensesProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([])
+  const [selectedExpense, setSelectedExpense] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const { token } = useAuth()
@@ -77,8 +78,10 @@ export const ExpensesProvider = ({ children }) => {
         expenses,
         loading,
         error,
+        selectedExpense,
         addExpense,
         removeExpense,
+        setSelectedExpense,
       }}
     >
       {children}
