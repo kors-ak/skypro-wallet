@@ -13,7 +13,6 @@ export const STable = styled.section`
 
   @media (max-width: 880px) {
     width: 100%;
-    min-width: 100%;
     border-radius: 0;
     box-shadow: none;
   }
@@ -50,10 +49,6 @@ export const STitlesContainer = styled.div`
     padding-left: 16px;
     padding-right: 16px;
   }
-
-  @media screen and (max-width: 550px) {
-    padding: 0;
-  }
 `
 export const STitles = styled.div`
   width: 78%;
@@ -69,10 +64,13 @@ export const STitles = styled.div`
   @media screen and (max-width: 880px) {
     gap: 32px;
     width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   @media screen and (max-width: 550px) {
     gap: 16px;
+    padding: 0;
   }
 `
 export const SText = styled.p`
@@ -103,6 +101,8 @@ export const SExpenses = styled.div`
 
   @media screen and (max-width: 880px) {
     max-height: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 `
 export const SLoader = styled.div`

@@ -13,8 +13,8 @@ export const SMain = styled.main`
 
   @media screen and (max-width: 880px) {
     margin-top: 22px;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 0;
+    padding-right: 0;
   }
 `
 
@@ -70,6 +70,8 @@ export const SWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 `
 
