@@ -6,6 +6,7 @@ import {
   getExpenses,
   postExpense,
 } from '../services/expensesApi'
+import { sortExpenses } from '../utils/sortExpenses'
 import { useAuth } from './AuthContext'
 
 const ExpensesContext = createContext(null)
@@ -15,6 +16,7 @@ export const ExpensesProvider = ({ children }) => {
   const [selectedExpense, setSelectedExpense] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [recentlyAddedId, setRecentlyAddedId] = useState(null)
   const { token } = useAuth()
 
   useEffect(() => {
@@ -51,10 +53,18 @@ export const ExpensesProvider = ({ children }) => {
 
   const addExpense = async (expense) => {
     try {
+      const oldExpenses = expenses
       const newExpenses = await postExpense(token, expense)
-      setExpenses(
-        [...newExpenses].sort((a, b) => new Date(b.date) - new Date(a.date))
+      const addedExpense = newExpenses.find(
+        (item) => !oldExpenses.some((oldItem) => oldItem._id === item._id)
       )
+
+      setRecentlyAddedId(addedExpense?._id)
+      setTimeout(() => {
+        setRecentlyAddedId(null)
+      }, 600)
+
+      setExpenses(sortExpenses(newExpenses))
       return newExpenses
     } catch (err) {
       throw new Error(err.message || 'Возникла ошибка при добавлении расхода')
@@ -64,9 +74,7 @@ export const ExpensesProvider = ({ children }) => {
   const removeExpense = async (id) => {
     try {
       const newExpenses = await deleteExpense(token, id)
-      setExpenses(
-        [...newExpenses].sort((a, b) => new Date(b.date) - new Date(a.date))
-      )
+      setExpenses(sortExpenses(newExpenses))
     } catch (err) {
       throw new Error(err.message || 'Возникла ошибка при удалении расхода')
     }
@@ -79,6 +87,8 @@ export const ExpensesProvider = ({ children }) => {
         loading,
         error,
         selectedExpense,
+        recentlyAddedId,
+        setRecentlyAddedId,
         addExpense,
         removeExpense,
         setSelectedExpense,

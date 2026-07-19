@@ -7,7 +7,7 @@ import { formatDate, formatSum } from '../../../utils'
 import ConfirmDialog from '../../shared/ConfirmDialog/ConfirmDialog'
 import { SButton, SContent, SExpense, SText } from './Expense.styled'
 
-const Expense = ({ item }) => {
+const Expense = ({ item, isNew }) => {
   const { _id, description, category, date, sum } = item
   const { removeExpense, loading, selectedExpense, setSelectedExpense } =
     useExpenses()
@@ -26,6 +26,7 @@ const Expense = ({ item }) => {
     <SExpense
       id={_id}
       $selected={_id === selectedExpense?._id}
+      $isNew={isNew}
       onClick={() =>
         setSelectedExpense(_id === selectedExpense?._id ? null : item)
       }

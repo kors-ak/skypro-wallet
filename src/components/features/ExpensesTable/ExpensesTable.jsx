@@ -30,6 +30,7 @@ export const ExpensesTable = () => {
     loading,
     error,
     selectedExpense,
+    recentlyAddedId,
     setSelectedExpense,
     removeExpense,
   } = useExpenses()
@@ -74,7 +75,11 @@ export const ExpensesTable = () => {
             ) : (
               <SExpenses>
                 {expenses.map((el) => (
-                  <Expense item={el} key={el._id} />
+                  <Expense
+                    item={el}
+                    key={el._id}
+                    isNew={el._id === recentlyAddedId}
+                  />
                 ))}
               </SExpenses>
             )}

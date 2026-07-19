@@ -1,4 +1,24 @@
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+    background-color: rgb(241, 235, 253);
+    color: rgb(115, 52, 234);
+  }
+
+  20% {
+    opacity: 0.5;
+    background-color: rgb(241, 235, 253);
+    color: rgb(115, 52, 234);
+  }
+
+  100% {
+    opacity: 1;
+    background-color: transparent;
+    color: #000;
+  }
+`
 
 export const SExpense = styled.article`
   width: inherit;
@@ -6,11 +26,23 @@ export const SExpense = styled.article`
   justify-content: space-between;
   padding: 8px 34px 8px 32px;
 
+  ${({ $isNew }) =>
+    $isNew &&
+    css`
+      animation: ${fadeIn} 0.6s ease;
+
+      * {
+        animation: inherit;
+      }
+    `}
+
   @media screen and (max-width: 1070px) {
     ${({ $selected }) =>
       $selected &&
-      `background-color: rgb(241, 235, 253);
-      color: rgb(115, 52, 234)`}
+      css`
+        background-color: rgb(241, 235, 253);
+        color: rgb(115, 52, 234);
+      `}
   }
 
   @media screen and (max-width: 880px) {
