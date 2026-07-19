@@ -1,12 +1,18 @@
 import 'simplebar-react/dist/simplebar.min.css'
 
+import { useState } from 'react'
 import SimpleBar from 'simplebar-react'
+import { toast } from 'sonner'
 
 import { useExpenses } from '../../../context/ExpensesContext'
+import Button from '../../shared/Button/Button'
+import ConfirmDialog from '../../shared/ConfirmDialog/ConfirmDialog'
 import Expense from '../Expense/Expense'
 import {
+  SBtnContainer,
   SContent,
   SExpenses,
+  SHeading,
   SLoader,
   SMessage,
   STable,
@@ -17,11 +23,37 @@ import {
 } from './ExpensesTable.styled'
 
 export const ExpensesTable = () => {
-  const { expenses, loading, error } = useExpenses()
+  const {
+    expenses,
+    loading,
+    error,
+    selectedExpense,
+    setSelectedExpense,
+    removeExpense,
+  } = useExpenses()
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false)
+
+  const handleConfirm = async () => {
+    setIsConfirmOpen(false)
+    await toast.promise(removeExpense(selectedExpense._id), {
+      loading: 'Удаление расхода...',
+      success: 'Расход успешно удален',
+      error: (err) => err.message,
+    })
+  }
 
   return (
     <STable>
-      <STitle>Таблица расходов</STitle>
+      <SHeading>
+        <STitle>Таблица расходов</STitle>
+        {selectedExpense && (
+          <SBtnContainer>
+            <Button $padding={7} onClick={() => setIsConfirmOpen(true)}>
+              Удалить расход
+            </Button>
+          </SBtnContainer>
+        )}
+      </SHeading>
       <SContent>
         <STitlesContainer>
           <STitles>
@@ -54,6 +86,21 @@ export const ExpensesTable = () => {
           )}
         </SimpleBar>
       </SContent>
+
+      {isConfirmOpen && (
+        <ConfirmDialog
+          title="Удалить расход?"
+          message={
+            selectedExpense?.description || 'Это действие нельзя отменить.'
+          }
+          disabled={loading}
+          onConfirm={() => {
+            handleConfirm()
+            setSelectedExpense(null)
+          }}
+          onCancel={() => setIsConfirmOpen(false)}
+        />
+      )}
     </STable>
   )
 }

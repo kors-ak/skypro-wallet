@@ -204,7 +204,7 @@ export const Form = ({ hideForm }) => {
             onChange={handleSumChange}
           />
         </SGroup>
-        <Button $onClick={handleSubmit} disabled={isButtonDisabled}>
+        <Button onClick={handleSubmit} disabled={isButtonDisabled}>
           Добавить новый расход
         </Button>
       </SContent>

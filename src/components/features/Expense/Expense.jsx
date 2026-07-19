@@ -25,8 +25,10 @@ const Expense = ({ item }) => {
   return (
     <SExpense
       id={_id}
-      $selected={_id === selectedExpense}
-      onClick={() => setSelectedExpense(_id)}
+      $selected={_id === selectedExpense?._id}
+      onClick={() =>
+        setSelectedExpense(_id === selectedExpense?._id ? null : item)
+      }
     >
       <SContent>
         <SText>{description || 'Без описания'}</SText>

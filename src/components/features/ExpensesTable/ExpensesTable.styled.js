@@ -18,15 +18,23 @@ export const STable = styled.section`
     box-shadow: none;
   }
 `
-export const STitle = styled.h2`
+export const SHeading = styled.div`
   margin: 32px;
-  font-weight: 700;
-  font-size: 24px;
   padding-top: 32px;
+
+  @media screen and (max-width: 1070px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   @media screen and (max-width: 880px) {
     display: none;
   }
+`
+export const STitle = styled.h2`
+  font-weight: 700;
+  font-size: 24px;
 `
 export const SContent = styled.div``
 
@@ -122,4 +130,11 @@ export const SMessage = styled.p`
   margin: 24px 40px;
   font-weight: 600;
   font-size: 16px;
+`
+export const SBtnContainer = styled.div`
+  display: none;
+
+  @media screen and (max-width: 1070px) {
+    display: block;
+  }
 `
