@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { toast } from 'sonner'
 
-import { useExpenses } from '../../../context/ExpensesContext'
 import { ExpensesTable } from '../../features/ExpensesTable/ExpensesTable'
 import Form from '../../features/Form/Form'
-import Button from '../../shared/Button/Button'
 import Header from '../Header/Header'
 import {
   SHeading,
@@ -21,8 +18,6 @@ const Main = () => {
   const [showForm, setShowForm] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
-  const { selectedExpense, removeExpense, setSelectedExpense } = useExpenses()
-  const [submitHandler, setSubmitHandler] = useState(null)
 
   useEffect(() => {
     if (!location.state?.focusForm) return
@@ -42,12 +37,7 @@ const Main = () => {
             <SPage>
               <SWrapper>
                 <SHeading>Мои расходы</SHeading>
-                <SNew
-                  onClick={() => {
-                    setSelectedExpense(null)
-                    setShowForm(true)
-                  }}
-                >
+                <SNew onClick={() => setShowForm(true)}>
                   <svg
                     width="12"
                     height="12"
@@ -63,45 +53,11 @@ const Main = () => {
                   <span>Новый расход</span>
                 </SNew>
               </SWrapper>
-              <ExpensesTable
-                onSelectExpense={(expense) => {
-                  setSelectedExpense(expense)
-                }}
-              />
+              <ExpensesTable />
             </SPage>
             <SPage>
-              <Form
-                hideForm={() => setShowForm(false)}
-                registerSubmit={setSubmitHandler}
-              />
+              <Form hideForm={() => setShowForm(false)} />
             </SPage>
-            <Button
-              fixed={true}
-              visible={showForm || selectedExpense}
-              $onClick={async () => {
-                if (showForm) {
-                  const ok = await submitHandler?.()
-
-                  if (ok) {
-                    setShowForm(false)
-                  }
-
-                  return
-                }
-
-                if (selectedExpense) {
-                  await toast.promise(removeExpense(selectedExpense._id), {
-                    loading: 'Удаление расхода...',
-                    success: 'Расход удалён',
-                    error: (err) => err.message,
-                  })
-
-                  setSelectedExpense(null)
-                }
-              }}
-            >
-              {showForm ? 'Добавить новый расход' : 'Удалить расход'}
-            </Button>
           </SSlider>
         </SViewport>
       </SMain>

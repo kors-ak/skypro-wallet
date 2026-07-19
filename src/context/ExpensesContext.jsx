@@ -71,8 +71,6 @@ export const ExpensesProvider = ({ children }) => {
     }
   }
 
-  const [selectedExpense, setSelectedExpense] = useState(null)
-
   return (
     <ExpensesContext.Provider
       value={{
@@ -81,8 +79,6 @@ export const ExpensesProvider = ({ children }) => {
         error,
         addExpense,
         removeExpense,
-        selectedExpense,
-        setSelectedExpense,
       }}
     >
       {children}

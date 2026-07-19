@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'sonner'
 
 import categories from '../../../categories'
@@ -17,8 +17,8 @@ import {
   SWrapper,
 } from './Form.styled'
 
-export const Form = ({ hideForm, registerSubmit }) => {
-  const { addExpense, setSelectedExpense } = useExpenses()
+export const Form = ({ hideForm }) => {
+  const { addExpense } = useExpenses()
   const [expenseName, setExpenseName] = useState('')
   const [expenseCategory, setExpenseCategory] = useState('')
   const [expenseDate, setExpenseDate] = useState('')
@@ -70,7 +70,7 @@ export const Form = ({ hideForm, registerSubmit }) => {
     return !Object.values(newErrors).some(Boolean)
   }
 
-  const submitForm = async () => {
+  const handleSubmit = async () => {
     const isValid = validate()
 
     if (!isValid) {
@@ -106,12 +106,7 @@ export const Form = ({ hideForm, registerSubmit }) => {
       sum: false,
     })
     setIsButtonDisabled(false)
-    hideForm()
   }
-
-  useEffect(() => {
-    registerSubmit(() => submitForm)
-  }, [])
 
   const checkErrors = (errors) => {
     const hasErrors = Object.values(errors).some(Boolean)
@@ -122,12 +117,7 @@ export const Form = ({ hideForm, registerSubmit }) => {
     <SForm id="new-expense">
       <SContent>
         <SWrapper>
-          <SBack
-            onClick={() => {
-              hideForm()
-              setSelectedExpense(null)
-            }}
-          >
+          <SBack onClick={hideForm}>
             <svg
               width="12"
               height="12"
@@ -214,7 +204,7 @@ export const Form = ({ hideForm, registerSubmit }) => {
             onChange={handleSumChange}
           />
         </SGroup>
-        <Button $onClick={submitForm} disabled={isButtonDisabled}>
+        <Button $onClick={handleSubmit} disabled={isButtonDisabled}>
           Добавить новый расход
         </Button>
       </SContent>

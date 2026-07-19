@@ -1,13 +1,9 @@
 import { SButton, SButtonWrapper } from './Button.styled'
 
-const Button = ({ disabled, $onClick, children, fixed, visible }) => {
+const Button = ({ disabled, $onClick, children, fixed }) => {
   return (
     <SButtonWrapper fixed={fixed}>
-      <SButton
-        disabled={disabled}
-        onClick={disabled ? null : () => $onClick()}
-        visible={visible}
-      >
+      <SButton disabled={disabled} onClick={disabled ? null : () => $onClick()}>
         {children}
       </SButton>
     </SButtonWrapper>
