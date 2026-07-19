@@ -18,13 +18,13 @@ export const STable = styled.section`
     flex-direction: column;
     border-radius: 0;
     box-shadow: none;
-    height: ${({ buttonVisible }) =>
-      buttonVisible ? 'calc(100vh - 232px)' : 'calc(100vh - 144px)'};
+    height: ${({ $buttonVisible }) =>
+      $buttonVisible ? 'calc(100vh - 232px)' : 'calc(100vh - 144px)'};
   }
 
   @media (max-width: 550px) {
-    height: ${({ buttonVisible }) =>
-      buttonVisible ? 'calc(100vh - 205px)' : 'calc(100vh - 118px)'};
+    height: ${({ $buttonVisible }) =>
+      $buttonVisible ? 'calc(100vh - 205px)' : 'calc(100vh - 118px)'};
   }
 `
 export const SHeading = styled.div`

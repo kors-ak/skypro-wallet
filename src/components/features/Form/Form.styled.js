@@ -16,6 +16,10 @@ export const SForm = styled.section`
     margin-top: 0;
     height: calc(100vh - 159px);
   }
+
+  @media (max-width: 550px) {
+    height: calc(100vh - 135px);
+  }
 `
 export const SContent = styled.div`
   padding: 32px;

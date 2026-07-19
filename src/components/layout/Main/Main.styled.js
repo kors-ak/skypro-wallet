@@ -42,20 +42,20 @@ export const SSlider = styled.div`
 `
 
 export const SPage = styled.div`
-  min-width: 0;
+  @media screen and (max-width: 880px) {
+    min-width: 0;
 
-  &:first-child {
-    grid-column: 1;
-    overflow-y: hidden;
-  }
+    &:first-child {
+      grid-column: 1;
+      overflow-y: hidden;
+    }
 
-  &:last-child {
-    grid-column: 2;
-    grid-row: 1;
-    overflow-y: auto;
-  }
+    &:last-child {
+      grid-column: 2;
+      grid-row: 1;
+      overflow-y: auto;
+    }
 
-  @media (max-width: 880px) {
     flex: 0 0 100%;
     height: calc(100vh - 74px);
 
@@ -64,6 +64,10 @@ export const SPage = styled.div`
       grid-column: auto;
       grid-row: auto;
     }
+  }
+
+  @media (max-width: 550px) {
+    height: calc(100vh - 48px);
   }
 `
 

@@ -44,7 +44,7 @@ export const ExpensesTable = () => {
   }
 
   return (
-    <STable buttonVisible={!!selectedExpense}>
+    <STable $buttonVisible={!!selectedExpense}>
       <SHeading>
         <STitle>Таблица расходов</STitle>
         {selectedExpense && (
