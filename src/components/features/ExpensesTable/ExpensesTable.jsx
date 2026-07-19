@@ -44,67 +44,65 @@ export const ExpensesTable = () => {
   }
 
   return (
-    <>
-      <STable buttonVisible={!!selectedExpense}>
-        <SHeading>
-          <STitle>Таблица расходов</STitle>
-          {selectedExpense && (
-            <SBtnContainer>
-              <Button $padding={7} onClick={() => setIsConfirmOpen(true)}>
-                Удалить расход
-              </Button>
-            </SBtnContainer>
-          )}
-        </SHeading>
-        <SContent>
-          <STitlesContainer>
-            <STitles>
-              <SText>Описание</SText>
-              <SText>Категория</SText>
-              <SText>Дата</SText>
-              <SText>Сумма</SText>
-            </STitles>
-          </STitlesContainer>
-          <SSimpleBar autoHide={false} className={loading ? 'no-scroll' : ''}>
-            {loading && (
-              <SLoader>
-                <div />
-              </SLoader>
-            )}
-            {error && !loading ? (
-              <SMessage>{error}</SMessage>
-            ) : expenses.length === 0 && !loading ? (
-              <SMessage>Список расходов пока пуст</SMessage>
-            ) : (
-              <SExpenses>
-                {expenses.map((el) => (
-                  <Expense item={el} key={el._id} />
-                ))}
-              </SExpenses>
-            )}
-          </SSimpleBar>
-        </SContent>
-
-        {isConfirmOpen && (
-          <ConfirmDialog
-            title="Удалить расход?"
-            message={
-              selectedExpense?.description || 'Это действие нельзя отменить.'
-            }
-            disabled={loading}
-            onConfirm={() => {
-              handleConfirm()
-              setSelectedExpense(null)
-            }}
-            onCancel={() => setIsConfirmOpen(false)}
-          />
+    <STable buttonVisible={!!selectedExpense}>
+      <SHeading>
+        <STitle>Таблица расходов</STitle>
+        {selectedExpense && (
+          <SBtnContainer>
+            <Button $padding={7} onClick={() => setIsConfirmOpen(true)}>
+              Удалить расход
+            </Button>
+          </SBtnContainer>
         )}
-      </STable>
+      </SHeading>
+      <SContent>
+        <STitlesContainer>
+          <STitles>
+            <SText>Описание</SText>
+            <SText>Категория</SText>
+            <SText>Дата</SText>
+            <SText>Сумма</SText>
+          </STitles>
+        </STitlesContainer>
+        <SSimpleBar autoHide={false} className={loading ? 'no-scroll' : ''}>
+          {loading && (
+            <SLoader>
+              <div />
+            </SLoader>
+          )}
+          {error && !loading ? (
+            <SMessage>{error}</SMessage>
+          ) : expenses.length === 0 && !loading ? (
+            <SMessage>Список расходов пока пуст</SMessage>
+          ) : (
+            <SExpenses>
+              {expenses.map((el) => (
+                <Expense item={el} key={el._id} />
+              ))}
+            </SExpenses>
+          )}
+        </SSimpleBar>
+      </SContent>
+
+      {isConfirmOpen && (
+        <ConfirmDialog
+          title="Удалить расход?"
+          message={
+            selectedExpense?.description || 'Это действие нельзя отменить.'
+          }
+          disabled={loading}
+          onConfirm={() => {
+            handleConfirm()
+            setSelectedExpense(null)
+          }}
+          onCancel={() => setIsConfirmOpen(false)}
+        />
+      )}
       {selectedExpense && (
         <SBtnMobileContainer>
           <Button onClick={() => setIsConfirmOpen(true)}>Удалить расход</Button>
         </SBtnMobileContainer>
       )}
-    </>
+    </STable>
   )
 }

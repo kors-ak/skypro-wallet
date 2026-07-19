@@ -2,18 +2,19 @@ import styled from 'styled-components'
 
 export const SForm = styled.section`
   background-color: #ffffff;
-  min-height: 618px;
+  height: 618px;
   border-radius: 30px;
   box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
   margin-top: 80px;
+  overflow-y: auto;
 
   @media (max-width: 880px) {
     width: 100%;
     min-width: 100%;
     border-radius: 0;
     box-shadow: none;
-    margin-top: 22px;
-    min-height: auto;
+    margin-top: 0;
+    height: calc(100vh - 159px);
   }
 `
 export const SContent = styled.div`
@@ -44,6 +45,7 @@ export const SBack = styled.button`
     display: flex;
     gap: 6px;
     align-items: center;
+    margin-top: 22px;
 
     span {
       font-weight: 600;
@@ -82,4 +84,15 @@ export const SSum = styled.div``
 
 export const SRed = styled.span`
   color: red;
+`
+export const SBtnContainer = styled.div`
+  @media screen and (max-width: 880px) {
+    position: fixed;
+    left: 100vw;
+    right: -100vw;
+    bottom: 0;
+    padding: 24px 16px;
+    background-color: #fff;
+    box-shadow: 0px -20px 67px -12px rgba(0, 0, 0, 0.13);
+  }
 `

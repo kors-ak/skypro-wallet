@@ -8,6 +8,7 @@ import Category from '../../shared/Category/Category'
 import { SInput } from '../../shared/Input/Input.styled'
 import {
   SBack,
+  SBtnContainer,
   SCategories,
   SContent,
   SForm,
@@ -204,9 +205,11 @@ export const Form = ({ hideForm }) => {
             onChange={handleSumChange}
           />
         </SGroup>
-        <Button onClick={handleSubmit} disabled={isButtonDisabled}>
-          Добавить новый расход
-        </Button>
+        <SBtnContainer>
+          <Button onClick={handleSubmit} disabled={isButtonDisabled}>
+            Добавить новый расход
+          </Button>
+        </SBtnContainer>
       </SContent>
     </SForm>
   )

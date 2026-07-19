@@ -56,14 +56,14 @@ export const SPage = styled.div`
   }
 
   @media (max-width: 880px) {
+    flex: 0 0 100%;
+    height: calc(100vh - 74px);
+
     &:first-child,
     &:last-child {
       grid-column: auto;
       grid-row: auto;
     }
-
-    flex: 0 0 100%;
-    height: calc(100vh - 100px);
   }
 `
 
