@@ -20,17 +20,19 @@ const Main = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!location.state?.focusForm) return
+    if (location.state?.showForm) {
+      setShowForm(true)
 
-    document
-      .getElementById('new-expense')
-      ?.scrollIntoView({ behavior: 'smooth' })
-    navigate(location.pathname, { replace: true, state: {} })
+      navigate('.', {
+        replace: true,
+        state: null,
+      })
+    }
   }, [location.state])
 
   return (
     <>
-      <Header />
+      <Header showForm={showForm} setShowForm={setShowForm} />
       <SMain>
         <SViewport>
           <SSlider $showForm={showForm}>
@@ -56,7 +58,7 @@ const Main = () => {
               <ExpensesTable />
             </SPage>
             <SPage>
-              <Form hideForm={() => setShowForm(false)} />
+              <Form setShowForm={setShowForm} />
             </SPage>
           </SSlider>
         </SViewport>

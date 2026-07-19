@@ -18,7 +18,7 @@ import {
   SWrapper,
 } from './Form.styled'
 
-export const Form = ({ hideForm }) => {
+export const Form = ({ setShowForm }) => {
   const { addExpense } = useExpenses()
   const [expenseName, setExpenseName] = useState('')
   const [expenseCategory, setExpenseCategory] = useState('')
@@ -107,6 +107,7 @@ export const Form = ({ hideForm }) => {
       sum: false,
     })
     setIsButtonDisabled(false)
+    setShowForm(false)
   }
 
   const checkErrors = (errors) => {
@@ -118,7 +119,7 @@ export const Form = ({ hideForm }) => {
     <SForm id="new-expense">
       <SContent>
         <SWrapper>
-          <SBack onClick={hideForm}>
+          <SBack onClick={() => setShowForm(false)}>
             <svg
               width="12"
               height="12"
