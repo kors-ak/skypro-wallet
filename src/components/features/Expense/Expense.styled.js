@@ -26,6 +26,13 @@ export const SExpense = styled.article`
   justify-content: space-between;
   padding: 8px 34px 8px 32px;
 
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: rgb(241, 235, 253);
+      color: rgb(115, 52, 234);
+    }
+  }
+
   ${({ $isNew }) =>
     $isNew &&
     css`
