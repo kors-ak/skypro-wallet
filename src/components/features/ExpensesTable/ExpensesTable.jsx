@@ -1,7 +1,6 @@
 import 'simplebar-react/dist/simplebar.min.css'
 
 import { useState } from 'react'
-import SimpleBar from 'simplebar-react'
 import { toast } from 'sonner'
 
 import { useExpenses } from '../../../context/ExpensesContext'
@@ -10,11 +9,13 @@ import ConfirmDialog from '../../shared/ConfirmDialog/ConfirmDialog'
 import Expense from '../Expense/Expense'
 import {
   SBtnContainer,
+  SBtnMobileContainer,
   SContent,
   SExpenses,
   SHeading,
   SLoader,
   SMessage,
+  SSimpleBar,
   STable,
   SText,
   STitle,
@@ -43,64 +44,67 @@ export const ExpensesTable = () => {
   }
 
   return (
-    <STable>
-      <SHeading>
-        <STitle>Таблица расходов</STitle>
-        {selectedExpense && (
-          <SBtnContainer>
-            <Button $padding={7} onClick={() => setIsConfirmOpen(true)}>
-              Удалить расход
-            </Button>
-          </SBtnContainer>
-        )}
-      </SHeading>
-      <SContent>
-        <STitlesContainer>
-          <STitles>
-            <SText>Описание</SText>
-            <SText>Категория</SText>
-            <SText>Дата</SText>
-            <SText>Сумма</SText>
-          </STitles>
-        </STitlesContainer>
-        <SimpleBar
-          autoHide={false}
-          style={{ height: '504px', width: '100%' }}
-          className={loading ? 'no-scroll' : ''}
-        >
-          {loading && (
-            <SLoader>
-              <div />
-            </SLoader>
+    <>
+      <STable buttonVisible={!!selectedExpense}>
+        <SHeading>
+          <STitle>Таблица расходов</STitle>
+          {selectedExpense && (
+            <SBtnContainer>
+              <Button $padding={7} onClick={() => setIsConfirmOpen(true)}>
+                Удалить расход
+              </Button>
+            </SBtnContainer>
           )}
-          {error && !loading ? (
-            <SMessage>{error}</SMessage>
-          ) : expenses.length === 0 && !loading ? (
-            <SMessage>Список расходов пока пуст</SMessage>
-          ) : (
-            <SExpenses>
-              {expenses.map((el) => (
-                <Expense item={el} key={el._id} />
-              ))}
-            </SExpenses>
-          )}
-        </SimpleBar>
-      </SContent>
+        </SHeading>
+        <SContent>
+          <STitlesContainer>
+            <STitles>
+              <SText>Описание</SText>
+              <SText>Категория</SText>
+              <SText>Дата</SText>
+              <SText>Сумма</SText>
+            </STitles>
+          </STitlesContainer>
+          <SSimpleBar autoHide={false} className={loading ? 'no-scroll' : ''}>
+            {loading && (
+              <SLoader>
+                <div />
+              </SLoader>
+            )}
+            {error && !loading ? (
+              <SMessage>{error}</SMessage>
+            ) : expenses.length === 0 && !loading ? (
+              <SMessage>Список расходов пока пуст</SMessage>
+            ) : (
+              <SExpenses>
+                {expenses.map((el) => (
+                  <Expense item={el} key={el._id} />
+                ))}
+              </SExpenses>
+            )}
+          </SSimpleBar>
+        </SContent>
 
-      {isConfirmOpen && (
-        <ConfirmDialog
-          title="Удалить расход?"
-          message={
-            selectedExpense?.description || 'Это действие нельзя отменить.'
-          }
-          disabled={loading}
-          onConfirm={() => {
-            handleConfirm()
-            setSelectedExpense(null)
-          }}
-          onCancel={() => setIsConfirmOpen(false)}
-        />
+        {isConfirmOpen && (
+          <ConfirmDialog
+            title="Удалить расход?"
+            message={
+              selectedExpense?.description || 'Это действие нельзя отменить.'
+            }
+            disabled={loading}
+            onConfirm={() => {
+              handleConfirm()
+              setSelectedExpense(null)
+            }}
+            onCancel={() => setIsConfirmOpen(false)}
+          />
+        )}
+      </STable>
+      {selectedExpense && (
+        <SBtnMobileContainer>
+          <Button onClick={() => setIsConfirmOpen(true)}>Удалить расход</Button>
+        </SBtnMobileContainer>
       )}
-    </STable>
+    </>
   )
 }

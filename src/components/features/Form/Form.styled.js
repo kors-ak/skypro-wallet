@@ -12,7 +12,8 @@ export const SForm = styled.section`
     min-width: 100%;
     border-radius: 0;
     box-shadow: none;
-    margin-top: 0;
+    margin-top: 22px;
+    min-height: auto;
   }
 `
 export const SContent = styled.div`
@@ -20,8 +21,12 @@ export const SContent = styled.div`
   box-sizing: border-box;
 
   @media screen and (max-width: 880px) {
-    padding: 2px 16px;
+    padding: 2px 32px;
     width: 100%;
+  }
+
+  @media screen and (max-width: 550px) {
+    padding: 2px 16px;
   }
 `
 

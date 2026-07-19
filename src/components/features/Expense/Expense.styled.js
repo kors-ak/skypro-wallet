@@ -14,13 +14,13 @@ export const SExpense = styled.article`
   }
 
   @media screen and (max-width: 880px) {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 32px;
+    padding-right: 32px;
   }
 
   @media screen and (max-width: 550px) {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 `
 export const SContent = styled.div`

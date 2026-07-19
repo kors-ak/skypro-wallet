@@ -12,9 +12,8 @@ export const SMain = styled.main`
   }
 
   @media screen and (max-width: 880px) {
-    margin-top: 22px;
-    padding-left: 0;
-    padding-right: 0;
+    margin-top: 0;
+    padding: 0;
   }
 `
 
@@ -47,11 +46,13 @@ export const SPage = styled.div`
 
   &:first-child {
     grid-column: 1;
+    overflow-y: hidden;
   }
 
   &:last-child {
     grid-column: 2;
     grid-row: 1;
+    overflow-y: auto;
   }
 
   @media (max-width: 880px) {
@@ -62,6 +63,7 @@ export const SPage = styled.div`
     }
 
     flex: 0 0 100%;
+    height: calc(100vh - 100px);
   }
 `
 
@@ -70,6 +72,11 @@ export const SWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  @media screen and (max-width: 550px) {
     padding-left: 16px;
     padding-right: 16px;
   }
@@ -85,6 +92,7 @@ export const SHeading = styled.h1`
     font-size: 24px;
     line-height: 100%;
     margin-bottom: 24px;
+    margin-top: 22px;
   }
 `
 
