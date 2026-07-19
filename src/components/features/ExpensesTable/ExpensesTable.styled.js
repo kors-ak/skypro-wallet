@@ -2,8 +2,8 @@ import SimpleBar from 'simplebar-react'
 import styled, { keyframes } from 'styled-components'
 
 const spin = keyframes`
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%)rotate(360deg); }
+  from { transform: rotate(0deg); }
+  to { transform:   rotate(360deg); }
 `
 
 export const STable = styled.section`
@@ -107,6 +107,12 @@ export const SText = styled.p`
     font-size: 10px;
     max-width: 74px;
   }
+`
+export const SScrollContainer = styled.div`
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
 `
 export const SSimpleBar = styled(SimpleBar)`
   width: 100%;

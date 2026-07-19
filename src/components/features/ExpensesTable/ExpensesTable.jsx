@@ -15,6 +15,7 @@ import {
   SHeading,
   SLoader,
   SMessage,
+  SScrollContainer,
   SSimpleBar,
   STable,
   SText,
@@ -64,24 +65,26 @@ export const ExpensesTable = () => {
             <SText>Сумма</SText>
           </STitles>
         </STitlesContainer>
-        <SSimpleBar autoHide={false} className={loading ? 'no-scroll' : ''}>
+        <SScrollContainer>
+          <SSimpleBar autoHide={false} className={loading ? 'no-scroll' : ''}>
+            {error && !loading ? (
+              <SMessage>{error}</SMessage>
+            ) : expenses.length === 0 && !loading ? (
+              <SMessage>Список расходов пока пуст</SMessage>
+            ) : (
+              <SExpenses>
+                {expenses.map((el) => (
+                  <Expense item={el} key={el._id} />
+                ))}
+              </SExpenses>
+            )}
+          </SSimpleBar>
           {loading && (
             <SLoader>
               <div />
             </SLoader>
           )}
-          {error && !loading ? (
-            <SMessage>{error}</SMessage>
-          ) : expenses.length === 0 && !loading ? (
-            <SMessage>Список расходов пока пуст</SMessage>
-          ) : (
-            <SExpenses>
-              {expenses.map((el) => (
-                <Expense item={el} key={el._id} />
-              ))}
-            </SExpenses>
-          )}
-        </SSimpleBar>
+        </SScrollContainer>
       </SContent>
 
       {isConfirmOpen && (
