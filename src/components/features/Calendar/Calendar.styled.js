@@ -12,9 +12,21 @@ export const SCalendar = styled.div`
     height: calc(100vh - 98px);
   }
 
-  @media screen and (max-width: 550px) {
-    margin: 0;
-    box-shadow: none;
+  @media screen and (max-width: 680px) {
+    position: fixed;
+    inset: 98px 0 0;
+
+    opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
+    visibility: ${({ $isOpen }) => ($isOpen ? 'visible' : 'hidden')};
+    pointer-events: ${({ $isOpen }) => ($isOpen ? 'auto' : 'none')};
+
+    transform: ${({ $isOpen }) =>
+      $isOpen ? 'translateX(0)' : 'translateX(100%)'};
+
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      visibility 0.25s ease;
   }
 `
 export const STitle = styled.h2`

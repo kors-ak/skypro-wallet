@@ -38,4 +38,8 @@ export const SContent = styled.div`
     grid-template-columns: 330px auto;
     gap: 0;
   }
+
+  @media screen and (max-width: 680px) {
+    display: block;
+  }
 `

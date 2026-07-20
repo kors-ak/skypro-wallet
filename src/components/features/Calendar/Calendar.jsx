@@ -34,7 +34,7 @@ const CalendarDay = memo(function CalendarDay({ day, selected, onSelect }) {
 
 const Calendar = () => {
   const { expenses } = useExpenses()
-  const { range, loadExpensesFromPeriod } = useCalendar()
+  const { range, loadExpensesFromPeriod, isOpen } = useCalendar()
 
   const simpleBarRef = useRef(null)
   const hasScrolled = useRef(false)
@@ -62,7 +62,7 @@ const Calendar = () => {
   }, [])
 
   return (
-    <SCalendar>
+    <SCalendar $isOpen={isOpen}>
       <STitle>Период</STitle>
       <SWeekdays>
         {WEEK_DAYS.map((day) => (

@@ -28,6 +28,7 @@ function calculateRange(prevRange, date) {
 }
 
 export const CalendarProvider = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false)
   const [calendarLoading, setCalendarLoading] = useState(false)
   const [range, setRange] = useState({
     start: null,
@@ -86,6 +87,8 @@ export const CalendarProvider = ({ children }) => {
       loadExpensesFromPeriod,
       calendarExpenses,
       calendarLoading,
+      isOpen,
+      setIsOpen,
     }),
     [range, loadExpensesFromPeriod, calendarExpenses, calendarLoading]
   )

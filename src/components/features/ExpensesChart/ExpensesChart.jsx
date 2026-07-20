@@ -60,11 +60,17 @@ const ExpensesChart = () => {
   const isBig = useMediaQuery('(max-width: 1070px)')
   const isMedium = useMediaQuery('(max-width: 950px)')
   const isSmall = useMediaQuery('(max-width: 720px)')
+  const is680 = useMediaQuery('(max-width: 680px)')
+  const is550 = useMediaQuery('(max-width: 550px)')
 
   const tickFontSize = isBig ? 10 : 12
   const tickMaxLenght = isSmall ? 6 : isMedium ? 8 : 11
 
-  const labelFontSize = isSmall ? 10 : isBig ? 12 : 16
+  let labelFontSize = 16
+  if (isBig) labelFontSize = 12
+  if (isSmall) labelFontSize = 10
+  if (is680) labelFontSize = 16
+  if (is550) labelFontSize = 10
 
   return (
     <SExpensesChart>
@@ -101,7 +107,9 @@ const ExpensesChart = () => {
               <LabelList
                 dataKey="displayAmount"
                 position="top"
-                formatter={(value) => `${value.toLocaleString('ru-RU')} ₽`}
+                formatter={(value) =>
+                  `${value.toLocaleString('ru-RU')}${'\u00A0'}₽`
+                }
                 fill="#000000"
                 fontSize={labelFontSize}
                 fontWeight={600}
