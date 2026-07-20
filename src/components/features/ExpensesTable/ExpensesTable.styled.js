@@ -109,9 +109,12 @@ export const SText = styled.p`
   }
 `
 export const SScrollContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   position: relative;
   flex: 1;
   min-height: 0;
+  height: 100%;
   width: 100%;
 `
 export const SSimpleBar = styled(SimpleBar)`
