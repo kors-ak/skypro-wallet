@@ -90,7 +90,14 @@ export const CalendarProvider = ({ children }) => {
       isOpen,
       setIsOpen,
     }),
-    [range, loadExpensesFromPeriod, calendarExpenses, calendarLoading]
+    [
+      range,
+      loadExpensesFromPeriod,
+      calendarExpenses,
+      calendarLoading,
+      isOpen,
+      setIsOpen,
+    ]
   )
 
   return (

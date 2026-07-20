@@ -41,5 +41,20 @@ export const SContent = styled.div`
 
   @media screen and (max-width: 680px) {
     display: block;
+    padding-bottom: 87px;
+  }
+`
+export const SButton = styled.div`
+  padding: 24px 16px;
+  background: #fff;
+  box-shadow: 0px -20px 67px -12px rgba(0, 0, 0, 0.13);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+
+  @media (min-width: 681px) {
+    display: none;
   }
 `

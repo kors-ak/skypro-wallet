@@ -14,7 +14,13 @@ export const SCalendar = styled.div`
 
   @media screen and (max-width: 680px) {
     position: fixed;
-    inset: 98px 0 0;
+    inset: 73px 0 0 0;
+    background-color: #fff;
+    z-index: 10;
+    height: calc(100vh - 160px);
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
 
     opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
     visibility: ${({ $isOpen }) => ($isOpen ? 'visible' : 'hidden')};
@@ -27,6 +33,11 @@ export const SCalendar = styled.div`
       opacity 0.25s ease,
       transform 0.25s ease,
       visibility 0.25s ease;
+  }
+
+  @media screen and (max-width: 550px) {
+    inset: 48px 0 0 0;
+    height: calc(100vh - 135px);
   }
 `
 export const STitle = styled.h2`
@@ -48,8 +59,8 @@ export const SWeekdays = styled.div`
     padding: 0 6px;
   }
 
-  @media screen and (max-width: 550px) {
-    padding: 0 16px;
+  @media screen and (max-width: 680px) {
+    padding: 0 calc(-171px + 50vw);
   }
 `
 export const SWeekday = styled.div`
@@ -63,7 +74,7 @@ export const SWeekday = styled.div`
   font-weight: 400;
   font-size: 12px;
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 680px) {
     width: 44px;
   }
 `
@@ -74,8 +85,10 @@ export const SContent = styled.div`
     padding: 24px 6px;
   }
 
-  @media screen and (max-width: 550px) {
-    padding: 24px 16px;
+  @media screen and (max-width: 680px) {
+    padding: 24px 0;
+    width: 342px;
+    margin: 0 auto;
   }
 `
 export const SMonth = styled.div`
@@ -90,7 +103,7 @@ export const SMonthTitle = styled.h3`
     margin-left: 12px;
   }
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 680px) {
     margin-left: 0;
   }
 `
@@ -104,7 +117,7 @@ export const SDays = styled.div`
   }
 
   @media screen and (max-width: 550px) {
-    padding: 6px;
+    gap: 6px;
   }
 `
 export const SDay = styled.button`
@@ -130,7 +143,7 @@ export const SDay = styled.button`
     background: rgb(248, 249, 252);
   }
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 680px) {
     width: 44px;
     height: 44px;
   }
@@ -142,4 +155,23 @@ export const SSimpleBar = styled(SimpleBar)`
   @media (max-width: 880px) {
     height: calc(100vh - 183px);
   }
+
+  @media (max-width: 680px) {
+    height: calc(100vh - 288px);
+    justify-content: center;
+  }
+
+  @media (max-width: 550px) {
+    height: calc(100vh - 263px);
+  }
+`
+export const SBack = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 24px 0 0 16px;
+  color: rgb(153, 153, 153);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 150%;
 `

@@ -47,4 +47,5 @@ export const SDate = styled.span`
 `
 export const SCalendarLoader = styled(SLoader)`
   border-radius: 30px;
+  z-index: 5;
 `
