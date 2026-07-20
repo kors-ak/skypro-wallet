@@ -1,7 +1,6 @@
 import 'simplebar-react/dist/simplebar.min.css'
 
 import { memo, useEffect, useMemo, useRef } from 'react'
-import SimpleBar from 'simplebar-react'
 
 import { useCalendar } from '../../../context/CalendarContext'
 import { useExpenses } from '../../../context/ExpensesContext'
@@ -12,6 +11,7 @@ import {
   SDays,
   SMonth,
   SMonthTitle,
+  SSimpleBar,
   STitle,
   SWeekday,
   SWeekdays,
@@ -69,11 +69,7 @@ const Calendar = () => {
           <SWeekday key={day}>{day}</SWeekday>
         ))}
       </SWeekdays>
-      <SimpleBar
-        ref={simpleBarRef}
-        autoHide={false}
-        style={{ height: '427px', width: '100%' }}
-      >
+      <SSimpleBar ref={simpleBarRef} autoHide={false}>
         <SContent>
           {monthsWithDays.map((month) => (
             <SMonth key={month.title}>
@@ -96,7 +92,7 @@ const Calendar = () => {
             </SMonth>
           ))}
         </SContent>
-      </SimpleBar>
+      </SSimpleBar>
     </SCalendar>
   )
 }

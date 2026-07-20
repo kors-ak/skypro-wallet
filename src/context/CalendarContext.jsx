@@ -10,6 +10,7 @@ import {
 import { toast } from 'sonner'
 
 import { getExpensesFromPeriod } from '../services/expensesApi'
+import { sortExpenses } from '../utils/sortExpenses'
 import { useAuth } from './AuthContext'
 
 const CalendarContext = createContext(null)
@@ -65,11 +66,7 @@ export const CalendarProvider = ({ children }) => {
 
       try {
         const rangedExpenses = await getExpensesFromPeriod(token, newRange)
-        setCalendarExpenses(
-          [...rangedExpenses].sort(
-            (a, b) => new Date(a.date) - new Date(b.date)
-          )
-        )
+        setCalendarExpenses(sortExpenses(rangedExpenses))
       } catch (err) {
         toast.error(
           err.message ||

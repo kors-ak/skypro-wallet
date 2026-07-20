@@ -16,9 +16,19 @@ export const SExpensesChart = styled.section`
       outline: none;
     }
   }
+
+  @media screen and (max-width: 880px) {
+    min-height: calc(100vh - 98px);
+    border-radius: 0;
+    box-shadow: none;
+  }
 `
 export const SContent = styled.div`
   padding: 32px;
+
+  @media screen and (max-width: 1070px) {
+    padding: 16;
+  }
 `
 export const STitle = styled.h2`
   font-weight: 700;
