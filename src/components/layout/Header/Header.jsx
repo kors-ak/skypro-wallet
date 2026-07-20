@@ -17,7 +17,7 @@ import {
   SPagesLinks,
 } from './Header.styled'
 
-export const Header = ({ showForm, setShowForm }) => {
+const Header = ({ showForm, setShowForm }) => {
   const { logout, token } = useAuth()
   const { setIsOpen: setIsCalendarOpen } = useCalendar()
   const location = useLocation()

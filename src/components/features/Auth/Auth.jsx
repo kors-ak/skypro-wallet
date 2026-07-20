@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { useAuth } from '../../../context/AuthContext'
 import { validateField } from '../../../utils/validation'
-import { Header } from '../../layout/Header/Header'
+import Header from '../../layout/Header/Header'
 import { SInput } from '../../shared/Input/Input.styled'
 import {
   SAuth,
