@@ -62,9 +62,10 @@ const ExpensesChart = () => {
   const isSmall = useMediaQuery('(max-width: 720px)')
   const is680 = useMediaQuery('(max-width: 680px)')
   const is550 = useMediaQuery('(max-width: 550px)')
+  const is470 = useMediaQuery('(max-width: 470px)')
 
   const tickFontSize = isBig ? 10 : 12
-  const tickMaxLenght = isSmall ? 6 : isMedium ? 8 : 11
+  const tickMaxLenght = is470 ? 6 : is680 ? 11 : isSmall ? 6 : isMedium ? 8 : 11
 
   let labelFontSize = 16
   if (isBig) labelFontSize = 12
