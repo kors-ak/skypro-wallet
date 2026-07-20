@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const SHeader = styled.header`
   background-color: #ffffff;
 
-  @media (max-width: 550px) {
+  @media (max-width: 880px) {
     background-color: #f4f5f6;
   }
 `
