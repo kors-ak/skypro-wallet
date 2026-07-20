@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   Bar,
   BarChart,
@@ -12,6 +12,7 @@ import {
 import categories from '../../../categories'
 import { useCalendar } from '../../../context/CalendarContext'
 import { useExpenses } from '../../../context/ExpensesContext'
+import CustomTick from './CustomTick'
 import {
   SCalendarLoader,
   SContent,
@@ -40,6 +41,38 @@ const ExpensesChart = () => {
     [currentExpenses]
   )
 
+  const useMediaQuery = (query) => {
+    const [matches, setMatches] = useState(false)
+
+    useEffect(() => {
+      const media = window.matchMedia(query)
+
+      const update = () => setMatches(media.matches)
+
+      update()
+      media.addEventListener('change', update)
+
+      return () => media.removeEventListener('change', update)
+    }, [query])
+
+    return matches
+  }
+  const isBig = useMediaQuery('(max-width: 1070px)')
+  const isMedium = useMediaQuery('(max-width: 950px)')
+  const isSmall = useMediaQuery('(max-width: 720px)')
+  const is680 = useMediaQuery('(max-width: 680px)')
+  const is550 = useMediaQuery('(max-width: 550px)')
+  const is470 = useMediaQuery('(max-width: 470px)')
+
+  const tickFontSize = isBig ? 10 : 12
+  const tickMaxLenght = is470 ? 6 : is680 ? 11 : isSmall ? 6 : isMedium ? 8 : 11
+
+  let labelFontSize = 16
+  if (isBig) labelFontSize = 12
+  if (isSmall) labelFontSize = 10
+  if (is680) labelFontSize = 16
+  if (is550) labelFontSize = 10
+
   return (
     <SExpensesChart>
       <SContent>
@@ -50,17 +83,17 @@ const ExpensesChart = () => {
         <ResponsiveContainer width="100%" height={386}>
           <BarChart
             data={chartData}
-            margin={{ top: 18, right: 0, left: 0, bottom: 0 }}
+            interval={0}
+            margin={{ top: 26, right: 0, left: 0, bottom: 0 }}
           >
             <XAxis
               axisLine={false}
               tickLine={false}
               dataKey="category"
-              tick={{
-                fill: '#000000',
-                fontSize: 12,
-                fontWeight: 400,
-              }}
+              interval={0}
+              tick={
+                <CustomTick maxLength={tickMaxLenght} fontSize={tickFontSize} />
+              }
             />
             <YAxis domain={[0, 'dataMax + 1000']} hide />
             <Bar
@@ -75,9 +108,11 @@ const ExpensesChart = () => {
               <LabelList
                 dataKey="displayAmount"
                 position="top"
-                formatter={(value) => `${value.toLocaleString('ru-RU')} ₽`}
+                formatter={(value) =>
+                  `${value.toLocaleString('ru-RU')}${'\u00A0'}₽`
+                }
                 fill="#000000"
-                fontSize={16}
+                fontSize={labelFontSize}
                 fontWeight={600}
               />
             </Bar>

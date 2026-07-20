@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 
 export const SHeader = styled.header`
+  position: sticky;
+  top: 0;
+  z-index: 30;
   background-color: #ffffff;
 
   @media (max-width: 880px) {
