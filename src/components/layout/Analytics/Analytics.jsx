@@ -4,7 +4,7 @@ import { useCalendar } from '../../../context/CalendarContext'
 import Calendar from '../../features/Calendar/Calendar'
 import ExpensesChart from '../../features/ExpensesChart/ExpensesChart'
 import Button from '../../shared/Button/Button'
-import { Header } from '../Header/Header'
+import Header from '../Header/Header'
 import { SButton, SContent, SHeading, SMain } from './Analytics.styled'
 
 const Analytics = () => {

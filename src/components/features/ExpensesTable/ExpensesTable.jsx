@@ -24,7 +24,7 @@ import {
   STitlesContainer,
 } from './ExpensesTable.styled'
 
-export const ExpensesTable = () => {
+const ExpensesTable = () => {
   const {
     expenses,
     loading,
@@ -114,3 +114,5 @@ export const ExpensesTable = () => {
     </STable>
   )
 }
+
+export default ExpensesTable

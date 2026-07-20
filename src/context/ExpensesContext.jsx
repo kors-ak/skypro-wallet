@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { toast } from 'sonner'
 
 import {
@@ -19,6 +25,20 @@ export const ExpensesProvider = ({ children }) => {
   const [recentlyAddedId, setRecentlyAddedId] = useState(null)
   const { token } = useAuth()
 
+  const loadExpenses = useCallback(async () => {
+    setLoading(true)
+    setError('')
+    try {
+      const newExpenses = await getExpenses(token)
+      setExpenses(sortExpenses(newExpenses))
+    } catch (err) {
+      setError(err.message || 'Возникла ошибка при загрузке расходов')
+      throw new Error(err.message || 'Возникла ошибка при загрузке расходов')
+    } finally {
+      setLoading(false)
+    }
+  }, [token])
+
   useEffect(() => {
     if (!token) {
       setExpenses([])
@@ -26,30 +46,18 @@ export const ExpensesProvider = ({ children }) => {
     }
 
     loadExpenses()
-    error &&
-      toast.error(error, {
-        action: {
-          label: 'Повторить',
-          onClick: loadExpenses,
-        },
-      })
-  }, [token, error])
+  }, [token, loadExpenses])
 
-  const loadExpenses = async () => {
-    setLoading(true)
-    setError('')
-    try {
-      const newExpenses = await getExpenses(token)
-      setExpenses(
-        [...newExpenses].sort((a, b) => new Date(b.date) - new Date(a.date))
-      )
-    } catch (err) {
-      setError(err.message || 'Возникла ошибка при загрузке расходов')
-      throw new Error(err.message || 'Возникла ошибка при загрузке расходов')
-    } finally {
-      setLoading(false)
-    }
-  }
+  useEffect(() => {
+    if (!error) return
+
+    toast.error(error, {
+      action: {
+        label: 'Повторить',
+        onClick: loadExpenses,
+      },
+    })
+  }, [error, loadExpenses])
 
   const addExpense = async (expense) => {
     try {

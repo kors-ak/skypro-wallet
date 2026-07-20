@@ -82,9 +82,6 @@ export const SCategories = styled.div`
   flex-wrap: wrap;
   gap: 6px;
 `
-export const SDate = styled.div``
-
-export const SSum = styled.div``
 
 export const SRed = styled.span`
   color: red;

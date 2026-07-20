@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { ExpensesTable } from '../../features/ExpensesTable/ExpensesTable'
+import ExpensesTable from '../../features/ExpensesTable/ExpensesTable'
 import Form from '../../features/Form/Form'
 import Header from '../Header/Header'
 import {
@@ -28,7 +28,7 @@ const Main = () => {
         state: null,
       })
     }
-  }, [location.state])
+  }, [location.state, navigate])
 
   return (
     <>

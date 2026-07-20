@@ -3,7 +3,7 @@ import { toast } from 'sonner'
 
 import categories from '../../../categories'
 import { useExpenses } from '../../../context/ExpensesContext'
-import { formatDate, formatSum } from '../../../utils'
+import { formatDateShort, formatSum } from '../../../utils/formatters'
 import ConfirmDialog from '../../shared/ConfirmDialog/ConfirmDialog'
 import { SButton, SContent, SExpense, SText } from './Expense.styled'
 
@@ -36,7 +36,7 @@ const Expense = ({ item, isNew }) => {
         <SText>
           {categories.find((cat) => cat.api === category)?.name || 'Другое'}
         </SText>
-        <SText>{formatDate(date)}</SText>
+        <SText>{formatDateShort(date)}</SText>
         <SText>{formatSum(sum)}</SText>
       </SContent>
 

@@ -12,6 +12,7 @@ import {
 import categories from '../../../categories'
 import { useCalendar } from '../../../context/CalendarContext'
 import { useExpenses } from '../../../context/ExpensesContext'
+import { getChartData, getDateText } from './ChartData'
 import CustomTick from './CustomTick'
 import {
   SCalendarLoader,
@@ -21,7 +22,6 @@ import {
   SExpensesChart,
   STitle,
 } from './ExpensesChart.styled'
-import { getChartData, getDateText } from './СhartData'
 
 const ExpensesChart = () => {
   const { expenses } = useExpenses()
@@ -96,17 +96,12 @@ const ExpensesChart = () => {
               }
             />
             <YAxis domain={[0, 'dataMax + 1000']} hide />
-            <Bar
-              dataKey="chartAmount"
-              radius={12}
-              barSize={94}
-              minPointSize={4}
-            >
+            <Bar dataKey="amount" radius={12} barSize={94} minPointSize={4}>
               {chartData.map((item) => (
                 <Cell key={item.category} fill={item.color} />
               ))}
               <LabelList
-                dataKey="displayAmount"
+                dataKey="amount"
                 position="top"
                 formatter={(value) =>
                   `${value.toLocaleString('ru-RU')}${'\u00A0'}₽`

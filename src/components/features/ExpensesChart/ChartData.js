@@ -10,8 +10,6 @@ export const getChartData = (expenses, categories) => {
     return {
       category: category.name,
       amount,
-      displayAmount: amount,
-      chartAmount: amount,
       color: category.color,
     }
   })

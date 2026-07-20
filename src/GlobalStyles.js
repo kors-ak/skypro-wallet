@@ -53,8 +53,8 @@ const GlobalStyles = createGlobalStyle`
     scroll-behavior: smooth;
 
     @media screen and (max-width: 880px) {
-		background-color: #fff;
-	}
+      background-color: #fff;
+    }
   }
 
   .simplebar-content {
