@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 
 import { useAuth } from '../../../context/AuthContext'
+import { useCalendar } from '../../../context/CalendarContext'
 import ConfirmDialog from '../../shared/ConfirmDialog/ConfirmDialog'
 import {
   SContent,
@@ -18,6 +19,7 @@ import {
 
 export const Header = ({ showForm, setShowForm }) => {
   const { logout, token } = useAuth()
+  const { setIsOpen: setIsCalendarOpen } = useCalendar()
   const location = useLocation()
   const navigate = useNavigate()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -50,6 +52,7 @@ export const Header = ({ showForm, setShowForm }) => {
     navigate('/')
     setShowForm(false)
     setIsMenuOpen(false)
+    setIsCalendarOpen(false)
   }
 
   const goToNewExpense = () => {
@@ -66,11 +69,13 @@ export const Header = ({ showForm, setShowForm }) => {
     }
     setShowForm(true)
     setIsMenuOpen(false)
+    setIsCalendarOpen(false)
   }
 
   const goToAnalytics = () => {
     navigate('/analytics')
     setIsMenuOpen(false)
+    setIsCalendarOpen(false)
   }
 
   return (

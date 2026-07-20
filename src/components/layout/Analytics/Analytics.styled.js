@@ -25,7 +25,11 @@ export const SHeading = styled.h1`
   @media screen and (max-width: 880px) {
     font-size: 24px;
     line-height: 100%;
-    margin: 22px 0 24px 32px;
+    margin: 24px 0 24px 32px;
+  }
+
+  @media screen and (max-width: 680px) {
+    margin: 24px 16px;
   }
 `
 
