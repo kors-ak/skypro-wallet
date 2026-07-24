@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { BASE_URL, getRequestConfig, handleApiError } from './api'
+
 import { formatApiDate } from '../utils/formatters'
+import { BASE_URL, getRequestConfig, handleApiError } from './api'
 
 export const getExpenses = async (token) => {
   try {
@@ -24,6 +25,18 @@ export const postExpense = async (token, expense) => {
     return response.data.transactions
   } catch (error) {
     handleApiError(error, 'Не удалось добавить расход')
+  }
+}
+
+export const deleteExpense = async (token, id) => {
+  try {
+    const response = await axios.delete(
+      `${BASE_URL}/transactions/${id}`,
+      getRequestConfig(token)
+    )
+    return response.data.transactions
+  } catch (error) {
+    handleApiError(error, 'Не удалось удалить расход')
   }
 }
 

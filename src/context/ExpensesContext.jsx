@@ -1,119 +1,90 @@
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
-import { useAuth } from './AuthContext'
 import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+import { toast } from 'sonner'
+
+import {
+  deleteExpense,
   getExpenses,
-  getExpensesFromPeriod,
   postExpense,
 } from '../services/expensesApi'
+import { sortExpenses } from '../utils/sortExpenses'
+import { useAuth } from './AuthContext'
 
 const ExpensesContext = createContext(null)
 
 export const ExpensesProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([])
+  const [selectedExpense, setSelectedExpense] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [formError, setFormError] = useState('')
-  const [calendarError, setCalendarError] = useState('')
-  const [calendarLoading, setCalendarLoading] = useState(false)
-  const [range, setRange] = useState({
-    start: null,
-    end: null,
-  })
-  const [calendarExpenses, setCalendarExpenses] = useState([])
+  const [recentlyAddedId, setRecentlyAddedId] = useState(null)
   const { token } = useAuth()
 
-  const abortControllerRef = useRef(null)
-
-  useEffect(() => {
-    if (!token) {
-      clearExpenses()
-      return
-    }
-
-    loadExpenses()
-  }, [token])
-
-  const clearExpenses = () => {
-    setExpenses([])
-    setRange({ start: null, end: null })
-    setCalendarExpenses([])
-  }
-
-  const loadExpenses = async () => {
+  const loadExpenses = useCallback(async () => {
     setLoading(true)
     setError('')
     try {
       const newExpenses = await getExpenses(token)
-      setExpenses(
-        [...newExpenses].sort((a, b) => new Date(b.date) - new Date(a.date))
-      )
+      setExpenses(sortExpenses(newExpenses))
     } catch (err) {
       setError(err.message || 'Возникла ошибка при загрузке расходов')
+      throw new Error(err.message || 'Возникла ошибка при загрузке расходов')
     } finally {
       setLoading(false)
     }
-  }
+  }, [token])
+
+  useEffect(() => {
+    if (!token) {
+      setExpenses([])
+      return
+    }
+
+    loadExpenses()
+  }, [token, loadExpenses])
+
+  useEffect(() => {
+    if (!error) return
+
+    toast.error(error, {
+      action: {
+        label: 'Повторить',
+        onClick: loadExpenses,
+      },
+    })
+  }, [error, loadExpenses])
 
   const addExpense = async (expense) => {
-    setLoading(true)
-
     try {
+      const oldExpenses = expenses
       const newExpenses = await postExpense(token, expense)
-      setExpenses(newExpenses)
+      const addedExpense = newExpenses.find(
+        (item) => !oldExpenses.some((oldItem) => oldItem._id === item._id)
+      )
+
+      setRecentlyAddedId(addedExpense?._id)
+      setTimeout(() => {
+        setRecentlyAddedId(null)
+      }, 600)
+
+      setExpenses(sortExpenses(newExpenses))
       return newExpenses
     } catch (err) {
-      setFormError(err.message || 'Возникла ошибка при добавлении расхода')
-    } finally {
-      setLoading(false)
+      throw new Error(err.message || 'Возникла ошибка при добавлении расхода')
     }
   }
 
-  const calculateRange = (date) => {
-    if (!range.start || range.end) {
-      return {
-        start: date,
-        end: null,
-      }
-    }
-
-    if (date < range.start) {
-      return {
-        start: date,
-        end: range.start,
-      }
-    }
-
-    return {
-      start: range.start,
-      end: date,
-    }
-  }
-
-  const loadExpensesFromPeriod = async (date) => {
-    setCalendarLoading(true)
-    setCalendarError('')
-
-    abortControllerRef.current?.abort()
-
-    const controller = new AbortController()
-    abortControllerRef.current = controller
-
-    const newRange = calculateRange(date)
-
-    setRange(newRange)
-
+  const removeExpense = async (id) => {
     try {
-      const rangedExpenses = await getExpensesFromPeriod(token, newRange)
-      setCalendarExpenses(
-        [...rangedExpenses].sort((a, b) => new Date(a.date) - new Date(b.date))
-      )
+      const newExpenses = await deleteExpense(token, id)
+      setExpenses(sortExpenses(newExpenses))
     } catch (err) {
-      setCalendarError(
-        err.message ||
-          'Возникла ошибка при загрузке расходов за выбранный период'
-      )
-    } finally {
-      setCalendarLoading(false)
+      throw new Error(err.message || 'Возникла ошибка при удалении расхода')
     }
   }
 
@@ -123,16 +94,12 @@ export const ExpensesProvider = ({ children }) => {
         expenses,
         loading,
         error,
-        formError,
-        loadExpenses,
-        clearExpenses,
+        selectedExpense,
+        recentlyAddedId,
+        setRecentlyAddedId,
         addExpense,
-        range,
-        setRange,
-        loadExpensesFromPeriod,
-        calendarExpenses,
-        calendarError,
-        calendarLoading,
+        removeExpense,
+        setSelectedExpense,
       }}
     >
       {children}

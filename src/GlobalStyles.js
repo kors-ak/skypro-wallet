@@ -51,6 +51,10 @@ const GlobalStyles = createGlobalStyle`
     color: rgb(0, 0, 0);
     background-color: rgb(244, 245, 246);
     scroll-behavior: smooth;
+
+    @media screen and (max-width: 880px) {
+      background-color: #fff;
+    }
   }
 
   .simplebar-content {
@@ -79,6 +83,12 @@ const GlobalStyles = createGlobalStyle`
     width: 6px;
     border-radius: 3px;
   }
+
+  @media (max-width: 880px) {
+  .simplebar-track {
+    display: none !important;
+  }
+}
 `
 
 export default GlobalStyles
