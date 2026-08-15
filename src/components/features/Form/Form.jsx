@@ -5,17 +5,21 @@ import categories from '../../../categories'
 import { useExpenses } from '../../../context/ExpensesContext'
 import Button from '../../shared/Button/Button'
 import Category from '../../shared/Category/Category'
+import { BackIcon } from '../../shared/Icons'
 import { SInput } from '../../shared/Input/Input.styled'
 import {
+  SBack,
+  SBtnContainer,
   SCategories,
   SContent,
   SForm,
   SGroup,
   SRed,
   STitle,
+  SWrapper,
 } from './Form.styled'
 
-export const Form = () => {
+const Form = ({ setShowForm }) => {
   const { addExpense } = useExpenses()
   const [expenseName, setExpenseName] = useState('')
   const [expenseCategory, setExpenseCategory] = useState('')
@@ -104,6 +108,7 @@ export const Form = () => {
       sum: false,
     })
     setIsButtonDisabled(false)
+    setShowForm(false)
   }
 
   const checkErrors = (errors) => {
@@ -114,8 +119,13 @@ export const Form = () => {
   return (
     <SForm id="new-expense">
       <SContent>
-        <STitle>Новый расход</STitle>
-
+        <SWrapper>
+          <SBack onClick={() => setShowForm(false)}>
+            <BackIcon />
+            <span>Мои расходы</span>
+          </SBack>
+          <STitle>Новый расход</STitle>
+        </SWrapper>
         <SGroup>
           <h3>Описание {formError.description && <SRed>*</SRed>}</h3>
           <SInput
@@ -186,9 +196,11 @@ export const Form = () => {
             onChange={handleSumChange}
           />
         </SGroup>
-        <Button $onClick={handleSubmit} disabled={isButtonDisabled}>
-          Добавить новый расход
-        </Button>
+        <SBtnContainer>
+          <Button onClick={handleSubmit} disabled={isButtonDisabled}>
+            Добавить новый расход
+          </Button>
+        </SBtnContainer>
       </SContent>
     </SForm>
   )

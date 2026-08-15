@@ -3,13 +3,14 @@ import { toast } from 'sonner'
 
 import categories from '../../../categories'
 import { useExpenses } from '../../../context/ExpensesContext'
-import { formatDate, formatSum } from '../../../utils'
+import { formatDateShort, formatSum } from '../../../utils/formatters'
 import ConfirmDialog from '../../shared/ConfirmDialog/ConfirmDialog'
 import { SButton, SContent, SExpense, SText } from './Expense.styled'
 
-const Expense = ({ item }) => {
+const Expense = ({ item, isNew }) => {
   const { _id, description, category, date, sum } = item
-  const { removeExpense, loading } = useExpenses()
+  const { removeExpense, loading, selectedExpense, setSelectedExpense } =
+    useExpenses()
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
 
   const handleConfirm = async () => {
@@ -22,13 +23,20 @@ const Expense = ({ item }) => {
   }
 
   return (
-    <SExpense id={_id}>
+    <SExpense
+      id={_id}
+      $selected={_id === selectedExpense?._id}
+      $isNew={isNew}
+      onClick={() =>
+        setSelectedExpense(_id === selectedExpense?._id ? null : item)
+      }
+    >
       <SContent>
         <SText>{description || 'Без описания'}</SText>
         <SText>
           {categories.find((cat) => cat.api === category)?.name || 'Другое'}
         </SText>
-        <SText>{formatDate(date)}</SText>
+        <SText>{formatDateShort(date)}</SText>
         <SText>{formatSum(sum)}</SText>
       </SContent>
 

@@ -10,8 +10,6 @@ export const getChartData = (expenses, categories) => {
     return {
       category: category.name,
       amount,
-      displayAmount: amount,
-      chartAmount: amount,
       color: category.color,
     }
   })
@@ -23,8 +21,8 @@ export const getDateText = (currentExpenses, expenses, range) => {
       return 'все время'
     }
 
-    const firstDate = currentExpenses[0].date
-    const lastDate = currentExpenses.at(-1).date
+    const lastDate = currentExpenses[0].date
+    const firstDate = currentExpenses.at(-1).date
 
     return isSameDay(firstDate, lastDate)
       ? formatDate(firstDate)

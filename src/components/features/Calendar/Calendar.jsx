@@ -1,17 +1,19 @@
 import 'simplebar-react/dist/simplebar.min.css'
 
 import { memo, useEffect, useMemo, useRef } from 'react'
-import SimpleBar from 'simplebar-react'
 
 import { useCalendar } from '../../../context/CalendarContext'
 import { useExpenses } from '../../../context/ExpensesContext'
+import { BackIcon } from '../../shared/Icons'
 import {
+  SBack,
   SCalendar,
   SContent,
   SDay,
   SDays,
   SMonth,
   SMonthTitle,
+  SSimpleBar,
   STitle,
   SWeekday,
   SWeekdays,
@@ -34,7 +36,7 @@ const CalendarDay = memo(function CalendarDay({ day, selected, onSelect }) {
 
 const Calendar = () => {
   const { expenses } = useExpenses()
-  const { range, loadExpensesFromPeriod } = useCalendar()
+  const { range, loadExpensesFromPeriod, isOpen, setIsOpen } = useCalendar()
 
   const simpleBarRef = useRef(null)
   const hasScrolled = useRef(false)
@@ -59,21 +61,23 @@ const Calendar = () => {
     scrollElement.scrollTop = scrollElement.scrollHeight
 
     hasScrolled.current = true
-  }, [])
+  }, [months.length])
 
   return (
-    <SCalendar>
-      <STitle>Период</STitle>
+    <SCalendar $isOpen={isOpen}>
+      {isOpen && (
+        <SBack onClick={() => setIsOpen(false)}>
+          <BackIcon />
+          Анализ расходов
+        </SBack>
+      )}
+      <STitle>{isOpen ? 'Выбор периода' : 'Период'}</STitle>
       <SWeekdays>
         {WEEK_DAYS.map((day) => (
           <SWeekday key={day}>{day}</SWeekday>
         ))}
       </SWeekdays>
-      <SimpleBar
-        ref={simpleBarRef}
-        autoHide={false}
-        style={{ height: '427px', width: '100%' }}
-      >
+      <SSimpleBar ref={simpleBarRef} autoHide={false}>
         <SContent>
           {monthsWithDays.map((month) => (
             <SMonth key={month.title}>
@@ -96,7 +100,7 @@ const Calendar = () => {
             </SMonth>
           ))}
         </SContent>
-      </SimpleBar>
+      </SSimpleBar>
     </SCalendar>
   )
 }

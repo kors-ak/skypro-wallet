@@ -10,6 +10,7 @@ import {
 import { toast } from 'sonner'
 
 import { getExpensesFromPeriod } from '../services/expensesApi'
+import { sortExpenses } from '../utils/sortExpenses'
 import { useAuth } from './AuthContext'
 
 const CalendarContext = createContext(null)
@@ -27,6 +28,7 @@ function calculateRange(prevRange, date) {
 }
 
 export const CalendarProvider = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false)
   const [calendarLoading, setCalendarLoading] = useState(false)
   const [range, setRange] = useState({
     start: null,
@@ -65,11 +67,7 @@ export const CalendarProvider = ({ children }) => {
 
       try {
         const rangedExpenses = await getExpensesFromPeriod(token, newRange)
-        setCalendarExpenses(
-          [...rangedExpenses].sort(
-            (a, b) => new Date(a.date) - new Date(b.date)
-          )
-        )
+        setCalendarExpenses(sortExpenses(rangedExpenses))
       } catch (err) {
         toast.error(
           err.message ||
@@ -89,8 +87,17 @@ export const CalendarProvider = ({ children }) => {
       loadExpensesFromPeriod,
       calendarExpenses,
       calendarLoading,
+      isOpen,
+      setIsOpen,
     }),
-    [range, loadExpensesFromPeriod, calendarExpenses, calendarLoading]
+    [
+      range,
+      loadExpensesFromPeriod,
+      calendarExpenses,
+      calendarLoading,
+      isOpen,
+      setIsOpen,
+    ]
   )
 
   return (
