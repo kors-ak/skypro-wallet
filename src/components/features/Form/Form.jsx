@@ -19,6 +19,27 @@ import {
   SWrapper,
 } from './Form.styled'
 
+const getToday = () => {
+  const today = new Date()
+
+  const year = today.getFullYear()
+  const month = String(today.getMonth() + 1).padStart(2, '0')
+  const day = String(today.getDate()).padStart(2, '0')
+
+  return `${year}-${month}-${day}`
+}
+
+const getMinDate = () => {
+  const date = new Date()
+  date.setFullYear(date.getFullYear() - 2)
+
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+
+  return `${year}-${month}-${day}`
+}
+
 const Form = ({ setShowForm }) => {
   const { addExpense } = useExpenses()
   const [expenseName, setExpenseName] = useState('')
@@ -48,7 +69,7 @@ const Form = ({ setShowForm }) => {
 
     setExpenseDate(value)
 
-    updateError('date', value === '')
+    updateError('date', !isValidDate(value))
   }
 
   const handleSumChange = (e) => {
@@ -59,11 +80,17 @@ const Form = ({ setShowForm }) => {
     updateError('sum', value === '' || Number(value) <= 0)
   }
 
+  const isValidDate = (date) => {
+    if (!date) return false
+
+    return date >= getMinDate() && date <= getToday()
+  }
+
   const validate = () => {
     const newErrors = {
       description: expenseName.trim().length < 4,
       category: expenseCategory === '',
-      date: expenseDate === '',
+      date: !isValidDate(expenseDate),
       sum: expenseSum === '' || Number(expenseSum) <= 0,
     }
 
@@ -175,6 +202,8 @@ const Form = ({ setShowForm }) => {
             name="date"
             id="date"
             value={expenseDate}
+            min={getMinDate()}
+            max={getToday()}
             $error={formError.date}
             $status={formError.date ? 'error' : expenseDate ? 'success' : ''}
             onChange={handleDateChange}
