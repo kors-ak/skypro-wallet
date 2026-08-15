@@ -10,6 +10,36 @@ export const STable = styled.section`
   height: 618px;
   border-radius: 30px;
   box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
+  overflow: hidden;
+
+  @media (max-width: 880px) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+    box-shadow: none;
+    height: ${({ $buttonVisible }) =>
+      $buttonVisible ? 'calc(100vh - 232px)' : 'calc(100vh - 144px)'};
+  }
+
+  @media (max-width: 550px) {
+    height: ${({ $buttonVisible }) =>
+      $buttonVisible ? 'calc(100vh - 205px)' : 'calc(100vh - 118px)'};
+  }
+`
+export const SHeading = styled.div`
+  margin: 32px;
+  padding-top: 32px;
+
+  @media screen and (max-width: 1070px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 880px) {
+    display: none;
+  }
 `
 export const STitle = styled.h2`
   margin: 32px;
