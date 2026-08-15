@@ -101,6 +101,9 @@ export const SButton = styled.button`
 export const SText = styled.p`
   font-weight: 400;
   font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   @media screen and (max-width: 1070px) {
     &:nth-child(n + 3) {
@@ -110,6 +113,6 @@ export const SText = styled.p`
 
   @media screen and (max-width: 550px) {
     font-size: 10px;
-    max-width: 74px;
+    max-width: 72px;
   }
 `

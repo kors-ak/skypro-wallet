@@ -13,6 +13,9 @@ const Expense = ({ item, isNew }) => {
     useExpenses()
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
 
+  const categoryName =
+    categories.find((cat) => cat.api === category)?.name || 'Другое'
+
   const handleConfirm = async () => {
     setIsConfirmOpen(false)
     await toast.promise(removeExpense(_id), {
@@ -32,15 +35,21 @@ const Expense = ({ item, isNew }) => {
       }
     >
       <SContent>
-        <SText>{description || 'Без описания'}</SText>
-        <SText>
-          {categories.find((cat) => cat.api === category)?.name || 'Другое'}
+        <SText title={description.length > 12 ? description : undefined}>
+          {description}
         </SText>
+        <SText>{categoryName}</SText>
         <SText>{formatDateShort(date)}</SText>
         <SText>{formatSum(sum)}</SText>
       </SContent>
 
-      <SButton onClick={() => setIsConfirmOpen(true)} disabled={loading}>
+      <SButton
+        onClick={(e) => {
+          e.stopPropagation()
+          setIsConfirmOpen(true)
+        }}
+        disabled={loading}
+      >
         <svg
           width="12"
           height="12"
