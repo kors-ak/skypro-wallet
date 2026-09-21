@@ -11,6 +11,7 @@ export const STable = styled.section`
   height: 618px;
   border-radius: 30px;
   box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
+  overflow: hidden;
 
   @media (max-width: 880px) {
     width: 100%;
@@ -29,7 +30,6 @@ export const STable = styled.section`
 `
 export const SHeading = styled.div`
   margin: 32px;
-  padding-top: 32px;
 
   @media screen and (max-width: 1070px) {
     display: flex;

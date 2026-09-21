@@ -15,18 +15,24 @@ const MONTHS = [
 
 export const WEEK_DAYS = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']
 
+const MAX_MONTHS = 60
+
 export function getMonths(data) {
   if (!data.length) return []
 
   const dates = data.map(({ date }) => new Date(date)).sort((a, b) => a - b)
 
   const first = new Date(dates[0].getFullYear(), dates[0].getMonth(), 1)
-
   const last = new Date(dates.at(-1).getFullYear(), dates.at(-1).getMonth(), 1)
+
+  const minFirst = new Date(last)
+  minFirst.setMonth(minFirst.getMonth() - (MAX_MONTHS - 1))
+
+  const start = first < minFirst ? minFirst : first
 
   const months = []
 
-  const current = new Date(first)
+  const current = new Date(start)
 
   while (current <= last) {
     months.push({
