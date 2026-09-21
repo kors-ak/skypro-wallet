@@ -30,7 +30,6 @@ export const STable = styled.section`
 `
 export const SHeading = styled.div`
   margin: 32px;
-  padding-top: 32px;
 
   @media screen and (max-width: 1070px) {
     display: flex;
